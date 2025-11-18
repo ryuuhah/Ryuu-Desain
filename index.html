@@ -90,11 +90,36 @@
 
         <section id="tentang" class="section-padding">
             <h2>Filosofi Kami</h2>
-            <p class="about-text">Kami percaya bahwa desain yang baik adalah perpaduan harmonis antara **fungsi, estetika, dan keberlanjutan**. Kami berdedikasi untuk memberikan solusi visual yang tidak hanya indah secara 3D, tetapi juga praktis dan efisien dalam 2D.</p>
+            <p class="about-text">Kami percaya bahwa desain yang baik adalah perpaduan harmonis antara fungsi, estetika, dan harmoni. Kami berdedikasi untuk memberikan solusi visual yang tidak hanya indah secara 3D, tetapi juga praktis dan efisien dalam 2D.</p>
+        </section>
+
+        <section id="kalkulator" class="bg-light section-padding">
+            <h2>Hitung Estimasi Biaya Desain Anda</h2>
+            <div class="calculator-container">
+                <div class="calculator-form">
+                    <div class="form-group">
+                        <label for="luasArea">Luas Area (m²):</label>
+                        <input type="number" id="luasArea" min="1" value="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="paketDesain">Pilih Paket Desain:</label>
+                        <select id="paketDesain">
+                            <option value="13000">Paket Sketsa Teknis (Gambar 2D)</option>
+                            <option value="24000">Paket Visual Eksterior (2D + 3D)</option>
+                            <option value="35000">Paket Siap Bangun (2D + 3D + RAB)</option>
+                            <option value="50000">Paket All-in Design (2D + 3D + RAB + Interior)</option>
+                        </select>
+                    </div>
+                    <button id="hitungBiaya" class="btn">Hitung Estimasi</button>
+                </div>
+                <div class="calculator-result">
+                    <p>Estimasi Biaya: <span id="hasilBiaya">Rp 0</span></p>
+                </div>
+            </div>
         </section>
         
-        <section id="harga" class="bg-light section-padding">
-            <h2>Struktur Penawaran Spesial</h2>
+        <section id="harga" class="section-padding">
+            <h2>Penawaran Spesial</h2> 
             <div class="pricing-table">
                 
                 <div class="price-card">
