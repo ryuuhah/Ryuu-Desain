@@ -284,7 +284,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     line-height: 1.8;
 }
 
-/* 6. HARGA */
+/* 6. HARGA (DESKTOP) */
 .pricing-table {
     display: flex;
     justify-content: center;
@@ -298,7 +298,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     border-radius: 8px;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    width: 300px;
+    width: 300px; /* Lebar Kartu Harga Desktop */
     transition: transform 0.3s;
 }
 
@@ -383,13 +383,11 @@ footer {
     
     /* 1. NAVIGASI MOBILE */
     
-    /* Tampilkan tombol menu burger */
     .menu-toggle {
         display: block; 
         order: 2; 
     }
 
-    /* Sembunyikan menu navigasi asli secara default, dan munculkan saat class 'active' ada */
     ul.nav-menu {
         display: none;
         flex-direction: column;
@@ -401,12 +399,10 @@ footer {
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
     
-    /* Tombol JavaScript akan menambahkan class 'active' ini */
     ul.nav-menu.active { 
         display: flex;
     }
 
-    /* Atur tampilan item menu saat di mobile */
     ul.nav-menu li {
         text-align: center;
         width: 100%;
@@ -416,10 +412,10 @@ footer {
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     
-    /* 2. UKURAN FONT MOBILE (Dikecilkan) */
+    /* 2. UKURAN FONT MOBILE */
     
     .section-padding {
-        padding: 80px 5%; /* Padding Vertikal Dikecilkan */
+        padding: 80px 5%; 
     }
 
     .hero h1 {
@@ -430,7 +426,7 @@ footer {
     }
 
     h2 {
-        font-size: 2em; /* Judul Section dikecilkan */
+        font-size: 2em; 
         margin-bottom: 50px;
     }
 
@@ -439,7 +435,7 @@ footer {
     }
     
     .price-new {
-        font-size: 2em; /* Harga diskon dikecilkan */
+        font-size: 2em; 
     }
     
     /* 3. LAYOUT MOBILE */
@@ -454,6 +450,13 @@ footer {
         height: 200px;
     }
     .price-card.recommended {
-        transform: none; /* Hapus skala di mobile */
+        transform: none; 
+    }
+    
+    /* PENYESUAIAN HARGA MOBILE: Harga di Tengah */
+    .price-card {
+        width: 90%; /* Tetapkan lebar maksimum (misalnya 90%) */
+        max-width: 350px; /* Batasi lebar agar tidak terlalu besar di layar tablet kecil */
+        margin: 0 auto; /* Posisikan kartu di tengah */
     }
 }
