@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // 2. Tutup Menu saat Link Diklik (di Mobile)
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
-            // Pastikan menu tertutup hanya jika menu sedang aktif
             if (navMenu.classList.contains('active')) {
                  navMenu.classList.remove('active');
             }
@@ -29,4 +28,40 @@ document.addEventListener('DOMContentLoaded', function() {
             header.classList.remove('scrolled');
         }
     });
+
+    // 4. Logika Kalkulator Harga
+    const luasAreaInput = document.getElementById('luasArea');
+    const paketDesainSelect = document.getElementById('paketDesain');
+    const hitungBiayaBtn = document.getElementById('hitungBiaya');
+    const hasilBiayaSpan = document.getElementById('hasilBiaya');
+
+    function formatRupiah(angka) {
+        const rupiah = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0
+        }).format(angka);
+        return rupiah;
+    }
+
+    function hitungEstimasi() {
+        const luasArea = parseFloat(luasAreaInput.value);
+        const hargaPerM2 = parseFloat(paketDesainSelect.value);
+
+        if (isNaN(luasArea) || luasArea <= 0) {
+            hasilBiayaSpan.textContent = "Masukkan luas area yang valid.";
+            return;
+        }
+
+        const totalBiaya = luasArea * hargaPerM2;
+        hasilBiayaSpan.textContent = formatRupiah(totalBiaya);
+    }
+
+    // Hitung biaya pertama kali saat halaman dimuat
+    hitungEstimasi(); 
+
+    // Tambahkan event listener untuk menghitung ulang saat ada perubahan
+    hitungBiayaBtn.addEventListener('click', hitungEstimasi);
+    luasAreaInput.addEventListener('input', hitungEstimasi); // Hitung otomatis saat luas berubah
+    paketDesainSelect.addEventListener('change', hitungEstimasi); // Hitung otomatis saat paket berubah
 });
