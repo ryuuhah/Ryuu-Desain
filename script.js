@@ -1,9 +1,22 @@
 document.addEventListener('DOMContentLoaded', function() {
     const menuToggle = document.querySelector('.menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
-    const navLinks = document.querySelectorAll('.nav-menu a');
     const header = document.querySelector('header');
+    
+    // Variabel dan Konfigurasi WhatsApp
+    // Nomor: 081902851525 -> Format Internasional: 6281902851525
+    const WHATSAPP_NUMBER = '6281902851525'; 
+    const WHATSAPP_BASE_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=`;
+    
+    // Default message untuk link kontak umum
+    const defaultMessage = encodeURIComponent("Halo Ryuu Desain, saya ingin berkonsultasi mengenai jasa desain 2D dan 3D. Terima kasih.");
 
+    // Variabel Kalkulator
+    const luasAreaInput = document.getElementById('luasArea');
+    const paketDesainSelect = document.getElementById('paketDesain');
+    const hitungBiayaBtn = document.getElementById('hitungBiaya');
+    const hasilBiayaSpan = document.getElementById('hasilBiaya');
+    
     // 1. Fungsi Menu Mobile (Hamburger)
     if (menuToggle && navMenu) {
         menuToggle.addEventListener('click', function() {
@@ -12,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // 2. Tutup Menu saat Link Diklik (di Mobile)
-    navLinks.forEach(link => {
+    document.querySelectorAll('.nav-menu a').forEach(link => {
         link.addEventListener('click', () => {
             if (navMenu.classList.contains('active')) {
                  navMenu.classList.remove('active');
@@ -29,17 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // 4. Logika Kalkulator Harga & WhatsApp
-    const luasAreaInput = document.getElementById('luasArea');
-    const paketDesainSelect = document.getElementById('paketDesain');
-    const hitungBiayaBtn = document.getElementById('hitungBiaya');
-    const hasilBiayaSpan = document.getElementById('hasilBiaya');
-    
-    // Konfigurasi WhatsApp (Placeholder Nomor)
-    // ***HARAP GANTI NOMOR INI DENGAN NOMOR WA AKTIF ANDA***
-    const WHATSAPP_NUMBER = '6281234567890'; 
-    const WHATSAPP_BASE_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=`;
-
+    // 4. Utilitas Format Rupiah
     function formatRupiah(angka) {
         const rupiah = new Intl.NumberFormat('id-ID', {
             style: 'currency',
@@ -49,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return rupiah;
     }
 
+    // 5. Logika Kalkulator dan Redirect WhatsApp
     function generateWhatsappLink(packageName, luasArea, estimasiBiaya) {
         // Encoding pesan untuk URL WhatsApp
         const message = encodeURIComponent(
@@ -61,24 +65,24 @@ document.addEventListener('DOMContentLoaded', function() {
         return WHATSAPP_BASE_URL + message;
     }
 
-    function hitungEstimasiDanPesan() {
-        const luasArea = parseFloat(luasAreaInput.value);
+    function hitungEstimasiDanPesan(e) { 
+        e.preventDefault(); // PENTING: Mencegah perilaku default button
         
-        // Ambil elemen opsi yang dipilih untuk mendapatkan nama paket
+        const luasArea = parseFloat(luasAreaInput.value);
         const selectedOption = paketDesainSelect.options[paketDesainSelect.selectedIndex];
         const hargaPerM2 = parseFloat(selectedOption.value);
-        // Ambil nama paket dari data-name atau konten teks
         const packageName = selectedOption.getAttribute('data-name') || selectedOption.textContent;
 
         if (isNaN(luasArea) || luasArea <= 0) {
             alert("Mohon masukkan luas area yang valid (angka positif) sebelum memesan.");
+            hasilBiayaSpan.textContent = "Area Invalid";
             return;
         }
 
         const totalBiaya = luasArea * hargaPerM2;
         const estimasiBiayaFormatted = formatRupiah(totalBiaya);
         
-        // Tampilkan hasil perhitungan lagi (sebelum redirect)
+        // Tampilkan hasil perhitungan
         hasilBiayaSpan.textContent = estimasiBiayaFormatted;
 
         // Redirect ke WhatsApp dengan data terisi
@@ -100,10 +104,18 @@ document.addEventListener('DOMContentLoaded', function() {
         hasilBiayaSpan.textContent = formatRupiah(totalBiaya);
     }
     
-    // Fungsi untuk tombol di Daftar Harga (Pricing Table)
+    // Event listener untuk tombol Kalkulator
+    hitungBiayaBtn.addEventListener('click', hitungEstimasiDanPesan);
+
+    // Hitung biaya pertama kali saat halaman dimuat dan saat input/select berubah
+    hitungEstimasiAwal(); 
+    luasAreaInput.addEventListener('input', hitungEstimasiAwal);
+    paketDesainSelect.addEventListener('change', hitungEstimasiAwal);
+    
+    // 6. Listener untuk Tombol Daftar Harga (Pesan Sekarang)
     document.querySelectorAll('.pesan-paket-btn').forEach(button => {
         button.addEventListener('click', function(e) {
-            e.preventDefault(); // Mencegah pindah ke #
+            e.preventDefault(); // PENTING: Mencegah perilaku default link
             const packageName = this.getAttribute('data-package-name');
             
             const message = encodeURIComponent(
@@ -114,22 +126,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Update Kontak Link umum dengan pesan default
-    const defaultMessage = encodeURIComponent("Halo Ryuu Desain, saya ingin berkonsultasi mengenai jasa desain 2D dan 3D. Terima kasih.");
-    document.getElementById('whatsappContactLink').href = WHATSAPP_BASE_URL + defaultMessage;
-    // Update link di navbar
-    document.querySelector('.btn-nav-kontak').href = WHATSAPP_BASE_URL + defaultMessage;
-    
-    // Event listener untuk tombol Kalkulator
-    hitungBiayaBtn.addEventListener('click', hitungEstimasiDanPesan);
+    // 7. Listener untuk Semua Link Kontak WA Umum (Navbar, Footer, Floating)
+    document.querySelectorAll('.wa-contact-link, #whatsappContactLink').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); // PENTING: Mencegah perilaku default link
+            window.location.href = WHATSAPP_BASE_URL + defaultMessage;
+        });
+    });
 
-    // Hitung biaya pertama kali saat halaman dimuat dan saat input/select berubah
-    hitungEstimasiAwal(); 
-    luasAreaInput.addEventListener('input', hitungEstimasiAwal);
-    paketDesainSelect.addEventListener('change', hitungEstimasiAwal);
-
-
-    // 5. Scroll Reveal Animation (Intersection Observer)
+    // 8. Scroll Reveal Animation (Intersection Observer)
     const fadeSections = document.querySelectorAll('.fade-in-section');
 
     const observer = new IntersectionObserver((entries, observer) => {
