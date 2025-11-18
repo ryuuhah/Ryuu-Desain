@@ -1,0 +1,294 @@
+/* RESET dan FONT */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    background-color: #F8F8F8; /* Hampir Putih */
+    color: #333333;
+}
+
+/* UTILITAS */
+.section-padding {
+    padding: 80px 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.bg-light {
+    background-color: #FFFFFF; /* Putih bersih */
+}
+
+h1, h2, h3 {
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 50px;
+    border-bottom: 3px solid #00A388; /* Aksen */
+    display: inline-block;
+}
+
+/* HEADER & NAVIGASI */
+header {
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 1.5em;
+    color: #00A388;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333333;
+    padding: 10px 15px;
+    display: block;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #00A388;
+}
+
+/* BUTTONS */
+.btn {
+    display: inline-block;
+    background-color: #00A388;
+    color: white;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #007A66;
+}
+
+.btn-outline {
+    display: inline-block;
+    background-color: transparent;
+    color: #00A388;
+    padding: 10px 20px;
+    text-decoration: none;
+    border: 2px solid #00A388;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-outline:hover {
+    background-color: #00A388;
+    color: white;
+}
+
+
+/* 2. HOME/HERO SECTION */
+.hero {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 100px 5%;
+    background-image: url('path/to/your-best-design.jpg'); /* GANTI DENGAN GAMBAR DESAIN TERBAIK ANDA */
+    background-size: cover;
+    background-position: center;
+    color: white; /* Teks harus kontras dengan latar belakang gambar */
+    position: relative;
+    /* Lapisan gelap (overlay) untuk kontras teks */
+}
+
+.hero::before { 
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Overlay hitam transparan */
+    z-index: 1;
+}
+
+.hero h1, .hero p, .hero .btn {
+    z-index: 2; /* Pastikan teks dan tombol di atas overlay */
+}
+
+.hero h1 {
+    font-size: 3.5em;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+/* 3. PORTOFOLIO GRID */
+.grid-portofolio {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.project-card {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.project-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+}
+
+.project-card h3, .project-card p {
+    padding: 15px 20px;
+    margin: 0;
+}
+
+/* 4. LAYANAN LIST */
+.service-list {
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+    text-align: center;
+}
+
+.service-item {
+    flex: 1;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: border-color 0.3s;
+}
+
+.service-item:hover {
+    border-color: #00A388;
+}
+
+/* 5. TENTANG KAMI */
+.about-text {
+    font-size: 1.2em;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* 6. HARGA */
+.pricing-table {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.price-card {
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    width: 300px;
+}
+
+.price-card.recommended {
+    border: 3px solid #00A388;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.price-card h3 {
+    color: #00A388;
+    font-size: 1.8em;
+}
+
+/* 7. KONTAK */
+.contact-form {
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 1em;
+}
+
+.contact-form textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+/* FOOTER */
+footer {
+    background-color: #333333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* Responsif Sederhana (untuk tampilan mobile) */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5em;
+    }
+
+    nav ul {
+        display: none; /* Sembunyikan menu di mobile, bisa diganti menu burger */
+    }
+    .service-list, .pricing-table {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .price-card.recommended {
+        transform: none; /* Hapus skala di mobile */
+    }
+}
