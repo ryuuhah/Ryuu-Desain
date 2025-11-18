@@ -36,7 +36,7 @@ h3 {
     padding: 120px 5%; 
     max-width: 1200px;
     margin: 0 auto;
-    text-align: center; /* PENTING: Memastikan H2 inline-block di tengah */
+    text-align: center; 
 }
 
 .bg-light {
@@ -390,7 +390,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     text-align: center;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     width: 300px; 
-    transition: transform 0.4s ease, box-shadow 0.4s ease; /* Transisi untuk animasi */
+    transition: transform 0.4s ease, box-shadow 0.4s ease; 
 }
 
 /* Efek sedikit membesar saat kursor menunjuk (hover) */
@@ -486,17 +486,14 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     margin-bottom: 30px;
 }
 
+/* Tambahkan style untuk ikon WhatsApp */
 .contact-btn i {
     margin-right: 10px;
 }
-
-/* FOOTER */
-footer {
-    background-color: var(--color-primary);
-    color: var(--color-text-light);
-    padding: 30px 0;
-    font-weight: 300;
+.contact-btn .fab.fa-whatsapp {
+    color: var(--color-primary); /* Warna ikon WA di tombol accent */
 }
+
 
 /* ======================================================= */
 /* MEDIA QUERIES (MOBILE) */
