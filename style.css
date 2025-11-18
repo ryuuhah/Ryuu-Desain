@@ -5,7 +5,6 @@
     --color-text-light: #F8F8F8; 
     --color-text-dark: #333333;
     --color-success: #27AE60; /* Hijau untuk tanda centang */
-    --color-error: #C0392B; /* Merah untuk tanda silang */
 }
 
 /* RESET dan FONT */
@@ -295,52 +294,18 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     line-height: 1.8;
 }
 
-/* 6. KALKULATOR HARGA (Gaya Default/Desktop) */
+/* 6. KALKULATOR HARGA */
 .calculator-container {
-    background-color: var(--color-primary); 
-    color: var(--color-text-light); 
+    background-color: var(--color-primary); /* Latar belakang Navy */
+    color: var(--color-text-light); /* Teks putih */
     padding: 40px;
     border-radius: 8px;
-    max-width: 900px; /* Lebar lebih besar untuk desktop */
+    max-width: 700px;
     margin: 0 auto;
     box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    
-    /* PENTING: Flexbox Horizontal untuk Desktop */
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 40px; 
-}
-
-.calculator-form {
-    flex-basis: 60%; 
-}
-
-.calculator-result {
-    flex-basis: 40%; 
-    text-align: center;
-    font-size: 1.5em;
-    font-weight: 700;
-    color: var(--color-text-light);
-    
-    /* Posisikan hasil di tengah vertikal di desktop */
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 200px; 
-    border-left: 1px solid rgba(255, 255, 255, 0.2); /* Garis pemisah vertikal */
-}
-
-.calculator-result p {
-    margin: 0;
-}
-
-.calculator-result #hasilBiaya {
-    color: var(--color-accent); 
-    font-size: 2.5em; 
-    display: block;
-    margin-top: 10px;
+    gap: 30px;
 }
 
 .calculator-form .form-group {
@@ -351,7 +316,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     display: block;
     font-size: 1.1em;
     margin-bottom: 10px;
-    color: var(--color-accent); 
+    color: var(--color-accent); /* Label Aksen Gold */
     font-weight: 600;
 }
 
@@ -361,10 +326,36 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     padding: 12px 15px;
     border: 1px solid #555;
     border-radius: 5px;
-    background-color: #333D47; 
+    background-color: #333D47; /* Input Background Darker Navy */
     color: var(--color-text-light);
     font-size: 1em;
-    appearance: none; 
+    -webkit-appearance: none; /* Hilangkan default style input number di Safari */
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.calculator-form input[type="number"]:focus,
+.calculator-form select:focus {
+    border-color: var(--color-accent);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(169, 143, 107, 0.5); /* Aksen fokus gold */
+}
+
+.calculator-result {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--color-text-light);
+    border-top: 1px dashed rgba(255, 255, 255, 0.2);
+    padding-top: 20px;
+    margin-top: 10px;
+}
+
+.calculator-result #hasilBiaya {
+    color: var(--color-accent); /* Hasil biaya Aksen Gold */
+    font-size: 1.8em;
+    display: block;
+    margin-top: 10px;
 }
 
 
@@ -430,15 +421,15 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     line-height: 2; 
 }
 
-/* Warna tanda centang HIJAU */
+/* Warna tanda centang hijau */
 .perk-list i.fas.fa-check {
-    color: var(--color-success); 
+    color: var(--color-success); /* Hijau */
     margin-right: 10px;
     width: 20px;
 }
-/* Warna tanda silang MERAH */
+/* Warna tanda silang tetap merah */
 .perk-list i.fas.fa-times {
-    color: var(--color-error); 
+    color: #C0392B; /* Merah */
     margin-right: 10px;
     width: 20px;
 }
@@ -550,29 +541,14 @@ footer {
         margin: 0 auto; 
     }
 
-    /* KALKULATOR MOBILE: Tumpuk secara Vertikal */
+    /* KALKULATOR MOBILE */
     .calculator-container {
-        flex-direction: column; /* Mengubah dari horizontal menjadi vertikal */
         padding: 30px;
         width: 95%;
-        gap: 20px;
     }
-    
-    .calculator-form {
-        flex-basis: auto; 
-    }
-    
     .calculator-result {
-        flex-basis: auto; 
         font-size: 1.2em;
-        /* Tambahkan kembali border horizontal untuk mobile */
-        border-top: 1px dashed rgba(255, 255, 255, 0.2);
-        border-left: none; /* Hapus border vertikal */
-        padding-top: 20px;
-        margin-top: 10px;
-        min-height: auto;
     }
-    
     .calculator-result #hasilBiaya {
         font-size: 1.5em;
     }
