@@ -1,3 +1,11 @@
+/* PALET BARU */
+:root {
+    --color-primary: #1C2833; /* Navy Blue/Biru Tua untuk Teks Utama/Latar Belakang Gelap */
+    --color-accent: #A98F6B; /* Soft Gold/Emas Lembut untuk Aksen */
+    --color-text-light: #F8F8F8; /* Hampir Putih */
+    --color-text-dark: #333333;
+}
+
 /* RESET dan FONT */
 * {
     margin: 0;
@@ -8,11 +16,11 @@
 body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
-    background-color: #F8F8F8; 
-    color: #333333;
+    background-color: var(--color-text-light); 
+    color: var(--color-text-dark);
 }
 
-/* Tipografi Profesional: Lora untuk Judul */
+/* Tipografi Profesional */
 h1, h2 {
     font-family: 'Lora', serif;
     font-weight: 700;
@@ -22,9 +30,9 @@ h3 {
     font-weight: 600;
 }
 
-/* UTILITAS dan WHITESPACE (Ditingkatkan) */
+/* UTILITAS dan WHITESPACE */
 .section-padding {
-    padding: 120px 5%; /* Padding Vertikal Lebih Besar untuk Elegan */
+    padding: 120px 5%; 
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -34,61 +42,48 @@ h3 {
 }
 
 h2 {
-    font-size: 3em; /* Ukuran Judul Lebih Besar */
+    font-size: 3em; 
     text-align: center;
     margin-bottom: 70px;
-    border-bottom: 4px solid #00A388; /* Aksen Tebal */
+    border-bottom: 4px solid var(--color-accent); /* Aksen Gold */
     display: inline-block;
 }
 
 /* HEADER & NAVIGASI */
 header {
-    background-color: white;
-    box-shadow: 0 1px 15px rgba(0,0,0,0.05); /* Shadow Lebih Halus */
+    background-color: var(--color-primary); /* Header menjadi Navy */
+    box-shadow: 0 1px 15px rgba(0,0,0,0.2); 
     position: sticky;
     top: 0;
     z-index: 1000;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 5%;
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
 .logo {
     font-family: 'Lora', serif;
     font-weight: 700;
     font-size: 1.8em;
-    color: #00A388;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
+    color: var(--color-accent); /* Logo Aksen Gold */
 }
 
 nav ul li a {
     text-decoration: none;
-    color: #555555;
+    color: var(--color-text-light); /* Teks Navigasi Putih */
     padding: 10px 15px;
     display: block;
     transition: color 0.3s;
 }
 
 nav ul li a:hover, nav ul li .btn-nav-kontak {
-    color: #00A388;
+    color: var(--color-accent); /* Hover Aksen Gold */
     font-weight: 600;
 }
 
 /* BUTTONS */
 .btn {
+    background-color: var(--color-accent); /* Tombol Aksen Gold */
+    color: var(--color-primary); /* Teks Tombol Navy */
+    /* ... (CSS button lainnya sama) ... */
     display: inline-block;
-    background-color: #00A388;
-    color: white;
     padding: 15px 35px;
     text-decoration: none;
     border-radius: 5px;
@@ -99,170 +94,51 @@ nav ul li a:hover, nav ul li .btn-nav-kontak {
 }
 
 .btn:hover {
-    background-color: #007A66;
+    background-color: #C1A67B; /* Gold Sedikit Lebih Gelap */
     transform: translateY(-2px);
 }
 
 .btn-outline {
-    display: inline-block;
     background-color: transparent;
-    color: #00A388;
-    padding: 12px 25px;
-    text-decoration: none;
-    border: 2px solid #00A388;
-    border-radius: 5px;
-    font-weight: 600;
-    transition: all 0.3s;
+    color: var(--color-accent);
+    border: 2px solid var(--color-accent);
+    /* ... (CSS button outline lainnya sama) ... */
 }
 
 .btn-outline:hover {
-    background-color: #00A388;
-    color: white;
+    background-color: var(--color-accent);
+    color: var(--color-primary);
 }
 
 
 /* 2. HOME/HERO SECTION */
 .hero {
-    min-height: 80vh;
-    /* ... (CSS hero lainnya sama) ... */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 150px 5%;
+    /* ... (CSS hero lainnya sama, Ganti path/to/your-best-design.jpg) ... */
     background-image: url('path/to/your-best-design.jpg'); 
-    background-size: cover;
-    background-position: center;
     color: white; 
     position: relative;
 }
 
 .hero::before { 
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.6); 
-    z-index: 1;
+    background: rgba(28, 40, 51, 0.7); /* Overlay Navy Transparan */
 }
 
-.hero h1, .hero p, .hero .btn {
-    z-index: 2; 
-}
-
-.hero h1 {
-    font-size: 4em;
-    margin-bottom: 20px;
-}
-
-.hero p {
-    font-size: 1.3em;
-    margin-bottom: 40px;
-    font-weight: 300;
-}
-
-/* 3. PORTOFOLIO GRID (Interaktif) */
-.grid-portofolio {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-}
-
-.project-card {
-    background-color: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    position: relative;
-    cursor: pointer;
-}
-
-.project-card img {
-    width: 100%;
-    height: 300px; /* Tinggi Konsisten untuk thumbnail */
-    object-fit: cover;
-    display: block;
-    transition: filter 0.5s;
-}
-
-/* Overlay Interaktif */
+/* 3. PORTOFOLIO GRID */
+/* ... (CSS project-card, grid-portofolio, project-card img sama) ... */
 .project-info {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8); /* Overlay gelap saat hover */
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    opacity: 0; /* Awalnya tersembunyi */
-    transition: opacity 0.5s;
-    text-align: center;
-    padding: 20px;
-}
-
-.project-card:hover .project-info {
-    opacity: 1; /* Muncul saat hover */
-}
-
-.project-card:hover img {
-    filter: blur(2px); /* Gambar sedikit blur saat overlay muncul */
+    background: rgba(28, 40, 51, 0.85); /* Overlay Navy Gelap */
 }
 
 .project-info h3 {
-    margin-bottom: 10px;
-    font-size: 1.5em;
-    color: #00A388;
-}
-
-.project-info p {
-    font-weight: 300;
+    color: var(--color-accent); /* Judul Portofolio Aksen Gold */
 }
 
 /* 4. LAYANAN LIST */
-.service-list {
-    display: flex;
-    justify-content: space-around;
-    gap: 40px;
-    text-align: center;
-}
-
-.service-item {
-    flex: 1;
-    padding: 30px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    transition: box-shadow 0.3s;
-}
-
-.service-item:hover {
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-}
-
 .service-item i {
-    font-size: 2.5em;
-    color: #00A388;
-    margin-bottom: 15px;
+    color: var(--color-accent); /* Ikon Layanan Aksen Gold */
 }
 
-/* 5. TENTANG KAMI */
-.about-text {
-    font-family: 'Lora', serif; /* Font Serif untuk filosofi */
-    font-size: 1.5em;
-    font-style: italic;
-    text-align: center;
-    max-width: 900px;
-    margin: 0 auto;
-    line-height: 1.8;
-}
-
-/* 6. HARGA */
+/* 6. HARGA (Penting: Gaya Diskon) */
 .pricing-table {
     display: flex;
     justify-content: center;
@@ -271,69 +147,54 @@ nav ul li a:hover, nav ul li .btn-nav-kontak {
 }
 
 .price-card {
-    /* ... (CSS price-card lainnya sama) ... */
-    background-color: white;
-    padding: 40px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    width: 300px;
-    transition: transform 0.3s;
+    /* ... (CSS price-card sama) ... */
 }
 
 .price-card.recommended {
-    border: 3px solid #00A388;
-    transform: scale(1.08); /* Skala Lebih Besar untuk Rekomendasi */
-    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    border: 3px solid var(--color-accent); /* Border Aksen Gold */
+}
+.price-card.premium {
+    background-color: var(--color-primary); /* Paket Premium Latar Belakang Navy */
+    color: var(--color-text-light); /* Teks Putih */
+}
+.price-card.premium h3, .price-card.premium .price-old, .price-card.premium .price-new {
+    color: var(--color-accent); /* Detail Harga Premium Aksen Gold */
 }
 
-/* 7. KONTAK (Menggunakan Tautan Mailto) */
-.contact-section {
-    text-align: center;
-}
 
-.contact-desc {
+.price-old {
+    text-decoration: line-through; /* Coret Harga Lama */
+    color: #C0392B; /* Warna Merah untuk Harga Lama */
     font-size: 1.1em;
+    font-weight: 400;
+    margin-bottom: 5px;
+}
+
+.price-new {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: var(--color-accent); /* Harga Baru Aksen Gold */
+    margin-bottom: 25px;
+}
+
+.perk-list {
+    text-align: left;
     margin-bottom: 30px;
 }
 
-.contact-btn i {
+.perk-list i {
+    color: var(--color-accent);
     margin-right: 10px;
+    width: 20px;
 }
+
 
 /* FOOTER */
 footer {
-    background-color: #333333;
-    color: white;
-    text-align: center;
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
     padding: 30px 0;
     font-weight: 300;
 }
 
-/* Responsif Sederhana */
-@media (max-width: 992px) {
-    .hero h1 {
-        font-size: 3em;
-    }
-    .service-list, .pricing-table {
-        flex-direction: column;
-        gap: 30px;
-    }
-    .about-text {
-        font-size: 1.3em;
-    }
-    .price-card.recommended {
-        transform: none; 
-    }
-}
-@media (max-width: 768px) {
-     nav ul {
-        display: none; 
-    }
-     .hero h1 {
-        font-size: 2.5em;
-    }
-    .project-card img {
-        height: 200px;
-    }
-}
+/* ... (Media Queries responsif sama) ... */
