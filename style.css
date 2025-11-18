@@ -294,6 +294,20 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     line-height: 1.8;
 }
 
+/* Gaya Deskripsi Kalkulator */
+.calculator-desc {
+    text-align: center;
+    font-size: 1.1em;
+    color: var(--color-dark);
+    max-width: 600px;
+    margin: -50px auto 30px auto; /* Menaikkan sedikit dan memberi margin bawah */
+    line-height: 1.5;
+    padding: 10px 0;
+}
+.calculator-desc strong {
+    color: #C0392B; /* Merah untuk penekanan */
+}
+
 /* 6. KALKULATOR HARGA */
 .calculator-container {
     background-color: var(--color-primary); /* Latar belakang Navy */
@@ -329,7 +343,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     background-color: #333D47; /* Input Background Darker Navy */
     color: var(--color-text-light);
     font-size: 1em;
-    -webkit-appearance: none; /* Hilangkan default style input number di Safari */
+    -webkit-appearance: none; 
     -moz-appearance: none;
     appearance: none;
 }
@@ -338,7 +352,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 .calculator-form select:focus {
     border-color: var(--color-accent);
     outline: none;
-    box-shadow: 0 0 0 2px rgba(169, 143, 107, 0.5); /* Aksen fokus gold */
+    box-shadow: 0 0 0 2px rgba(169, 143, 107, 0.5); 
 }
 
 .calculator-result {
@@ -352,7 +366,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 }
 
 .calculator-result #hasilBiaya {
-    color: var(--color-accent); /* Hasil biaya Aksen Gold */
+    color: var(--color-accent); 
     font-size: 1.8em;
     display: block;
     margin-top: 10px;
