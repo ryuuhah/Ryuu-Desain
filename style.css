@@ -1,23 +1,312 @@
-/* ... (Bagian Palet, Reset, dan Header sama) ... */
+/* PALET BARU ELEGANT: Navy & Gold */
+:root {
+    --color-primary: #1C2833; /* Navy Blue/Biru Tua untuk Teks Utama/Latar Belakang Gelap */
+    --color-accent: #A98F6B; /* Soft Gold/Emas Lembut untuk Aksen */
+    --color-text-light: #F8F8F8; /* Hampir Putih */
+    --color-text-dark: #333333;
+}
 
-/* 4. LAYANAN LIST (Penyesuaian Ikon) */
-/* ... (service-list dan service-item sama) ... */
+/* RESET dan FONT */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-.service-item h3 i {
-    font-size: 1.5em; /* Ikon diperkecil agar serasi dengan h3 */
-    margin-right: 10px; /* Jarak antara ikon dan teks */
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    background-color: var(--color-text-light); 
+    color: var(--color-text-dark);
+}
+
+/* Tipografi Profesional */
+h1, h2 {
+    font-family: 'Lora', serif;
+    font-weight: 700;
+}
+
+h3 {
+    font-weight: 600;
+}
+
+/* UTILITAS dan WHITESPACE */
+.section-padding {
+    padding: 120px 5%; 
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.bg-light {
+    background-color: #FFFFFF; 
+}
+
+h2 {
+    font-size: 3em; 
+    text-align: center;
+    margin-bottom: 70px;
+    border-bottom: 4px solid var(--color-accent); 
+    display: inline-block;
+}
+
+/* HEADER & NAVIGASI */
+header {
+    background-color: var(--color-primary); 
+    box-shadow: 0 1px 15px rgba(0,0,0,0.2); 
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-family: 'Lora', serif;
+    font-weight: 700;
+    font-size: 1.8em;
     color: var(--color-accent); 
 }
-.service-item h3 {
-    display: flex; /* Menggunakan Flexbox untuk mensejajarkan ikon dan teks */
-    align-items: center; /* Menyelaraskan secara vertikal */
-    justify-content: center; /* Pusatkan konten */
+
+nav ul {
+    list-style: none;
+    display: flex;
 }
 
-/* 6. HARGA (Penting: Gaya Diskon yang Diperjelas) */
-/* ... (pricing-table dan price-card sama) ... */
+nav ul li a {
+    text-decoration: none;
+    color: var(--color-text-light); 
+    padding: 10px 15px;
+    display: block;
+    transition: color 0.3s;
+}
 
-/* Label Diskon */
+nav ul li a:hover, nav ul li .btn-nav-kontak {
+    color: var(--color-accent); 
+    font-weight: 600;
+}
+
+/* BUTTONS */
+.btn {
+    display: inline-block;
+    background-color: var(--color-accent); 
+    color: var(--color-primary); 
+    padding: 15px 35px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #C1A67B; 
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    display: inline-block;
+    background-color: transparent;
+    color: var(--color-accent);
+    padding: 12px 25px;
+    text-decoration: none;
+    border: 2px solid var(--color-accent);
+    border-radius: 5px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-outline:hover {
+    background-color: var(--color-accent);
+    color: var(--color-primary);
+}
+
+
+/* 2. HOME/HERO SECTION */
+.hero {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 150px 5%;
+    background-image: url('path/to/your-best-design.jpg'); 
+    background-size: cover;
+    background-position: center;
+    color: white; 
+    position: relative;
+}
+
+.hero::before { 
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(28, 40, 51, 0.7); 
+    z-index: 1;
+}
+
+.hero h1, .hero p, .hero .btn {
+    z-index: 2; 
+}
+
+.hero h1 {
+    font-size: 4em;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.3em;
+    margin-bottom: 40px;
+    font-weight: 300;
+}
+
+/* 3. PORTOFOLIO GRID (Interaktif) */
+.grid-portofolio {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.project-card {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    position: relative;
+    cursor: pointer;
+}
+
+.project-card img {
+    width: 100%;
+    height: 300px; 
+    object-fit: cover;
+    display: block;
+    transition: filter 0.5s;
+}
+
+/* Overlay Interaktif */
+.project-info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(28, 40, 51, 0.85); 
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0; 
+    transition: opacity 0.5s;
+    text-align: center;
+    padding: 20px;
+}
+
+.project-card:hover .project-info {
+    opacity: 1; 
+}
+
+.project-card:hover img {
+    filter: blur(2px); 
+}
+
+.project-info h3 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    color: var(--color-accent); 
+}
+
+
+/* 4. LAYANAN LIST (Ikon Disesuaikan) */
+.service-list {
+    display: flex;
+    justify-content: space-around;
+    gap: 40px;
+    text-align: center;
+    flex-wrap: wrap; /* Untuk responsif */
+}
+
+.service-item {
+    flex: 1;
+    min-width: 200px; /* Batasan agar tidak terlalu kecil */
+    padding: 30px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: box-shadow 0.3s;
+}
+
+.service-item:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.service-item h3 {
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 1.3em; /* Mengatur ukuran judul */
+}
+
+.service-item h3 i {
+    font-size: 1.5em; /* Ikon diperkecil agar serasi dengan teks */
+    margin-right: 10px; 
+    color: var(--color-accent); 
+}
+
+/* 5. TENTANG KAMI */
+.about-text {
+    font-family: 'Lora', serif; 
+    font-size: 1.5em;
+    font-style: italic;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+/* 6. HARGA (Gaya Diskon yang Diperjelas) */
+.pricing-table {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.price-card {
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    width: 300px;
+    transition: transform 0.3s;
+}
+
+.price-card.recommended {
+    border: 3px solid var(--color-accent); 
+    transform: scale(1.08); 
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+.price-card.premium {
+    background-color: var(--color-primary); 
+    color: var(--color-text-light); 
+}
+.price-card.premium h3, .price-card.premium .price-old, .price-card.premium .price-new {
+    color: var(--color-accent); 
+}
+
+/* Harga Lama (Dicoret) */
 .price-discount-label {
     font-size: 0.9em;
     color: var(--color-accent);
@@ -26,25 +315,84 @@
 }
 
 .price-old {
-    text-decoration: line-through; /* Coret Harga Lama */
-    color: #C0392B; /* Warna Merah Tua untuk Harga Lama */
-    font-size: 1em; /* Ukuran standar */
+    text-decoration: line-through; 
+    color: #C0392B; 
+    font-size: 1em; 
     font-weight: 400;
     margin-bottom: 5px;
 }
 
+/* Harga Baru (Menonjol) */
 .price-new {
-    font-size: 2.8em; /* Harga Baru dibuat lebih besar dan menonjol */
+    font-size: 2.8em; 
     font-weight: 700;
     color: var(--color-accent); 
     margin-bottom: 25px;
-    line-height: 1; /* Hapus spasi antar baris berlebih */
+    line-height: 1; 
 }
 
 .perk-list {
     text-align: left;
     margin-bottom: 30px;
-    line-height: 2; /* Spasi baris lebih lebar agar mudah dibaca */
+    line-height: 2; 
 }
 
-/* ... (Bagian Footer dan Media Queries sama) ... */
+.perk-list i {
+    color: var(--color-accent);
+    margin-right: 10px;
+    width: 20px;
+}
+
+
+/* 7. KONTAK */
+.contact-section {
+    text-align: center;
+}
+
+.contact-desc {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+}
+
+.contact-btn i {
+    margin-right: 10px;
+}
+
+/* FOOTER */
+footer {
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+    padding: 30px 0;
+    font-weight: 300;
+}
+
+/* Responsif Sederhana */
+@media (max-width: 992px) {
+    .hero h1 {
+        font-size: 3em;
+    }
+    .service-list, .pricing-table {
+        flex-direction: column;
+        gap: 30px;
+    }
+    .about-text {
+        font-size: 1.3em;
+    }
+    .price-card.recommended {
+        transform: none; 
+    }
+}
+@media (max-width: 768px) {
+     nav ul {
+        display: none; 
+    }
+     .hero h1 {
+        font-size: 2.5em;
+    }
+    .project-card img {
+        height: 200px;
+    }
+    .service-item h3 {
+        font-size: 1.2em;
+    }
+}
