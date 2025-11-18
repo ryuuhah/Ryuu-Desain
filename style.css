@@ -8,38 +8,43 @@
 body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
-    background-color: #F8F8F8; /* Hampir Putih */
+    background-color: #F8F8F8; 
     color: #333333;
 }
 
-/* UTILITAS */
+/* Tipografi Profesional: Lora untuk Judul */
+h1, h2 {
+    font-family: 'Lora', serif;
+    font-weight: 700;
+}
+
+h3 {
+    font-weight: 600;
+}
+
+/* UTILITAS dan WHITESPACE (Ditingkatkan) */
 .section-padding {
-    padding: 80px 5%;
+    padding: 120px 5%; /* Padding Vertikal Lebih Besar untuk Elegan */
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .bg-light {
-    background-color: #FFFFFF; /* Putih bersih */
-}
-
-h1, h2, h3 {
-    font-weight: 600;
-    margin-bottom: 20px;
+    background-color: #FFFFFF; 
 }
 
 h2 {
-    font-size: 2.5em;
+    font-size: 3em; /* Ukuran Judul Lebih Besar */
     text-align: center;
-    margin-bottom: 50px;
-    border-bottom: 3px solid #00A388; /* Aksen */
+    margin-bottom: 70px;
+    border-bottom: 4px solid #00A388; /* Aksen Tebal */
     display: inline-block;
 }
 
 /* HEADER & NAVIGASI */
 header {
     background-color: white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 15px rgba(0,0,0,0.05); /* Shadow Lebih Halus */
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -49,14 +54,15 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 5%;
+    padding: 20px 5%;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .logo {
+    font-family: 'Lora', serif;
     font-weight: 700;
-    font-size: 1.5em;
+    font-size: 1.8em;
     color: #00A388;
 }
 
@@ -67,14 +73,15 @@ nav ul {
 
 nav ul li a {
     text-decoration: none;
-    color: #333333;
+    color: #555555;
     padding: 10px 15px;
     display: block;
     transition: color 0.3s;
 }
 
-nav ul li a:hover {
+nav ul li a:hover, nav ul li .btn-nav-kontak {
     color: #00A388;
+    font-weight: 600;
 }
 
 /* BUTTONS */
@@ -82,24 +89,25 @@ nav ul li a:hover {
     display: inline-block;
     background-color: #00A388;
     color: white;
-    padding: 12px 25px;
+    padding: 15px 35px;
     text-decoration: none;
     border-radius: 5px;
     font-weight: 600;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
     border: none;
     cursor: pointer;
 }
 
 .btn:hover {
     background-color: #007A66;
+    transform: translateY(-2px);
 }
 
 .btn-outline {
     display: inline-block;
     background-color: transparent;
     color: #00A388;
-    padding: 10px 20px;
+    padding: 12px 25px;
     text-decoration: none;
     border: 2px solid #00A388;
     border-radius: 5px;
@@ -115,19 +123,19 @@ nav ul li a:hover {
 
 /* 2. HOME/HERO SECTION */
 .hero {
-    min-height: 60vh;
+    min-height: 80vh;
+    /* ... (CSS hero lainnya sama) ... */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 100px 5%;
-    background-image: url('path/to/your-best-design.jpg'); /* GANTI DENGAN GAMBAR DESAIN TERBAIK ANDA */
+    padding: 150px 5%;
+    background-image: url('path/to/your-best-design.jpg'); 
     background-size: cover;
     background-position: center;
-    color: white; /* Teks harus kontras dengan latar belakang gambar */
+    color: white; 
     position: relative;
-    /* Lapisan gelap (overlay) untuk kontras teks */
 }
 
 .hero::before { 
@@ -137,28 +145,29 @@ nav ul li a:hover {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5); /* Overlay hitam transparan */
+    background: rgba(0, 0, 0, 0.6); 
     z-index: 1;
 }
 
 .hero h1, .hero p, .hero .btn {
-    z-index: 2; /* Pastikan teks dan tombol di atas overlay */
+    z-index: 2; 
 }
 
 .hero h1 {
-    font-size: 3.5em;
-    margin-bottom: 15px;
+    font-size: 4em;
+    margin-bottom: 20px;
 }
 
 .hero p {
-    font-size: 1.2em;
-    margin-bottom: 30px;
+    font-size: 1.3em;
+    margin-bottom: 40px;
+    font-weight: 300;
 }
 
-/* 3. PORTOFOLIO GRID */
+/* 3. PORTOFOLIO GRID (Interaktif) */
 .grid-portofolio {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 30px;
 }
 
@@ -167,104 +176,129 @@ nav ul li a:hover {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    transition: transform 0.3s;
-}
-
-.project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    position: relative;
+    cursor: pointer;
 }
 
 .project-card img {
     width: 100%;
-    height: 250px;
+    height: 300px; /* Tinggi Konsisten untuk thumbnail */
     object-fit: cover;
     display: block;
+    transition: filter 0.5s;
 }
 
-.project-card h3, .project-card p {
-    padding: 15px 20px;
-    margin: 0;
+/* Overlay Interaktif */
+.project-info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Overlay gelap saat hover */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* Awalnya tersembunyi */
+    transition: opacity 0.5s;
+    text-align: center;
+    padding: 20px;
+}
+
+.project-card:hover .project-info {
+    opacity: 1; /* Muncul saat hover */
+}
+
+.project-card:hover img {
+    filter: blur(2px); /* Gambar sedikit blur saat overlay muncul */
+}
+
+.project-info h3 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    color: #00A388;
+}
+
+.project-info p {
+    font-weight: 300;
 }
 
 /* 4. LAYANAN LIST */
 .service-list {
     display: flex;
     justify-content: space-around;
-    gap: 30px;
+    gap: 40px;
     text-align: center;
 }
 
 .service-item {
     flex: 1;
-    padding: 20px;
+    padding: 30px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    transition: border-color 0.3s;
+    transition: box-shadow 0.3s;
 }
 
 .service-item:hover {
-    border-color: #00A388;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.service-item i {
+    font-size: 2.5em;
+    color: #00A388;
+    margin-bottom: 15px;
 }
 
 /* 5. TENTANG KAMI */
 .about-text {
-    font-size: 1.2em;
+    font-family: 'Lora', serif; /* Font Serif untuk filosofi */
+    font-size: 1.5em;
+    font-style: italic;
     text-align: center;
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
+    line-height: 1.8;
 }
 
 /* 6. HARGA */
 .pricing-table {
     display: flex;
     justify-content: center;
-    gap: 40px;
+    gap: 30px;
+    flex-wrap: wrap;
 }
 
 .price-card {
+    /* ... (CSS price-card lainnya sama) ... */
     background-color: white;
     padding: 40px;
     border-radius: 8px;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     width: 300px;
+    transition: transform 0.3s;
 }
 
 .price-card.recommended {
     border: 3px solid #00A388;
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    transform: scale(1.08); /* Skala Lebih Besar untuk Rekomendasi */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
 }
 
-.price-card h3 {
-    color: #00A388;
-    font-size: 1.8em;
+/* 7. KONTAK (Menggunakan Tautan Mailto) */
+.contact-section {
+    text-align: center;
 }
 
-/* 7. KONTAK */
-.contact-form {
-    max-width: 500px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.contact-desc {
+    font-size: 1.1em;
+    margin-bottom: 30px;
 }
 
-.contact-form input[type="text"],
-.contact-form input[type="email"],
-.contact-form textarea {
-    width: 100%;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-family: inherit;
-    font-size: 1em;
-}
-
-.contact-form textarea {
-    height: 150px;
-    resize: vertical;
+.contact-btn i {
+    margin-right: 10px;
 }
 
 /* FOOTER */
@@ -272,23 +306,34 @@ footer {
     background-color: #333333;
     color: white;
     text-align: center;
-    padding: 20px 0;
+    padding: 30px 0;
+    font-weight: 300;
 }
 
-/* Responsif Sederhana (untuk tampilan mobile) */
-@media (max-width: 768px) {
+/* Responsif Sederhana */
+@media (max-width: 992px) {
     .hero h1 {
-        font-size: 2.5em;
-    }
-
-    nav ul {
-        display: none; /* Sembunyikan menu di mobile, bisa diganti menu burger */
+        font-size: 3em;
     }
     .service-list, .pricing-table {
         flex-direction: column;
-        gap: 20px;
+        gap: 30px;
+    }
+    .about-text {
+        font-size: 1.3em;
     }
     .price-card.recommended {
-        transform: none; /* Hapus skala di mobile */
+        transform: none; 
+    }
+}
+@media (max-width: 768px) {
+     nav ul {
+        display: none; 
+    }
+     .hero h1 {
+        font-size: 2.5em;
+    }
+    .project-card img {
+        height: 200px;
     }
 }
