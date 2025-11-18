@@ -62,6 +62,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Tambahkan event listener untuk menghitung ulang saat ada perubahan
     hitungBiayaBtn.addEventListener('click', hitungEstimasi);
-    luasAreaInput.addEventListener('input', hitungEstimasi); // Hitung otomatis saat luas berubah
-    paketDesainSelect.addEventListener('change', hitungEstimasi); // Hitung otomatis saat paket berubah
+    luasAreaInput.addEventListener('input', hitungEstimasi); 
+    paketDesainSelect.addEventListener('change', hitungEstimasi); 
+    
+    // 5. Scroll Reveal Animation (Intersection Observer)
+    const fadeSections = document.querySelectorAll('.fade-in-section');
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Muncul ketika masuk viewport (gulir ke bawah)
+                entry.target.classList.add('is-visible');
+            } else {
+                // Hilang ketika keluar dari viewport (gulir ke atas)
+                // Ini sesuai permintaan Anda, namun perlu diingat ini bisa membuat tampilan berkedip.
+                entry.target.classList.remove('is-visible');
+            }
+        });
+    }, {
+        threshold: 0.1 // Memicu ketika elemen terlihat 10%
+    });
+
+    fadeSections.forEach(section => {
+        observer.observe(section);
+    });
 });
