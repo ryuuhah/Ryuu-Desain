@@ -1,555 +1,201 @@
-/* PALET BARU ELEGANT: Navy & Gold */
-:root {
-    --color-primary: #1C2833; 
-    --color-accent: #A98F6B; 
-    --color-text-light: #F8F8F8; 
-    --color-text-dark: #333333;
-    --color-success: #27AE60; /* Hijau untuk tanda centang */
-}
-
-/* RESET dan FONT */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Poppins', sans-serif;
-    line-height: 1.6;
-    background-color: var(--color-text-light); 
-    color: var(--color-text-dark);
-}
-
-/* Tipografi Profesional */
-h1, h2 {
-    font-family: 'Lora', serif;
-    font-weight: 700;
-}
-
-h3 {
-    font-weight: 600;
-}
-
-/* UTILITAS dan WHITESPACE */
-.section-padding {
-    padding: 120px 5%; 
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.bg-light {
-    background-color: #FFFFFF; 
-}
-
-h2 {
-    font-size: 3em; 
-    text-align: center;
-    margin-bottom: 70px;
-    border-bottom: 4px solid var(--color-accent); 
-    display: inline-block;
-}
-
-/* HEADER & NAVIGASI (DESKTOP) */
-header {
-    background-color: var(--color-primary); 
-    box-shadow: 0 1px 15px rgba(0,0,0,0.2); 
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    transition: padding 0.3s; 
-}
-
-header.scrolled {
-    padding: 10px 0; 
-    background-color: var(--color-primary); 
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 5%;
-    max-width: 1200px;
-    margin: 0 auto;
-    transition: padding 0.3s;
-}
-
-header.scrolled nav {
-    padding: 0 5%;
-}
-
-.logo {
-    font-family: 'Lora', serif;
-    font-weight: 700;
-    font-size: 1.8em;
-    color: var(--color-accent); 
-}
-
-ul.nav-menu {
-    list-style: none;
-    display: flex;
-}
-
-ul.nav-menu li a {
-    text-decoration: none;
-    color: var(--color-text-light); 
-    padding: 10px 15px;
-    display: block;
-    transition: color 0.3s;
-}
-
-ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
-    color: var(--color-accent); 
-    font-weight: 600;
-}
-
-.menu-toggle {
-    display: none;
-    font-size: 1.5em;
-    color: var(--color-accent);
-    cursor: pointer;
-}
-
-/* BUTTONS */
-.btn {
-    display: inline-block;
-    background-color: var(--color-accent); 
-    color: var(--color-primary); 
-    padding: 15px 35px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: 600;
-    transition: background-color 0.3s, transform 0.2s;
-    border: none;
-    cursor: pointer;
-}
-
-.btn:hover {
-    background-color: #C1A67B; 
-    transform: translateY(-2px);
-}
-
-.btn-outline {
-    display: inline-block;
-    background-color: transparent;
-    color: var(--color-accent);
-    padding: 12px 25px;
-    text-decoration: none;
-    border: 2px solid var(--color-accent);
-    border-radius: 5px;
-    font-weight: 600;
-    transition: all 0.3s;
-}
-
-.btn-outline:hover {
-    background-color: var(--color-accent);
-    color: var(--color-primary);
-}
-
-
-/* 2. HOME/HERO SECTION */
-.hero {
-    min-height: 80vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 150px 5%;
-    background-image: url('path/to/your-best-design.jpg'); 
-    background-size: cover;
-    background-position: center;
-    color: white; 
-    position: relative;
-}
-
-.hero::before { 
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(28, 40, 51, 0.7); 
-    z-index: 1;
-}
-
-.hero h1, .hero p, .hero .btn {
-    z-index: 2; 
-}
-
-.hero h1 {
-    font-size: 4em;
-    margin-bottom: 20px;
-}
-
-.hero p {
-    font-size: 1.3em;
-    margin-bottom: 40px;
-    font-weight: 300;
-}
-
-/* 3. PORTOFOLIO GRID (Interaktif) */
-.grid-portofolio {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-}
-
-.project-card {
-    background-color: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    position: relative;
-    cursor: pointer;
-}
-
-.project-card img {
-    width: 100%;
-    height: 300px; 
-    object-fit: cover;
-    display: block;
-    transition: filter 0.5s;
-}
-
-.project-info {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(28, 40, 51, 0.85); 
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    opacity: 0; 
-    transition: opacity 0.5s;
-    text-align: center;
-    padding: 20px;
-}
-
-.project-card:hover .project-info {
-    opacity: 1; 
-}
-
-.project-card:hover img {
-    filter: blur(2px); 
-}
-
-.project-info h3 {
-    margin-bottom: 10px;
-    font-size: 1.5em;
-    color: var(--color-accent); 
-}
-
-
-/* 4. LAYANAN LIST (Ikon Disesuaikan) */
-.service-list {
-    display: flex;
-    justify-content: space-around;
-    gap: 40px;
-    text-align: center;
-    flex-wrap: wrap; 
-}
-
-.service-item {
-    flex: 1;
-    min-width: 200px; 
-    padding: 30px 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    transition: box-shadow 0.3s;
-}
-
-.service-item:hover {
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-}
-
-.service-item h3 {
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    font-size: 1.3em; 
-}
-
-.service-item h3 i {
-    font-size: 1.5em; 
-    margin-right: 10px; 
-    color: var(--color-accent); 
-}
-
-/* 5. TENTANG KAMI */
-.about-text {
-    font-family: 'Lora', serif; 
-    font-size: 1.5em;
-    font-style: italic;
-    text-align: center;
-    max-width: 900px;
-    margin: 0 auto;
-    line-height: 1.8;
-}
-
-/* 6. KALKULATOR HARGA */
-.calculator-container {
-    background-color: var(--color-primary); /* Latar belakang Navy */
-    color: var(--color-text-light); /* Teks putih */
-    padding: 40px;
-    border-radius: 8px;
-    max-width: 700px;
-    margin: 0 auto;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-
-.calculator-form .form-group {
-    margin-bottom: 20px;
-}
-
-.calculator-form label {
-    display: block;
-    font-size: 1.1em;
-    margin-bottom: 10px;
-    color: var(--color-accent); /* Label Aksen Gold */
-    font-weight: 600;
-}
-
-.calculator-form input[type="number"],
-.calculator-form select {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #555;
-    border-radius: 5px;
-    background-color: #333D47; /* Input Background Darker Navy */
-    color: var(--color-text-light);
-    font-size: 1em;
-    -webkit-appearance: none; /* Hilangkan default style input number di Safari */
-    -moz-appearance: none;
-    appearance: none;
-}
-
-.calculator-form input[type="number"]:focus,
-.calculator-form select:focus {
-    border-color: var(--color-accent);
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(169, 143, 107, 0.5); /* Aksen fokus gold */
-}
-
-.calculator-result {
-    text-align: center;
-    font-size: 1.5em;
-    font-weight: 700;
-    color: var(--color-text-light);
-    border-top: 1px dashed rgba(255, 255, 255, 0.2);
-    padding-top: 20px;
-    margin-top: 10px;
-}
-
-.calculator-result #hasilBiaya {
-    color: var(--color-accent); /* Hasil biaya Aksen Gold */
-    font-size: 1.8em;
-    display: block;
-    margin-top: 10px;
-}
-
-
-/* 7. HARGA (DESKTOP) */
-.pricing-table {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-}
-
-.price-card {
-    background-color: white;
-    padding: 40px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    width: 300px; 
-    transition: transform 0.3s;
-}
-
-.price-card.recommended {
-    border: 3px solid var(--color-accent); 
-    transform: scale(1.08); 
-    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-}
-.price-card.premium {
-    background-color: var(--color-primary); 
-    color: var(--color-text-light); 
-}
-.price-card.premium h3, .price-card.premium .price-old, .price-card.premium .price-new {
-    color: var(--color-accent); 
-}
-
-/* Harga Lama (Dicoret) */
-.price-discount-label {
-    font-size: 0.9em;
-    color: var(--color-accent);
-    font-weight: 600;
-    margin-bottom: 5px;
-}
-
-.price-old {
-    text-decoration: line-through; 
-    color: #C0392B; 
-    font-size: 1em; 
-    font-weight: 400;
-    margin-bottom: 5px;
-}
-
-/* Harga Baru (Menonjol) */
-.price-new {
-    font-size: 2.8em; 
-    font-weight: 700;
-    color: var(--color-accent); 
-    margin-bottom: 25px;
-    line-height: 1; 
-}
-
-.perk-list {
-    text-align: left;
-    margin-bottom: 30px;
-    line-height: 2; 
-}
-
-/* Warna tanda centang hijau */
-.perk-list i.fas.fa-check {
-    color: var(--color-success); /* Hijau */
-    margin-right: 10px;
-    width: 20px;
-}
-/* Warna tanda silang tetap merah */
-.perk-list i.fas.fa-times {
-    color: #C0392B; /* Merah */
-    margin-right: 10px;
-    width: 20px;
-}
-
-
-/* 8. KONTAK */
-.contact-section {
-    text-align: center;
-}
-
-.contact-desc {
-    font-size: 1.1em;
-    margin-bottom: 30px;
-}
-
-.contact-btn i {
-    margin-right: 10px;
-}
-
-/* FOOTER */
-footer {
-    background-color: var(--color-primary);
-    color: var(--color-text-light);
-    padding: 30px 0;
-    font-weight: 300;
-}
-
-/* ======================================================= */
-/* MEDIA QUERIES (MOBILE) */
-/* ======================================================= */
-
-@media (max-width: 768px) {
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ryuu Desain | Arsitektur 2D & 3D Profesional</title>
+    <link rel="stylesheet" href="style.css">
     
-    /* 1. NAVIGASI MOBILE */
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     
-    .menu-toggle {
-        display: block; 
-        order: 2; 
-    }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
 
-    ul.nav-menu {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        position: absolute;
-        top: 60px; 
-        left: 0;
-        background-color: var(--color-primary); 
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-    
-    ul.nav-menu.active { 
-        display: flex;
-    }
+    <header>
+        <nav>
+            <div class="logo">RYUU DESAIN</div> 
+            
+            <div class="menu-toggle"><i class="fas fa-bars"></i></div> 
+            
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#portofolio">Portofolio</a></li>
+                <li><a href="#layanan">Layanan</a></li>
+                <li><a href="#tentang">Tentang</a></li>
+                <li><a href="#harga">Harga</a></li>
+                <li><a href="#kontak" class="btn-nav-kontak">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    ul.nav-menu li {
-        text-align: center;
-        width: 100%;
-    }
-    ul.nav-menu li a {
-        padding: 15px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    /* 2. UKURAN FONT MOBILE */
-    
-    .section-padding {
-        padding: 80px 5%; 
-    }
+    <main>
+        <section id="home" class="hero">
+            <h1>Mewujudkan Visi Ruang Anda.</h1>
+            <p>Spesialis Desain Arsitektur 2D, 3D Rendering, dan Perencanaan Bangunan Profesional.</p>
+            <a href="#harga" class="btn">Lihat Penawaran Diskon</a>
+        </section>
 
-    .hero h1 {
-        font-size: 2.5em; 
-    }
-    .hero p {
-        font-size: 1.1em;
-    }
+        <section id="portofolio" class="section-padding">
+            <h2>Portofolio Pilihan</h2>
+            <div class="grid-portofolio">
+                
+                <div class="project-card">
+                    <img src="path/to/project-1.jpg" alt="Desain Rumah Minimalis 3D">
+                    <div class="project-info">
+                        <h3>Rumah Modern X</h3>
+                        <p>Desain 3D Eksterior | Rendering Realistis</p>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <img src="path/to/project-2.jpg" alt="Gambar Kerja Denah 2D">
+                    <div class="project-info">
+                        <h3>Denah Ruko 3 Lantai</h3>
+                        <p>Gambar Kerja 2D Lengkap | Siap Konstruksi</p>
+                    </div>
+                </div>
+                 
+                <div class="project-card">
+                    <img src="path/to/project-3.jpg" alt="Desain Interior Kafe">
+                    <div class="project-info">
+                        <h3>Interior Kafe Industrial</h3>
+                        <p>Visualisasi Interior | Pemilihan Material</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    h2 {
-        font-size: 2em; 
-        margin-bottom: 50px;
-    }
+        <section id="layanan" class="bg-light section-padding">
+            <h2>Layanan Utama</h2>
+            <div class="service-list">
+                <div class="service-item">
+                    <h3><i class="fas fa-ruler-combined"></i> Gambar Kerja 2D</h3>
+                    <p>Produksi gambar teknis lengkap (denah, tampak, potongan) siap untuk IMB dan konstruksi.</p>
+                </div>
+                <div class="service-item">
+                    <h3><i class="fas fa-drafting-compass"></i> Rendering 3D Realistis</h3>
+                    <p>Visualisasi bangunan dan ruang dengan kualitas foto-realistis untuk kebutuhan pemasaran atau presentasi.</p>
+                </div>
+                 <div class="service-item">
+                    <h3><i class="fas fa-hand-holding-dollar"></i> Rencana Anggaran Biaya (RAB)</h3>
+                    <p>Perhitungan detail biaya material dan jasa konstruksi, memastikan efisiensi anggaran proyek Anda.</p>
+                </div>
+                <div class="service-item">
+                    <h3><i class="fas fa-couch"></i> Desain Interior</h3>
+                    <p>Perancangan dan visualisasi detail tata ruang dalam, termasuk furnitur, pencahayaan, dan material.</p>
+                </div>
+            </div>
+        </section>
 
-    .about-text {
-        font-size: 1.1em;
-    }
-    
-    .price-new {
-        font-size: 2em; 
-    }
-    
-    /* 3. LAYOUT MOBILE */
-    .service-list, .pricing-table {
-        flex-direction: column;
-        gap: 30px;
-    }
-    .service-item h3 {
-        font-size: 1.2em;
-    }
-    .project-card img {
-        height: 200px;
-    }
-    .price-card.recommended {
-        transform: none; 
-    }
-    
-    .price-card {
-        width: 90%; 
-        max-width: 350px; 
-        margin: 0 auto; 
-    }
+        <section id="tentang" class="section-padding">
+            <h2>Filosofi Kami</h2>
+            <p class="about-text">Kami percaya bahwa desain yang baik adalah perpaduan harmonis antara fungsi, estetika, dan **harmoni**. Kami berdedikasi untuk memberikan solusi visual yang tidak hanya indah secara 3D, tetapi juga praktis dan efisien dalam 2D.</p>
+        </section>
 
-    /* KALKULATOR MOBILE */
-    .calculator-container {
-        padding: 30px;
-        width: 95%;
-    }
-    .calculator-result {
-        font-size: 1.2em;
-    }
-    .calculator-result #hasilBiaya {
-        font-size: 1.5em;
-    }
-}
+        
+        <section id="kalkulator" class="bg-light section-padding">
+            <h2>Hitung Estimasi Biaya Desain Anda</h2>
+            <div class="calculator-container">
+                <div class="calculator-form">
+                    <div class="form-group">
+                        <label for="luasArea">Luas Area (m²):</label>
+                        <input type="number" id="luasArea" min="1" value="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="paketDesain">Pilih Paket Desain:</label>
+                        <select id="paketDesain">
+                            <option value="13000">Paket Sketsa Teknis (Gambar 2D)</option>
+                            <option value="24000">Paket Visual Eksterior (2D + 3D)</option>
+                            <option value="35000">Paket Siap Bangun (2D + 3D + RAB)</option>
+                            <option value="50000">Paket All-in Design (2D + 3D + RAB + Interior)</option>
+                        </select>
+                    </div>
+                    </div>
+                <div class="calculator-result">
+                    <p>Estimasi Biaya:</p>
+                    <span id="hasilBiaya">Rp 0</span>
+                </div>
+            </div>
+        </section>
+        
+        <section id="harga" class="section-padding">
+            <h2>Penawaran Spesial</h2> 
+            <div class="pricing-table">
+                
+                <div class="price-card">
+                    <h3>Paket Sketsa Teknis</h3>
+                    <p class="price-discount-label">Harga Spesial</p>
+                    <p class="price-old">Rp 18.000/m²</p>
+                    <p class="price-new">Rp 13.000/m²</p>
+                    <div class="perk-list">
+                         <i class="fas fa-check"></i> Gambar Kerja 2D <br>
+                         <i class="fas fa-times"></i> Gambar Render 3D <br>
+                         <i class="fas fa-times"></i> RAB <br>
+                         <i class="fas fa-times"></i> Interior
+                    </div>
+                    <a href="#kontak" class="btn-outline">Pesan Sekarang</a>
+                </div>
+
+                 <div class="price-card recommended">
+                    <h3>Paket Visual Eksterior</h3>
+                    <p class="price-discount-label">Harga Spesial</p>
+                    <p class="price-old">Rp 30.000/m²</p>
+                    <p class="price-new">Rp 24.000/m²</p>
+                    <div class="perk-list">
+                         <i class="fas fa-check"></i> Gambar Kerja 2D <br>
+                         <i class="fas fa-check"></i> Gambar Render 3D (Eksterior) <br>
+                         <i class="fas fa-times"></i> RAB <br>
+                         <i class="fas fa-times"></i> Interior
+                    </div>
+                    <a href="#kontak" class="btn">Pilih Paket Populer</a>
+                </div>
+                
+                <div class="price-card">
+                    <h3>Paket Siap Bangun</h3>
+                    <p class="price-discount-label">Harga Spesial</p>
+                    <p class="price-old">Rp 40.000/m²</p>
+                    <p class="price-new">Rp 35.000/m²</p>
+                     <div class="perk-list">
+                         <i class="fas fa-check"></i> Gambar Kerja 2D <br>
+                         <i class="fas fa-check"></i> Gambar Render 3D (Eksterior) <br>
+                         <i class="fas fa-check"></i> **Rencana Anggaran Biaya (RAB)** <br>
+                         <i class="fas fa-times"></i> Interior
+                    </div>
+                    <a href="#kontak" class="btn-outline">Pesan Sekarang</a>
+                </div>
+                
+                <div class="price-card premium">
+                    <h3>Paket All-in Design (Premium)</h3>
+                    <p class="price-discount-label">Harga Spesial</p>
+                    <p class="price-old">Rp 65.000/m²</p>
+                    <p class="price-new">Rp 50.000/m²</p>
+                     <div class="perk-list">
+                         <i class="fas fa-check"></i> Gambar Kerja 2D <br>
+                         <i class="fas fa-check"></i> Gambar Render 3D (Eksterior) <br>
+                         <i class="fas fa-check"></i> RAB <br>
+                         <i class="fas fa-check"></i> **Render 3D Interior**
+                    </div>
+                    <a href="#kontak" class="btn">Pesan Paket Premium</a>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="kontak" class="section-padding contact-section">
+            <h2>Mari Mulai Proyek Anda</h2>
+            <p class="contact-desc">Hubungi kami sekarang untuk mendapatkan penawaran dan konsultasi gratis mengenai kebutuhan desain 2D dan 3D Anda.</p>
+            <a href="mailto:emailanda@example.com?subject=Permintaan%20Penawaran%20Desain%20Baru" class="btn contact-btn">
+                <i class="fas fa-envelope"></i> Kirim Permintaan Sekarang
+            </a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Ryuu Desain. Arsitektur & 3D Rendering Profesional.</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
