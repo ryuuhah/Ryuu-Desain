@@ -160,7 +160,8 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     align-items: center;
     text-align: center;
     padding: 150px 5%;
-    background-image: url('path/to/your-best-design.jpg'); 
+    /* FILE BARU */
+    background-image: url('image/hero-background.webp'); 
     background-size: cover;
     background-position: center;
     color: white; 
@@ -306,8 +307,9 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     line-height: 1.5;
     padding: 10px 0;
 }
+/* Style untuk <strong> di kalkulator */
 .calculator-desc strong {
-    color: var(--color-primary); /* Tebal pada teks Luas Area Total */
+    color: var(--color-primary); 
 }
 
 /* 6. KALKULATOR HARGA */
