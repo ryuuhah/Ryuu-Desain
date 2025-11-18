@@ -1,579 +1,68 @@
-/* PALET BARU ELEGANT: Navy & Gold */
-:root {
-    --color-primary: #1C2833; 
-    --color-accent: #A98F6B; 
-    --color-text-light: #F8F8F8; 
-    --color-text-dark: #333333;
-    --color-success: #27AE60; /* Hijau untuk tanda centang */
-    --color-error: #C0392B; /* Merah untuk tanda silang */
-}
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    const navLinks = document.querySelectorAll('.nav-menu a');
+    const header = document.querySelector('header');
 
-/* RESET dan FONT */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+    // 1. Fungsi Menu Mobile (Hamburger)
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+        });
+    }
 
-body {
-    font-family: 'Poppins', sans-serif;
-    line-height: 1.6;
-    background-color: var(--color-text-light); 
-    color: var(--color-text-dark);
-}
-
-/* Tipografi Profesional */
-h1, h2 {
-    font-family: 'Lora', serif;
-    font-weight: 700;
-}
-
-h3 {
-    font-weight: 600;
-}
-
-/* UTILITAS dan WHITESPACE */
-.section-padding {
-    padding: 120px 5%; 
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.bg-light {
-    background-color: #FFFFFF; 
-}
-
-h2 {
-    font-size: 3em; 
-    text-align: center;
-    margin-bottom: 70px;
-    border-bottom: 4px solid var(--color-accent); 
-    display: inline-block;
-}
-
-/* HEADER & NAVIGASI (DESKTOP) */
-header {
-    background-color: var(--color-primary); 
-    box-shadow: 0 1px 15px rgba(0,0,0,0.2); 
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    transition: padding 0.3s; 
-}
-
-header.scrolled {
-    padding: 10px 0; 
-    background-color: var(--color-primary); 
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 5%;
-    max-width: 1200px;
-    margin: 0 auto;
-    transition: padding 0.3s;
-}
-
-header.scrolled nav {
-    padding: 0 5%;
-}
-
-.logo {
-    font-family: 'Lora', serif;
-    font-weight: 700;
-    font-size: 1.8em;
-    color: var(--color-accent); 
-}
-
-ul.nav-menu {
-    list-style: none;
-    display: flex;
-}
-
-ul.nav-menu li a {
-    text-decoration: none;
-    color: var(--color-text-light); 
-    padding: 10px 15px;
-    display: block;
-    transition: color 0.3s;
-}
-
-ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
-    color: var(--color-accent); 
-    font-weight: 600;
-}
-
-.menu-toggle {
-    display: none;
-    font-size: 1.5em;
-    color: var(--color-accent);
-    cursor: pointer;
-}
-
-/* BUTTONS */
-.btn {
-    display: inline-block;
-    background-color: var(--color-accent); 
-    color: var(--color-primary); 
-    padding: 15px 35px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: 600;
-    transition: background-color 0.3s, transform 0.2s;
-    border: none;
-    cursor: pointer;
-}
-
-.btn:hover {
-    background-color: #C1A67B; 
-    transform: translateY(-2px);
-}
-
-.btn-outline {
-    display: inline-block;
-    background-color: transparent;
-    color: var(--color-accent);
-    padding: 12px 25px;
-    text-decoration: none;
-    border: 2px solid var(--color-accent);
-    border-radius: 5px;
-    font-weight: 600;
-    transition: all 0.3s;
-}
-
-.btn-outline:hover {
-    background-color: var(--color-accent);
-    color: var(--color-primary);
-}
-
-
-/* 2. HOME/HERO SECTION */
-.hero {
-    min-height: 80vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 150px 5%;
-    background-image: url('path/to/your-best-design.jpg'); 
-    background-size: cover;
-    background-position: center;
-    color: white; 
-    position: relative;
-}
-
-.hero::before { 
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(28, 40, 51, 0.7); 
-    z-index: 1;
-}
-
-.hero h1, .hero p, .hero .btn {
-    z-index: 2; 
-}
-
-.hero h1 {
-    font-size: 4em;
-    margin-bottom: 20px;
-}
-
-.hero p {
-    font-size: 1.3em;
-    margin-bottom: 40px;
-    font-weight: 300;
-}
-
-/* 3. PORTOFOLIO GRID (Interaktif) */
-.grid-portofolio {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-}
-
-.project-card {
-    background-color: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    position: relative;
-    cursor: pointer;
-}
-
-.project-card img {
-    width: 100%;
-    height: 300px; 
-    object-fit: cover;
-    display: block;
-    transition: filter 0.5s;
-}
-
-.project-info {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(28, 40, 51, 0.85); 
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    opacity: 0; 
-    transition: opacity 0.5s;
-    text-align: center;
-    padding: 20px;
-}
-
-.project-card:hover .project-info {
-    opacity: 1; 
-}
-
-.project-card:hover img {
-    filter: blur(2px); 
-}
-
-.project-info h3 {
-    margin-bottom: 10px;
-    font-size: 1.5em;
-    color: var(--color-accent); 
-}
-
-
-/* 4. LAYANAN LIST (Ikon Disesuaikan) */
-.service-list {
-    display: flex;
-    justify-content: space-around;
-    gap: 40px;
-    text-align: center;
-    flex-wrap: wrap; 
-}
-
-.service-item {
-    flex: 1;
-    min-width: 200px; 
-    padding: 30px 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    transition: box-shadow 0.3s;
-}
-
-.service-item:hover {
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-}
-
-.service-item h3 {
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    font-size: 1.3em; 
-}
-
-.service-item h3 i {
-    font-size: 1.5em; 
-    margin-right: 10px; 
-    color: var(--color-accent); 
-}
-
-/* 5. TENTANG KAMI */
-.about-text {
-    font-family: 'Lora', serif; 
-    font-size: 1.5em;
-    font-style: italic;
-    text-align: center;
-    max-width: 900px;
-    margin: 0 auto;
-    line-height: 1.8;
-}
-
-/* 6. KALKULATOR HARGA (Gaya Default/Desktop) */
-.calculator-container {
-    background-color: var(--color-primary); 
-    color: var(--color-text-light); 
-    padding: 40px;
-    border-radius: 8px;
-    max-width: 900px; /* Lebar lebih besar untuk desktop */
-    margin: 0 auto;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    // 2. Tutup Menu saat Link Diklik (di Mobile)
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (navMenu.classList.contains('active')) {
+                 navMenu.classList.remove('active');
+            }
+        });
+    });
     
-    /* PENTING: Flexbox Horizontal untuk Desktop */
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 40px; 
-}
+    // 3. Efek Header Dinamis saat Scroll
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
 
-.calculator-form {
-    flex-basis: 60%; 
-}
+    // 4. Logika Kalkulator Harga (Ditingkatkan)
+    const luasAreaInput = document.getElementById('luasArea');
+    const paketDesainSelect = document.getElementById('paketDesain');
+    const hasilBiayaSpan = document.getElementById('hasilBiaya');
 
-.calculator-result {
-    flex-basis: 40%; 
-    text-align: center;
-    font-size: 1.5em;
-    font-weight: 700;
-    color: var(--color-text-light);
-    
-    /* Posisikan hasil di tengah vertikal di desktop */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 200px; 
-    border-left: 1px solid rgba(255, 255, 255, 0.2); /* Garis pemisah vertikal */
-}
-
-.calculator-result p {
-    margin: 0;
-}
-
-.calculator-result #hasilBiaya {
-    color: var(--color-accent); 
-    font-size: 2.5em; 
-    display: block;
-    margin-top: 10px;
-}
-
-.calculator-form .form-group {
-    margin-bottom: 20px;
-}
-
-.calculator-form label {
-    display: block;
-    font-size: 1.1em;
-    margin-bottom: 10px;
-    color: var(--color-accent); 
-    font-weight: 600;
-}
-
-.calculator-form input[type="number"],
-.calculator-form select {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #555;
-    border-radius: 5px;
-    background-color: #333D47; 
-    color: var(--color-text-light);
-    font-size: 1em;
-    appearance: none; 
-}
-
-
-/* 7. HARGA (DESKTOP) */
-.pricing-table {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-}
-
-.price-card {
-    background-color: white;
-    padding: 40px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    width: 300px; 
-    transition: transform 0.3s;
-}
-
-.price-card.recommended {
-    border: 3px solid var(--color-accent); 
-    transform: scale(1.08); 
-    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-}
-.price-card.premium {
-    background-color: var(--color-primary); 
-    color: var(--color-text-light); 
-}
-.price-card.premium h3, .price-card.premium .price-old, .price-card.premium .price-new {
-    color: var(--color-accent); 
-}
-
-/* Harga Lama (Dicoret) */
-.price-discount-label {
-    font-size: 0.9em;
-    color: var(--color-accent);
-    font-weight: 600;
-    margin-bottom: 5px;
-}
-
-.price-old {
-    text-decoration: line-through; 
-    color: #C0392B; 
-    font-size: 1em; 
-    font-weight: 400;
-    margin-bottom: 5px;
-}
-
-/* Harga Baru (Menonjol) */
-.price-new {
-    font-size: 2.8em; 
-    font-weight: 700;
-    color: var(--color-accent); 
-    margin-bottom: 25px;
-    line-height: 1; 
-}
-
-.perk-list {
-    text-align: left;
-    margin-bottom: 30px;
-    line-height: 2; 
-}
-
-/* Warna tanda centang HIJAU */
-.perk-list i.fas.fa-check {
-    color: var(--color-success); 
-    margin-right: 10px;
-    width: 20px;
-}
-/* Warna tanda silang MERAH */
-.perk-list i.fas.fa-times {
-    color: var(--color-error); 
-    margin-right: 10px;
-    width: 20px;
-}
-
-
-/* 8. KONTAK */
-.contact-section {
-    text-align: center;
-}
-
-.contact-desc {
-    font-size: 1.1em;
-    margin-bottom: 30px;
-}
-
-.contact-btn i {
-    margin-right: 10px;
-}
-
-/* FOOTER */
-footer {
-    background-color: var(--color-primary);
-    color: var(--color-text-light);
-    padding: 30px 0;
-    font-weight: 300;
-}
-
-/* ======================================================= */
-/* MEDIA QUERIES (MOBILE) */
-/* ======================================================= */
-
-@media (max-width: 768px) {
-    
-    /* 1. NAVIGASI MOBILE */
-    
-    .menu-toggle {
-        display: block; 
-        order: 2; 
+    function formatRupiah(angka) {
+        const rupiah = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0
+        }).format(angka);
+        return rupiah;
     }
 
-    ul.nav-menu {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        position: absolute;
-        top: 60px; 
-        left: 0;
-        background-color: var(--color-primary); 
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-    
-    ul.nav-menu.active { 
-        display: flex;
+    function hitungEstimasi() {
+        const luasArea = parseFloat(luasAreaInput.value);
+        const hargaPerM2 = parseFloat(paketDesainSelect.value);
+
+        if (isNaN(luasArea) || luasArea <= 0) {
+            hasilBiayaSpan.textContent = "Masukkan luas area yang valid.";
+            return;
+        }
+
+        const totalBiaya = luasArea * hargaPerM2;
+        hasilBiayaSpan.textContent = formatRupiah(totalBiaya);
     }
 
-    ul.nav-menu li {
-        text-align: center;
-        width: 100%;
-    }
-    ul.nav-menu li a {
-        padding: 15px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    /* 2. UKURAN FONT MOBILE */
-    
-    .section-padding {
-        padding: 80px 5%; 
-    }
+    // PENTING: Pastikan semua event listeners terpasang untuk perhitungan OTOMATIS
+    if (luasAreaInput && paketDesainSelect && hasilBiayaSpan) {
+        // Hitung biaya pertama kali saat halaman dimuat
+        hitungEstimasi(); 
 
-    .hero h1 {
-        font-size: 2.5em; 
+        // Hitung otomatis saat luas area atau paket berubah
+        luasAreaInput.addEventListener('input', hitungEstimasi); 
+        paketDesainSelect.addEventListener('change', hitungEstimasi); 
     }
-    .hero p {
-        font-size: 1.1em;
-    }
-
-    h2 {
-        font-size: 2em; 
-        margin-bottom: 50px;
-    }
-
-    .about-text {
-        font-size: 1.1em;
-    }
-    
-    .price-new {
-        font-size: 2em; 
-    }
-    
-    /* 3. LAYOUT MOBILE */
-    .service-list, .pricing-table {
-        flex-direction: column;
-        gap: 30px;
-    }
-    .service-item h3 {
-        font-size: 1.2em;
-    }
-    .project-card img {
-        height: 200px;
-    }
-    .price-card.recommended {
-        transform: none; 
-    }
-    
-    .price-card {
-        width: 90%; 
-        max-width: 350px; 
-        margin: 0 auto; 
-    }
-
-    /* KALKULATOR MOBILE: Tumpuk secara Vertikal */
-    .calculator-container {
-        flex-direction: column; /* Mengubah dari horizontal menjadi vertikal */
-        padding: 30px;
-        width: 95%;
-        gap: 20px;
-    }
-    
-    .calculator-form {
-        flex-basis: auto; 
-    }
-    
-    .calculator-result {
-        flex-basis: auto; 
-        font-size: 1.2em;
-        /* Tambahkan kembali border horizontal untuk mobile */
-        border-top: 1px dashed rgba(255, 255, 255, 0.2);
-        border-left: none; /* Hapus border vertikal */
-        padding-top: 20px;
-        margin-top: 10px;
-        min-height: auto;
-    }
-    
-    .calculator-result #hasilBiaya {
-        font-size: 1.5em;
-    }
-}
+});
