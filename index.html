@@ -14,8 +14,11 @@
 
     <header>
         <nav>
-            <div class="logo">RYUU DESAIN.</div>
-            <ul>
+            <div class="logo">RYUU DESAIN</div> 
+            
+            <div class="menu-toggle"><i class="fas fa-bars"></i></div> 
+            
+            <ul class="nav-menu">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#portofolio">Portofolio</a></li>
                 <li><a href="#layanan">Layanan</a></li>
@@ -36,6 +39,7 @@
         <section id="portofolio" class="section-padding">
             <h2>Portofolio Pilihan</h2>
             <div class="grid-portofolio">
+                
                 <div class="project-card">
                     <img src="path/to/project-1.jpg" alt="Desain Rumah Minimalis 3D">
                     <div class="project-info">
@@ -164,6 +168,26 @@
     <footer>
         <p>&copy; 2025 Ryuu Desain. Arsitektur & 3D Rendering Profesional.</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            const navLinks = document.querySelectorAll('.nav-menu a');
+
+            // Fungsi untuk toggle menu saat tombol burger diklik
+            menuToggle.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+            });
+
+            // Fungsi untuk menutup menu saat salah satu link diklik (agar lebih ramah mobile)
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>
