@@ -56,6 +56,14 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
+    transition: padding 0.3s; /* Untuk efek scroll */
+}
+
+/* Efek Header saat Scroll */
+header.scrolled {
+    padding: 10px 0; 
+    background-color: var(--color-primary); 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 nav {
@@ -65,6 +73,11 @@ nav {
     padding: 20px 5%;
     max-width: 1200px;
     margin: 0 auto;
+    transition: padding 0.3s;
+}
+
+header.scrolled nav {
+    padding: 0 5%;
 }
 
 .logo {
@@ -298,7 +311,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     border-radius: 8px;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    width: 300px; /* Lebar Kartu Harga Desktop */
+    width: 300px; 
     transition: transform 0.3s;
 }
 
@@ -399,6 +412,7 @@ footer {
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
     
+    /* JavaScript mengaktifkan class ini */
     ul.nav-menu.active { 
         display: flex;
     }
@@ -455,8 +469,8 @@ footer {
     
     /* PENYESUAIAN HARGA MOBILE: Harga di Tengah */
     .price-card {
-        width: 90%; /* Tetapkan lebar maksimum (misalnya 90%) */
-        max-width: 350px; /* Batasi lebar agar tidak terlalu besar di layar tablet kecil */
-        margin: 0 auto; /* Posisikan kartu di tengah */
+        width: 90%; 
+        max-width: 350px; 
+        margin: 0 auto; 
     }
 }
