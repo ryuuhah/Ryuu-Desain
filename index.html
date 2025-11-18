@@ -24,7 +24,7 @@
                 <li><a href="#layanan">Layanan</a></li>
                 <li><a href="#tentang">Tentang</a></li>
                 <li><a href="#harga">Harga</a></li>
-                <li><a href="#kontak" class="btn-nav-kontak">Kontak</a></li>
+                <li><a href="#" class="btn-nav-kontak wa-contact-link"><i class="fab fa-whatsapp"></i> Kontak WA</a></li>
             </ul>
         </nav>
     </header>
@@ -105,13 +105,13 @@
                     <div class="form-group">
                         <label for="paketDesain">Pilih Paket Desain:</label>
                         <select id="paketDesain">
-                            <option value="13000">Paket Sketsa Teknis (Gambar 2D)</option>
-                            <option value="24000">Paket Visual Eksterior (2D + 3D)</option>
-                            <option value="35000">Paket Siap Bangun (2D + 3D + RAB)</option>
-                            <option value="50000">Paket All-in Design (2D + 3D + RAB + Interior)</option>
+                            <option value="13000" data-name="Paket Sketsa Teknis (Gambar 2D)">Paket Sketsa Teknis (Gambar 2D)</option>
+                            <option value="24000" data-name="Paket Visual Eksterior (2D + 3D)">Paket Visual Eksterior (2D + 3D)</option>
+                            <option value="35000" data-name="Paket Siap Bangun (2D + 3D + RAB)">Paket Siap Bangun (2D + 3D + RAB)</option>
+                            <option value="50000" data-name="Paket All-in Design (2D + 3D + RAB + Interior)">Paket All-in Design (2D + 3D + RAB + Interior)</option>
                         </select>
                     </div>
-                    <button id="hitungBiaya" class="btn">Hitung Estimasi</button>
+                    <button id="hitungBiaya" class="btn">Hitung & Pesan via WhatsApp</button>
                 </div>
                 <div class="calculator-result">
                     <p>Estimasi Biaya: <span id="hasilBiaya">Rp 0</span></p>
@@ -134,7 +134,7 @@
                          <i class="fas fa-times" style="color:#C0392B;"></i> RAB <br>
                          <i class="fas fa-times" style="color:#C0392B;"></i> Interior
                     </div>
-                    <a href="#kontak" class="btn-outline">Pesan Sekarang</a>
+                    <a href="#" class="btn-outline pesan-paket-btn" data-package-name="Paket Sketsa Teknis">Pesan Sekarang</a>
                 </div>
 
                  <div class="price-card recommended">
@@ -148,7 +148,7 @@
                          <i class="fas fa-times" style="color:#C0392B;"></i> RAB <br>
                          <i class="fas fa-times" style="color:#C0392B;"></i> Interior
                     </div>
-                    <a href="#kontak" class="btn">Pilih Paket Populer</a>
+                    <a href="#" class="btn pesan-paket-btn" data-package-name="Paket Visual Eksterior">Pilih Paket Populer</a>
                 </div>
                 
                 <div class="price-card">
@@ -162,7 +162,7 @@
                          <i class="fas fa-check"></i> **Rencana Anggaran Biaya (RAB)** <br>
                          <i class="fas fa-times" style="color:#C0392B;"></i> Interior
                     </div>
-                    <a href="#kontak" class="btn-outline">Pesan Sekarang</a>
+                    <a href="#" class="btn-outline pesan-paket-btn" data-package-name="Paket Siap Bangun">Pesan Sekarang</a>
                 </div>
                 
                 <div class="price-card premium">
@@ -176,7 +176,7 @@
                          <i class="fas fa-check"></i> RAB <br>
                          <i class="fas fa-check"></i> **Render 3D Interior**
                     </div>
-                    <a href="#kontak" class="btn">Pesan Paket Premium</a>
+                    <a href="#" class="btn pesan-paket-btn" data-package-name="Paket All-in Design (Premium)">Pesan Paket Premium</a>
                 </div>
 
             </div>
@@ -184,9 +184,9 @@
 
         <section id="kontak" class="section-padding contact-section fade-in-section">
             <h2>Mari Mulai Proyek Anda</h2>
-            <p class="contact-desc">Hubungi kami sekarang untuk mendapatkan penawaran dan konsultasi gratis mengenai kebutuhan desain 2D dan 3D Anda.</p>
-            <a href="mailto:emailanda@example.com?subject=Permintaan%20Penawaran%20Desain%20Baru" class="btn contact-btn">
-                <i class="fas fa-envelope"></i> Kirim Permintaan Sekarang
+            <p class="contact-desc">Hubungi kami sekarang melalui WhatsApp untuk mendapatkan penawaran dan konsultasi gratis mengenai kebutuhan desain 2D dan 3D Anda.</p>
+            <a id="whatsappContactLink" href="#" class="btn contact-btn">
+                <i class="fab fa-whatsapp"></i> Hubungi Kami via WhatsApp
             </a>
         </section>
     </main>
