@@ -29,9 +29,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // 4. Logika Kalkulator Harga (Ditingkatkan)
+    // 4. Logika Kalkulator Harga
     const luasAreaInput = document.getElementById('luasArea');
     const paketDesainSelect = document.getElementById('paketDesain');
+    const hitungBiayaBtn = document.getElementById('hitungBiaya');
     const hasilBiayaSpan = document.getElementById('hasilBiaya');
 
     function formatRupiah(angka) {
@@ -56,13 +57,11 @@ document.addEventListener('DOMContentLoaded', function() {
         hasilBiayaSpan.textContent = formatRupiah(totalBiaya);
     }
 
-    // PENTING: Pastikan semua event listeners terpasang untuk perhitungan OTOMATIS
-    if (luasAreaInput && paketDesainSelect && hasilBiayaSpan) {
-        // Hitung biaya pertama kali saat halaman dimuat
-        hitungEstimasi(); 
+    // Hitung biaya pertama kali saat halaman dimuat
+    hitungEstimasi(); 
 
-        // Hitung otomatis saat luas area atau paket berubah
-        luasAreaInput.addEventListener('input', hitungEstimasi); 
-        paketDesainSelect.addEventListener('change', hitungEstimasi); 
-    }
+    // Tambahkan event listener untuk menghitung ulang saat ada perubahan
+    hitungBiayaBtn.addEventListener('click', hitungEstimasi);
+    luasAreaInput.addEventListener('input', hitungEstimasi); // Hitung otomatis saat luas berubah
+    paketDesainSelect.addEventListener('change', hitungEstimasi); // Hitung otomatis saat paket berubah
 });
