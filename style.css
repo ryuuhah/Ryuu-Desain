@@ -5,6 +5,7 @@
     --color-text-light: #F8F8F8; 
     --color-text-dark: #333333;
     --color-success: #27AE60; /* Hijau untuk tanda centang */
+    --color-secondary-dark: #2C3E50; /* Warna gelap sekunder untuk latar belakang */
 }
 
 /* RESET dan FONT */
@@ -299,14 +300,14 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 .calculator-desc {
     text-align: center;
     font-size: 1.1em;
-    color: var(--color-dark);
+    color: var(--color-text-dark); /* Menggunakan warna teks gelap default */
     max-width: 600px;
     margin: -50px auto 30px auto; 
     line-height: 1.5;
     padding: 10px 0;
 }
 .calculator-desc strong {
-    color: #C0392B; 
+    color: var(--color-primary); /* Tebal pada teks Luas Area Total */
 }
 
 /* 6. KALKULATOR HARGA */
@@ -476,9 +477,24 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 }
 
 
-/* 8. KONTAK */
+/* 8. KONTAK & FOOTER (Latar Belakang Baru) */
 .contact-section {
     text-align: center;
+}
+
+/* Latar Belakang Baru untuk Kontak */
+.contact-bg {
+    background-color: var(--color-secondary-dark); /* Latar belakang gelap */
+    color: var(--color-text-light); /* Warna teks terang */
+}
+/* Menyesuaikan H2 di bagian kontak */
+.contact-bg h2 {
+    color: var(--color-text-light);
+    border-bottom-color: var(--color-accent);
+}
+/* Menyesuaikan deskripsi kontak */
+.contact-bg .contact-desc {
+    color: var(--color-text-light);
 }
 
 .contact-desc {
@@ -486,7 +502,6 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     margin-bottom: 30px;
 }
 
-/* Tambahkan style untuk ikon WhatsApp */
 .contact-btn i {
     margin-right: 10px;
 }
@@ -494,6 +509,13 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     color: var(--color-primary); /* Warna ikon WA di tombol accent */
 }
 
+/* Latar Belakang Footer */
+.footer-bg {
+    background-color: var(--color-primary); 
+    color: var(--color-text-light);
+    padding: 30px 5%;
+    text-align: center;
+}
 
 /* 9. Floating WhatsApp Button */
 #floating-whatsapp {
