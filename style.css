@@ -86,22 +86,22 @@ header.scrolled nav {
 .logo {
     font-family: 'Lora', serif;
     font-weight: 700;
-    font-size: 1.8em;
+    font-size: 2.2em; /* UKURAN TEKS DITINGKATKAN (dari 1.8em) */
     color: var(--color-accent); 
-    display: flex; /* Tambahkan flexbox untuk menyelaraskan gambar dan teks */
-    align-items: center; /* Pusatkan secara vertikal */
+    display: flex; 
+    align-items: center; 
 }
 
 /* Gaya untuk logo gambar */
 .logo-img {
-    height: 40px; /* Sesuaikan tinggi logo */
-    margin-right: 10px; /* Beri sedikit jarak antara logo dan teks */
-    vertical-align: middle; /* Pastikan gambar sejajar dengan teks */
-    transition: height 0.3s; /* Tambahkan transisi jika header di-scroll */
+    height: 50px; /* UKURAN GAMBAR DITINGKATKAN (dari 40px) */
+    margin-right: 12px; /* Margin sedikit diperbesar untuk keseimbangan */
+    vertical-align: middle; 
+    transition: height 0.3s; 
 }
 
 header.scrolled .logo-img {
-    height: 30px; /* Kecilkan logo saat di-scroll */
+    height: 40px; /* Ukuran gambar saat di-scroll ditingkatkan (dari 30px) */
 }
 
 
@@ -649,10 +649,10 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     
     /* Logo di Mobile */
     .logo {
-        font-size: 1.5em; /* Sedikit lebih kecil */
+        font-size: 1.8em; /* UKURAN TEKS MOBILE DITINGKATKAN (dari 1.5em) */
     }
     .logo-img {
-        height: 30px; /* Sesuaikan ukuran logo di mobile */
+        height: 40px; /* UKURAN GAMBAR MOBILE DITINGKATKAN (dari 30px) */
     }
 
     /* 2. UKURAN FONT MOBILE */
