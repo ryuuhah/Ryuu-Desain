@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('header');
     
     // Variabel dan Konfigurasi WhatsApp
-    // Nomor: 081902851525 -> Format Internasional: 6281902851525
     const WHATSAPP_NUMBER = '6281902851525'; 
     const WHATSAPP_BASE_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=`;
     
@@ -17,10 +16,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const hitungBiayaBtn = document.getElementById('hitungBiaya');
     const hasilBiayaSpan = document.getElementById('hasilBiaya');
     
-    // 1. Fungsi Menu Mobile (Hamburger)
+    // 1. Fungsi Menu Mobile (Hamburger) & Animasi Ikon
     if (menuToggle && navMenu) {
         menuToggle.addEventListener('click', function() {
             navMenu.classList.toggle('active');
+            
+            // Logika Mengubah Ikon
+            const icon = menuToggle.querySelector('i');
+            if (navMenu.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times'); // Ubah ke ikon silang
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars'); // Kembalikan ke ikon garis tiga
+            }
         });
     }
 
@@ -29,6 +38,11 @@ document.addEventListener('DOMContentLoaded', function() {
         link.addEventListener('click', () => {
             if (navMenu.classList.contains('active')) {
                  navMenu.classList.remove('active');
+                 
+                 // Pastikan ikon kembali ke garis tiga setelah ditutup
+                 const icon = menuToggle.querySelector('i');
+                 icon.classList.remove('fa-times');
+                 icon.classList.add('fa-bars');
             }
         });
     });
