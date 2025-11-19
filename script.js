@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 2. Tutup Menu saat Link Diklik (di Mobile)
     document.querySelectorAll('.nav-menu a').forEach(link => {
         link.addEventListener('click', () => {
+            // Cek apakah menu sedang aktif sebelum menutup
             if (navMenu.classList.contains('active')) {
                  navMenu.classList.remove('active');
                  
