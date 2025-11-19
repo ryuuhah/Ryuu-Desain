@@ -6,7 +6,7 @@
     --color-text-dark: #333333;
     --color-secondary-dark: #2C3E50; /* Warna gelap sekunder untuk latar belakang */
     --color-success: #27AE60; /* Hijau untuk tanda centang */
-    --color-soft-bg: #f7f7f7; /* Latar belakang lembut untuk Tentang Kami */
+    --color-soft-bg: #FAF9F6; /* Creamy Off-White untuk latar belakang elegan */
 }
 
 /* RESET dan FONT */
@@ -292,7 +292,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     color: var(--color-accent); 
 }
 
-/* 5. TENTANG KAMI - Gaya BARU dan ELEGAN */
+/* 5. TENTANG KAMI - Gaya BARU dan ELEGAN (Disesuaikan) */
 .about-content {
     text-align: left;
     max-width: 900px;
@@ -302,24 +302,27 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     /* Pemolesan Gaya */
     padding: 30px; 
     border-radius: 10px;
-    background-color: var(--color-soft-bg); 
+    /* PERUBAHAN WARNA LATAR BELAKANG */
+    background-color: var(--color-soft-bg); /* Creamy Off-White */
     box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
 }
 
-.about-content p {
-    font-size: 1.1em;
+/* Gaya Paragraf Pengantar (Intro) */
+.about-content .about-intro {
+    font-size: 1em; 
     margin-bottom: 25px;
-    font-family: 'Lora', serif; /* Menonjolkan paragraf utama */
-    font-style: italic;
-    color: var(--color-primary);
+    font-family: 'Poppins', sans-serif; 
+    font-style: normal; 
+    color: var(--color-text-dark); 
+    font-weight: 400;
 }
 
 .about-content h3 {
-    color: var(--color-accent); /* Ubah warna h3 ke accent */
+    color: var(--color-accent); 
     font-size: 1.5em;
     margin-top: 30px;
     margin-bottom: 15px;
-    border-bottom: 2px solid var(--color-primary); /* Ubah warna garis bawah */
+    border-bottom: 2px solid var(--color-primary); 
     display: inline-block;
 }
 
@@ -329,7 +332,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 }
 
 .benefit-list li {
-    font-size: 1.1em;
+    font-size: 1em; /* Ukuran font disamakan */
     margin-bottom: 12px;
     
     /* Pemolesan List */
@@ -593,7 +596,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 
 @media (max-width: 768px) {
     
-    /* 1. NAVIGASI MOBILE (Diperbarui dengan Animasi dan Spacing) */
+    /* 1. NAVIGASI MOBILE (Animasi & Spacing) */
     
     .menu-toggle {
         display: block; 
@@ -647,11 +650,12 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
         margin-bottom: 50px;
     }
 
+    /* Konsistensi font pada bagian Tentang Kami */
     .about-content {
         padding: 20px;
     }
-    .about-content p, .benefit-list li {
-        font-size: 1em;
+    .about-content .about-intro, .benefit-list li {
+        font-size: 0.95em;
     }
     
     .price-new {
