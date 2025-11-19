@@ -160,7 +160,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     align-items: center;
     text-align: center;
     padding: 150px 5%;
-    /* FILE BARU */
+    /* FILE GAMBAR BARU */
     background-image: url('image/hero-background.webp'); 
     background-size: cover;
     background-position: center;
@@ -286,33 +286,55 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     color: var(--color-accent); 
 }
 
-/* 5. TENTANG KAMI */
-.about-text {
-    font-family: 'Lora', serif; 
-    font-size: 1.5em;
-    font-style: italic;
-    text-align: center;
+/* 5. TENTANG KAMI - Gaya Baru */
+.about-content {
+    text-align: left;
     max-width: 900px;
     margin: 0 auto;
     line-height: 1.8;
 }
 
-/* Gaya Deskripsi Kalkulator */
+.about-content h3 {
+    color: var(--color-primary);
+    font-size: 1.5em;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--color-accent);
+    display: inline-block;
+}
+
+.benefit-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.benefit-list li {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.benefit-list i {
+    color: var(--color-success);
+    margin-right: 15px;
+    font-size: 1.2em;
+}
+/* Menghapus gaya lama untuk .about-text karena sudah diganti dengan struktur baru */
+
+
+/* 6. KALKULATOR HARGA */
 .calculator-desc {
     text-align: center;
     font-size: 1.1em;
-    color: var(--color-text-dark); /* Menggunakan warna teks gelap default */
+    color: var(--color-text-dark);
     max-width: 600px;
     margin: -50px auto 30px auto; 
     line-height: 1.5;
     padding: 10px 0;
 }
-/* Style untuk <strong> di kalkulator */
 .calculator-desc strong {
     color: var(--color-primary); 
 }
 
-/* 6. KALKULATOR HARGA */
 .calculator-container {
     background-color: var(--color-primary); 
     color: var(--color-text-light); 
@@ -385,7 +407,6 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     flex-wrap: wrap;
 }
 
-/* Style untuk efek hover pada kartu harga */
 .price-card {
     background-color: white;
     padding: 40px;
@@ -396,7 +417,6 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     transition: transform 0.4s ease, box-shadow 0.4s ease; 
 }
 
-/* Efek sedikit membesar saat kursor menunjuk (hover) */
 .price-card:hover {
     transform: scale(1.05); 
     box-shadow: 0 15px 40px rgba(0,0,0,0.2);
@@ -407,7 +427,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     transform: scale(1.08); 
     box-shadow: 0 8px 25px rgba(0,0,0,0.2);
 }
-/* Memastikan kartu rekomendasi mendapatkan efek hover yang lebih menonjol */
+
 .price-card.recommended:hover {
      transform: scale(1.1);
 }
@@ -419,7 +439,6 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     color: var(--color-accent); 
 }
 
-/* Harga Lama (Dicoret) */
 .price-discount-label {
     font-size: 0.9em;
     color: var(--color-accent);
@@ -435,7 +454,6 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     margin-bottom: 5px;
 }
 
-/* Harga Baru (Menonjol) */
 .price-new {
     font-size: 2.8em; 
     font-weight: 700;
@@ -450,51 +468,46 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     line-height: 2; 
 }
 
-/* Warna tanda centang hijau */
 .perk-list i.fas.fa-check {
-    color: var(--color-success); /* Hijau */
+    color: var(--color-success);
     margin-right: 10px;
     width: 20px;
 }
-/* Warna tanda silang tetap merah */
+
 .perk-list i.fas.fa-times {
-    color: #C0392B; /* Merah */
+    color: #C0392B; 
     margin-right: 10px;
     width: 20px;
 }
 
 /* Scroll Animation Styles */
-
-/* Keadaan Awal: Tidak terlihat dan sedikit ke bawah */
 .fade-in-section {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-/* Keadaan Target: Muncul dan kembali ke posisi normal */
 .fade-in-section.is-visible {
     opacity: 1;
     transform: translateY(0);
 }
 
 
-/* 8. KONTAK & FOOTER (Latar Belakang Baru) */
+/* 8. KONTAK & FOOTER */
 .contact-section {
     text-align: center;
 }
 
-/* Latar Belakang Baru untuk Kontak */
 .contact-bg {
-    background-color: var(--color-secondary-dark); /* Latar belakang gelap */
-    color: var(--color-text-light); /* Warna teks terang */
+    background-color: var(--color-secondary-dark); 
+    color: var(--color-text-light);
 }
-/* Menyesuaikan H2 di bagian kontak */
+
 .contact-bg h2 {
     color: var(--color-text-light);
     border-bottom-color: var(--color-accent);
 }
-/* Menyesuaikan deskripsi kontak */
+
 .contact-bg .contact-desc {
     color: var(--color-text-light);
 }
@@ -508,10 +521,9 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     margin-right: 10px;
 }
 .contact-btn .fab.fa-whatsapp {
-    color: var(--color-primary); /* Warna ikon WA di tombol accent */
+    color: var(--color-primary); 
 }
 
-/* Latar Belakang Footer */
 .footer-bg {
     background-color: var(--color-primary); 
     color: var(--color-text-light);
@@ -524,7 +536,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     position: fixed;
     bottom: 25px;
     right: 25px;
-    background-color: #25D366; /* Warna Hijau WhatsApp */
+    background-color: #25D366; 
     color: white;
     width: 60px;
     height: 60px;
@@ -534,13 +546,13 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     align-items: center;
     font-size: 2.2em;
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    z-index: 1000; /* Pastikan di atas semua elemen */
+    z-index: 1000; 
     transition: transform 0.3s, background-color 0.3s;
-    text-decoration: none; /* Hilangkan garis bawah */
+    text-decoration: none;
 }
 
 #floating-whatsapp:hover {
-    background-color: #128C7E; /* Warna hover WhatsApp yang lebih gelap */
+    background-color: #128C7E;
     transform: scale(1.1);
 }
 
@@ -551,7 +563,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 
 @media (max-width: 768px) {
     
-    /* 1. NAVIGASI MOBILE */
+    /* 1. NAVIGASI MOBILE (Diperbarui dengan Animasi dan Spacing) */
     
     .menu-toggle {
         display: block; 
@@ -559,7 +571,6 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     }
 
     ul.nav-menu {
-        display: none;
         flex-direction: column;
         width: 100%;
         position: absolute;
@@ -567,10 +578,16 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
         left: 0;
         background-color: var(--color-primary); 
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        
+        /* Animasi Buka/Tutup Menu */
+        max-height: 0; /* Awalnya tersembunyi */
+        overflow: hidden;
+        transition: max-height 0.4s ease-in-out; 
     }
-    
+
     ul.nav-menu.active { 
-        display: flex;
+        max-height: 500px; /* Nilai besar agar semua menu terlihat (untuk transisi) */
+        /* display: flex; sudah diatur di desktop */
     }
 
     ul.nav-menu li {
@@ -578,11 +595,13 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
         width: 100%;
     }
     ul.nav-menu li a {
-        padding: 15px 0;
+        /* PERUBAHAN: Meningkatkan padding untuk jarak yang lebih baik */
+        padding: 20px 0; 
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     /* 2. UKURAN FONT MOBILE */
+    /* ... (gaya lain tetap sama) */
     
     .section-padding {
         padding: 80px 5%; 
@@ -619,11 +638,9 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     .project-card img {
         height: 200px;
     }
-    /* Nonaktifkan transform awal pada mobile agar tidak terlalu besar */
     .price-card.recommended {
         transform: none; 
     }
-    /* Sesuaikan hover di mobile */
     .price-card:hover, .price-card.recommended:hover {
         transform: scale(1.02);
     }
