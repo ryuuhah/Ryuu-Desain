@@ -88,7 +88,22 @@ header.scrolled nav {
     font-weight: 700;
     font-size: 1.8em;
     color: var(--color-accent); 
+    display: flex; /* Tambahkan flexbox untuk menyelaraskan gambar dan teks */
+    align-items: center; /* Pusatkan secara vertikal */
 }
+
+/* Gaya untuk logo gambar */
+.logo-img {
+    height: 40px; /* Sesuaikan tinggi logo */
+    margin-right: 10px; /* Beri sedikit jarak antara logo dan teks */
+    vertical-align: middle; /* Pastikan gambar sejajar dengan teks */
+    transition: height 0.3s; /* Tambahkan transisi jika header di-scroll */
+}
+
+header.scrolled .logo-img {
+    height: 30px; /* Kecilkan logo saat di-scroll */
+}
+
 
 /* ANIMASI IKON TOGGLE */
 .menu-toggle i {
@@ -567,143 +582,4 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 /* 9. Floating WhatsApp Button */
 #floating-whatsapp {
     position: fixed;
-    bottom: 25px;
-    right: 25px;
-    background-color: #25D366; 
-    color: white;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2.2em;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    z-index: 1000; 
-    transition: transform 0.3s, background-color 0.3s;
-    text-decoration: none;
-}
-
-#floating-whatsapp:hover {
-    background-color: #128C7E;
-    transform: scale(1.1);
-}
-
-
-/* ======================================================= */
-/* MEDIA QUERIES (MOBILE) */
-/* ======================================================= */
-
-@media (max-width: 768px) {
-    
-    /* 1. NAVIGASI MOBILE (Animasi & Spacing) */
-    
-    .menu-toggle {
-        display: block; 
-        order: 2; 
-    }
-
-    ul.nav-menu {
-        flex-direction: column;
-        width: 100%;
-        position: absolute;
-        top: 60px; 
-        left: 0;
-        background-color: var(--color-primary); 
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        
-        /* Animasi Buka/Tutup Menu */
-        max-height: 0; /* Awalnya tersembunyi */
-        overflow: hidden;
-        transition: max-height 0.4s ease-in-out; 
-    }
-
-    ul.nav-menu.active { 
-        max-height: 500px; /* Nilai besar agar semua menu terlihat (untuk transisi) */
-    }
-
-    ul.nav-menu li {
-        text-align: center;
-        width: 100%;
-    }
-    ul.nav-menu li a {
-        /* Meningkatkan padding untuk jarak yang lebih baik */
-        padding: 20px 0; 
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    /* 2. UKURAN FONT MOBILE */
-    
-    .section-padding {
-        padding: 80px 5%; 
-    }
-
-    .hero h1 {
-        font-size: 2.5em; 
-    }
-    .hero p {
-        font-size: 1.1em;
-    }
-
-    h2 {
-        font-size: 2em; 
-        margin-bottom: 50px;
-    }
-
-    /* Konsistensi font pada bagian Tentang Kami */
-    .about-content {
-        padding: 20px;
-    }
-    .about-content .about-intro, .benefit-list li {
-        font-size: 0.95em;
-    }
-    
-    .price-new {
-        font-size: 2em; 
-    }
-    
-    /* 3. LAYOUT MOBILE */
-    .service-list, .pricing-table {
-        flex-direction: column;
-        gap: 30px;
-    }
-    .service-item h3 {
-        font-size: 1.2em;
-    }
-    .project-card img {
-        height: 200px;
-    }
-    .price-card.recommended {
-        transform: none; 
-    }
-    .price-card:hover, .price-card.recommended:hover {
-        transform: scale(1.02);
-    }
-    
-    .price-card {
-        width: 90%; 
-        max-width: 350px; 
-        margin: 0 auto; 
-    }
-
-    /* KALKULATOR MOBILE */
-    .calculator-container {
-        padding: 30px;
-        width: 95%;
-    }
-    .calculator-result {
-        font-size: 1.2em;
-    }
-    .calculator-result #hasilBiaya {
-        font-size: 1.5em;
-    }
-
-    /* Floating WA Button Mobile Size */
-    #floating-whatsapp {
-        width: 50px;
-        height: 50px;
-        font-size: 1.8em;
-        bottom: 15px;
-        right: 15px;
-    }
-}
+    bottom: 25px}
