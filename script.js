@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const navMenu = document.querySelector('.nav-menu');
     const header = document.querySelector('header');
     
-    // Variabel dan Konfigurasi WhatsApp
-    const WHATSAPP_NUMBER = '6281902851525'; 
+    // 1. Variabel dan Konfigurasi WhatsApp (NOMOR BARU)
+    const WHATSAPP_NUMBER = '6285117788355'; // NOMOR BARU: 085117788355
     const WHATSAPP_BASE_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=`;
     
     // Default message untuk link kontak umum
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const hitungBiayaBtn = document.getElementById('hitungBiaya');
     const hasilBiayaSpan = document.getElementById('hasilBiaya');
     
-    // 1. Fungsi Menu Mobile (Hamburger) & Animasi Ikon
+    // 2. Fungsi Menu Mobile (Hamburger) & Animasi Ikon
     if (menuToggle && navMenu) {
         menuToggle.addEventListener('click', function() {
             navMenu.classList.toggle('active');
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 2. Tutup Menu saat Link Diklik (di Mobile)
+    // 3. Tutup Menu saat Link Diklik (di Mobile)
     document.querySelectorAll('.nav-menu a').forEach(link => {
         link.addEventListener('click', () => {
             // Cek apakah menu sedang aktif sebelum menutup
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // 3. Efek Header Dinamis saat Scroll
+    // 4. Efek Header Dinamis saat Scroll
     window.addEventListener('scroll', function() {
         if (window.scrollY > 50) {
             header.classList.add('scrolled');
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // 4. Utilitas Format Rupiah
+    // 5. Utilitas Format Rupiah
     function formatRupiah(angka) {
         const rupiah = new Intl.NumberFormat('id-ID', {
             style: 'currency',
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return rupiah;
     }
 
-    // 5. Logika Kalkulator dan Redirect WhatsApp
+    // 6. Logika Kalkulator dan Redirect WhatsApp
     function generateWhatsappLink(packageName, luasArea, estimasiBiaya) {
         // Encoding pesan untuk URL WhatsApp
         const message = encodeURIComponent(
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
     luasAreaInput.addEventListener('input', hitungEstimasiAwal);
     paketDesainSelect.addEventListener('change', hitungEstimasiAwal);
     
-    // 6. Listener untuk Tombol Daftar Harga (Pesan Sekarang)
+    // 7. Listener untuk Tombol Daftar Harga (Pesan Sekarang)
     document.querySelectorAll('.pesan-paket-btn').forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault(); // PENTING: Mencegah perilaku default link
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // 7. Listener untuk Semua Link Kontak WA Umum (Navbar, Footer, Floating)
+    // 8. Listener untuk Semua Link Kontak WA Umum (Navbar, Footer, Floating)
     document.querySelectorAll('.wa-contact-link, #whatsappContactLink').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault(); // PENTING: Mencegah perilaku default link
@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // 8. Scroll Reveal Animation (Intersection Observer)
+    // 9. Scroll Reveal Animation (Intersection Observer)
     const fadeSections = document.querySelectorAll('.fade-in-section');
 
     const observer = new IntersectionObserver((entries, observer) => {
