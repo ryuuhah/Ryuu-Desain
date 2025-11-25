@@ -482,7 +482,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 }
 
 /* ======================================================= */
-/* PREMIUM PACKAGE - GOLDEN BORDER & SHIMMER */
+/* PREMIUM PACKAGE - GOLDEN BORDER & SHIMMER (DESKTOP ONLY) */
 /* ======================================================= */
 
 /* Premium Card Base Style */
@@ -665,7 +665,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 
 
 /* ======================================================= */
-/* MEDIA QUERIES (MOBILE) */
+/* MEDIA QUERIES (MOBILE) - PENYESUAIAN PENTING */
 /* ======================================================= */
 
 @media (max-width: 768px) {
@@ -686,14 +686,14 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
         background-color: var(--color-primary); 
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         
-        /* Animasi Buka/Tutup Menu */
+        /* PENTING: Mengubah dari display: none menjadi max-height untuk animasi geser */
         max-height: 0; 
         overflow: hidden;
         transition: max-height 0.4s ease-in-out; 
     }
 
     ul.nav-menu.active { 
-        max-height: 500px; 
+        max-height: 500px; /* Nilai yang cukup besar untuk menampung semua link */
     }
 
     ul.nav-menu li {
@@ -713,10 +713,10 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
         height: 40px; 
     }
 
-    /* 2. UKURAN FONT MOBILE */
+    /* 2. UKURAN FONT & SPACING MOBILE */
     
     .section-padding {
-        padding: 80px 5%; 
+        padding: 80px 5%; /* Padding dikurangi */
     }
 
     .hero h1 {
@@ -727,7 +727,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     }
 
     h2 {
-        font-size: 2em; 
+        font-size: 2em; /* Ukuran H2 dikurangi */
         margin-bottom: 50px;
     }
 
@@ -740,10 +740,10 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     }
     
     .price-new {
-        font-size: 2em; 
+        font-size: 2em; /* Ukuran harga baru dikurangi */
     }
     
-    /* 3. LAYOUT MOBILE */
+    /* 3. LAYOUT KARTU HARGA, LAYANAN, & PORTOFOLIO MOBILE */
     .service-list, .pricing-table {
         flex-direction: column;
         gap: 30px;
@@ -754,11 +754,12 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     .project-card img {
         height: 200px;
     }
+    
     .price-card.recommended {
-        transform: none; 
+        transform: none; /* Hilangkan scale awal yang terlalu besar */
     }
     .price-card:hover, .price-card.recommended:hover {
-        transform: scale(1.02);
+        transform: scale(1.02); /* Kurangi efek hover */
     }
     
     .price-card {
@@ -788,8 +789,9 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
         right: 15px;
     }
     
-    /* Premium Shimmer di Mobile: Dikecilkan */
+    /* PENTING: Matikan Animasi Shimmer di Mobile untuk performa */
     .price-card.premium::after {
-        animation: none; /* Matikan animasi di mobile */
+        content: none; 
+        animation: none; 
     }
 }
