@@ -7,6 +7,7 @@
     --color-secondary-dark: #2C3E50; /* Warna gelap sekunder untuk latar belakang */
     --color-success: #27AE60; /* Hijau untuk tanda centang */
     --color-soft-bg: #FAF9F6; /* Creamy Off-White untuk latar belakang elegan */
+    --color-gold: #FFD700; /* Definisi Warna Emas */
 }
 
 /* RESET dan FONT */
@@ -86,7 +87,7 @@ header.scrolled nav {
 .logo {
     font-family: 'Lora', serif;
     font-weight: 700;
-    font-size: 2.2em; /* UKURAN TEKS DITINGKATKAN (dari 1.8em) */
+    font-size: 2.2em; 
     color: var(--color-accent); 
     display: flex; 
     align-items: center; 
@@ -94,14 +95,14 @@ header.scrolled nav {
 
 /* Gaya untuk logo gambar */
 .logo-img {
-    height: 50px; /* UKURAN GAMBAR DITINGKATKAN (dari 40px) */
-    margin-right: 12px; /* Margin sedikit diperbesar untuk keseimbangan */
+    height: 50px; 
+    margin-right: 12px; 
     vertical-align: middle; 
     transition: height 0.3s; 
 }
 
 header.scrolled .logo-img {
-    height: 40px; /* Ukuran gambar saat di-scroll ditingkatkan (dari 30px) */
+    height: 40px; 
 }
 
 
@@ -479,13 +480,71 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 .price-card.recommended:hover {
      transform: scale(1.1);
 }
+
+/* ======================================================= */
+/* PREMIUM PACKAGE - GOLDEN BORDER & SHIMMER */
+/* ======================================================= */
+
+/* Premium Card Base Style */
 .price-card.premium {
     background-color: var(--color-primary); 
     color: var(--color-text-light); 
+    border: 3px solid var(--color-gold); /* GOLD BORDER */
+    position: relative; 
+    overflow: hidden; 
 }
-.price-card.premium h3, .price-card.premium .price-old, .price-card.premium .price-new {
-    color: var(--color-accent); 
+.price-card.premium:hover {
+    transform: scale(1.08); 
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4); /* Gold Shadow on hover */
 }
+
+/* Premium Card Text Color */
+.price-card.premium h3, 
+.price-card.premium .price-old, 
+.price-card.premium .price-new, 
+.price-card.premium .price-discount-label {
+    color: var(--color-gold); /* Ensure text is gold */
+}
+
+/* Premium Card Button */
+.price-card.premium .btn {
+    background-color: var(--color-gold);
+    color: var(--color-primary);
+}
+.price-card.premium .btn:hover {
+    background-color: #e0b400; /* Darker gold on hover */
+}
+
+/* Premium Card Checkmarks */
+.price-card.premium .perk-list i.fas.fa-check {
+    color: var(--color-gold); 
+}
+
+/* Shimmer Animation Keyframes */
+@keyframes shimmer {
+    0% { transform: skewX(-20deg) translateX(-100%); }
+    100% { transform: skewX(-20deg) translateX(200%); }
+}
+
+/* Shimmer Pseudo-element */
+.price-card.premium::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30%; 
+    height: 100%;
+    /* Gradient for the shimmer effect */
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent); 
+    transform: skewX(-20deg) translateX(-100%);
+    pointer-events: none;
+    animation: shimmer 5s infinite linear; /* Slower animation */
+    animation-delay: 3s; 
+}
+/* ======================================================= */
+/* END PREMIUM PACKAGE STYLES */
+/* ======================================================= */
+
 
 .price-discount-label {
     font-size: 0.9em;
@@ -516,11 +575,11 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     line-height: 2; 
 }
 
-.perk-list i.fas.fa-check {
+/* Ensure default text color for other package checkmarks */
+.price-card:not(.premium) .perk-list i.fas.fa-check {
     color: var(--color-success);
-    margin-right: 10px;
-    width: 20px;
 }
+
 
 .perk-list i.fas.fa-times {
     color: #C0392B; 
@@ -628,13 +687,13 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         
         /* Animasi Buka/Tutup Menu */
-        max-height: 0; /* Awalnya tersembunyi */
+        max-height: 0; 
         overflow: hidden;
         transition: max-height 0.4s ease-in-out; 
     }
 
     ul.nav-menu.active { 
-        max-height: 500px; /* Nilai besar agar semua menu terlihat (untuk transisi) */
+        max-height: 500px; 
     }
 
     ul.nav-menu li {
@@ -642,17 +701,16 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
         width: 100%;
     }
     ul.nav-menu li a {
-        /* Meningkatkan padding untuk jarak yang lebih baik */
         padding: 20px 0; 
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     /* Logo di Mobile */
     .logo {
-        font-size: 1.8em; /* UKURAN TEKS MOBILE DITINGKATKAN (dari 1.5em) */
+        font-size: 1.8em; 
     }
     .logo-img {
-        height: 40px; /* UKURAN GAMBAR MOBILE DITINGKATKAN (dari 30px) */
+        height: 40px; 
     }
 
     /* 2. UKURAN FONT MOBILE */
@@ -728,5 +786,10 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
         font-size: 1.8em;
         bottom: 15px;
         right: 15px;
+    }
+    
+    /* Premium Shimmer di Mobile: Dikecilkan */
+    .price-card.premium::after {
+        animation: none; /* Matikan animasi di mobile */
     }
 }
