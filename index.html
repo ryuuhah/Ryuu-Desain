@@ -103,7 +103,7 @@
 
             <div class="satuan-catalog-container">
                 <h3 class="satuan-title">Katalog Produk Satuan (A La Carte)</h3>
-                <p class="satuan-subtitle">Klik layanan yang Anda inginkan untuk ditambahkan ke keranjang belanja.</p>
+                <p class="satuan-subtitle">Klik layanan yang Anda inginkan untuk **menambahkan ke keranjang**. Klik lagi untuk **menghapus**.</p>
                 
                 <div class="satuan-grid">
                     <div class="satuan-item" data-id="1" data-price="15000" data-name="Gambar Kerja 2D" data-unit="m²">
@@ -146,6 +146,11 @@
                 <div class="satuan-calculator-box">
                     <h4>Keranjang Belanja & Estimasi</h4>
                     
+                    <div id="volumeNote" class="volume-input-note" style="display: none;">
+                        <p class="note-title"><i class="fas fa-exclamation-triangle"></i> PENTING: Isi Kolom Volume Area</p>
+                        <p class="note-content">Masukkan **Luas Area Total** yang akan didesain. (Misalnya: Untuk bangunan 2 lantai dengan luas masing-masing 100m², masukkan **200m²**).</p>
+                        <p class="note-subcontent">Pastikan nominalnya benar untuk mendapatkan estimasi yang akurat.</p>
+                    </div>
                     <div id="satuanCartList" class="cart-list">
                         <p class="cart-empty-message">Keranjang kosong. Pilih produk dari katalog di atas.</p>
                     </div>
