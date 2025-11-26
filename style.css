@@ -6,6 +6,7 @@
     --color-text-dark: #333333;
     --color-secondary-dark: #2C3E50;
     --color-success: #27AE60;
+    --color-soft-bg: #FAF9F6;
     --color-gold: #FFD700; /* Warna emas cerah (TIDAK DIGUNAKAN UNTUK PREMIUM PACKAGE) */
 }
 
@@ -482,7 +483,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 /* PREMIUM PACKAGE - DENGAN ACCENT GOLD & BORDER SHIMMER BARU */
 /* ======================================================= */
 
-/* Keyframes untuk Animasi Border Pulse (Menggantikan Shimmer penuh) */
+/* Keyframes untuk Animasi Border Pulse */
 @keyframes shimmer-pulse {
     0% { box-shadow: 0 0 5px var(--color-accent); }
     50% { box-shadow: 0 0 15px var(--color-accent), 0 0 20px rgba(169, 143, 107, 0.5); }
@@ -496,7 +497,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     border: 3px solid var(--color-accent); 
     position: relative; 
     overflow: hidden; 
-    animation: shimmer-pulse 3s infinite alternate; /* Animasi mengkilat/pulse pada border */
+    animation: shimmer-pulse 3s infinite alternate; 
 }
 
 /* Hover Effect */
@@ -505,8 +506,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     box-shadow: 0 8px 25px rgba(169, 143, 107, 0.4); 
 }
 
-/* Premium Card Text Color */
-.price-card.premium h3, 
+/* Premium Card Text Color (Hanya elemen non-shimmer yang pakai ini) */
 .price-card.premium .price-old, 
 .price-card.premium .price-new, 
 .price-card.premium .price-discount-label {
@@ -527,11 +527,55 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     color: var(--color-accent); 
 }
 
-/* PENTING: Hapus Pseudo-element Shimmer Lama */
+/* Hapus Pseudo-element Shimmer Lama */
 .price-card.premium::after {
     content: none; 
     animation: none;
 }
+
+/* ======================================================= */
+/* SHIMMER TEXT ANIMATION - BARU */
+/* ======================================================= */
+
+@keyframes text-shimmer {
+    0% {
+        background-position: 200% 0; 
+    }
+    100% {
+        background-position: -200% 0; 
+    }
+}
+
+.shimmer-text-gold {
+    display: inline-block; /* Penting agar background-clip berfungsi */
+    font-size: 1.8em; 
+    font-weight: 700;
+    margin-bottom: 10px; /* Jarak yang sama dengan h3 lainnya */
+    
+    /* 1. Atur Background Gradient untuk efek sapuan cahaya */
+    background-image: linear-gradient(
+        90deg, 
+        var(--color-accent) 0%, 
+        #FFFFFF 50%, /* Puncak cahaya yang menyapu */
+        var(--color-accent) 100%
+    );
+    
+    /* 2. Atur ukuran gradient agar lebih lebar dari teks untuk efek sapuan */
+    background-size: 200% 100%;
+    
+    /* 3. Clip background hanya pada area teks */
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+    /* 4. Jadikan warna teks transparan */
+    -webkit-text-fill-color: transparent;
+    color: transparent; /* Fallback */
+    
+    /* 5. Terapkan animasi */
+    animation: text-shimmer 3s infinite linear;
+}
+
+
 /* ======================================================= */
 /* END PREMIUM PACKAGE STYLES */
 /* ======================================================= */
@@ -566,16 +610,13 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     line-height: 2; 
 }
 
-/* ======================================================= */
-/* PENYESUAIAN SPACING IKON (V & X) - BARU */
-/* ======================================================= */
+/* PENYESUAIAN SPACING IKON (V & X) */
 .perk-list i {
-    display: inline-block; /* Memastikan width dapat diterapkan */
-    width: 25px; /* Memberi lebar tetap agar centang/silang rata */
-    margin-right: 5px; /* Jarak yang konsisten antara ikon dan teks */
-    text-align: center; /* Memastikan ikon rata tengah di dalam lebar 25px */
+    display: inline-block; 
+    width: 25px; 
+    margin-right: 5px; 
+    text-align: center; 
 }
-/* ======================================================= */
 
 
 /* Ensure default text color for other package checkmarks */
@@ -586,7 +627,6 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 
 .perk-list i.fas.fa-times {
     color: #C0392B; 
-    /* margin-right dan width diatur di .perk-list i (atas) */
 }
 
 
@@ -796,5 +836,13 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     /* PENTING: Matikan Animasi Pulse di Mobile untuk performa */
     .price-card.premium {
         animation: none; 
+    }
+    
+    /* Matikan Text Shimmer di Mobile untuk performa */
+    .shimmer-text-gold {
+        background-image: none;
+        -webkit-text-fill-color: var(--color-accent);
+        color: var(--color-accent);
+        animation: none;
     }
 }
