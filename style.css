@@ -1,10 +1,13 @@
 /* PALET BARU ELEGANT: Navy & Gold */
 :root {
     --color-primary: #1C2833; 
-    --color-accent: #A98F6B; 
+    --color-accent: #A98F6B; /* Emas Ryuu Desain */
     --color-text-light: #F8F8F8; 
     --color-text-dark: #333333;
-    --color-success: #27AE60; /* Hijau untuk tanda centang */
+    --color-secondary-dark: #2C3E50;
+    --color-success: #27AE60;
+    --color-soft-bg: #FAF9F6;
+    --color-gold: #FFD700; /* Warna emas cerah (TIDAK DIGUNAKAN UNTUK PREMIUM PACKAGE) */
 }
 
 /* RESET dan FONT */
@@ -36,6 +39,7 @@ h3 {
     padding: 120px 5%; 
     max-width: 1200px;
     margin: 0 auto;
+    text-align: center; 
 }
 
 .bg-light {
@@ -83,8 +87,28 @@ header.scrolled nav {
 .logo {
     font-family: 'Lora', serif;
     font-weight: 700;
-    font-size: 1.8em;
+    font-size: 2.2em; 
     color: var(--color-accent); 
+    display: flex; 
+    align-items: center; 
+}
+
+/* Gaya untuk logo gambar */
+.logo-img {
+    height: 50px; 
+    margin-right: 12px; 
+    vertical-align: middle; 
+    transition: height 0.3s; 
+}
+
+header.scrolled .logo-img {
+    height: 40px; 
+}
+
+
+/* ANIMASI IKON TOGGLE */
+.menu-toggle i {
+    transition: transform 0.3s ease-in-out;
 }
 
 ul.nav-menu {
@@ -158,7 +182,8 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     align-items: center;
     text-align: center;
     padding: 150px 5%;
-    background-image: url('path/to/your-best-design.jpg'); 
+    /* FILE GAMBAR BARU */
+    background-image: url('image/hero-background.webp'); 
     background-size: cover;
     background-position: center;
     color: white; 
@@ -248,11 +273,12 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 }
 
 
-/* 4. LAYANAN LIST (Ikon di atas Judul - PERUBAHAN) */
+/* 4. LAYANAN LIST - PENYESUAIAN IKON DI ATAS JUDUL */
 .service-list {
     display: flex;
     justify-content: space-around;
     gap: 40px;
+    text-align: center;
     flex-wrap: wrap; 
 }
 
@@ -263,42 +289,106 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     border: 1px solid #ddd;
     border-radius: 8px;
     transition: box-shadow 0.3s;
-    text-align: center; /* PENTING: Untuk memastikan ikon dan judul terpusat */
 }
 
 .service-item:hover {
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
-/* BARU: Style untuk menampung ikon agar berada di atas judul */
-.service-icon {
+/* STYLING BARU UNTUK IKON DI ATAS JUDUL */
+.service-item .service-icon {
     font-size: 3em; 
-    color: var(--color-accent);
-    margin-bottom: 10px; 
-    display: block;
+    color: var(--color-accent); 
+    display: block; 
+    margin: 0 auto 10px auto; /* Pusatkan Ikon dan Beri Jarak Bawah */
+    width: fit-content;
 }
 
-/* H3 style: Judul di bawah ikon */
 .service-item h3 {
     font-size: 1.3em; 
-    margin-bottom: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
+/* HAPUS STYLING IKON DARI DALAM H3 (Karena struktur HTML sudah diubah) */
+/* .service-item h3 i { ... } */
+
+
 /* 5. TENTANG KAMI */
-.about-text {
-    font-family: 'Lora', serif; 
-    font-size: 1.5em;
-    font-style: italic;
-    text-align: center;
+.about-content {
+    text-align: left;
     max-width: 900px;
     margin: 0 auto;
     line-height: 1.8;
+    
+    padding: 30px; 
+    border-radius: 10px;
+    background-color: var(--color-soft-bg); 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
 }
 
+.about-content .about-intro {
+    font-size: 1em; 
+    margin-bottom: 25px;
+    font-family: 'Poppins', sans-serif; 
+    font-style: normal; 
+    color: var(--color-text-dark); 
+    font-weight: 400;
+}
+
+.about-content h3 {
+    color: var(--color-accent); 
+    font-size: 1.5em;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--color-primary); 
+    display: inline-block;
+}
+
+.benefit-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.benefit-list li {
+    font-size: 1em; 
+    margin-bottom: 12px;
+    
+    background-color: #ffffff; 
+    padding: 10px 15px;
+    border-left: 5px solid var(--color-accent); 
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    transition: transform 0.3s;
+}
+.benefit-list li:hover {
+    transform: translateX(5px);
+}
+
+.benefit-list i {
+    color: var(--color-success);
+    margin-right: 15px;
+    font-size: 1.2em;
+}
+
+
 /* 6. KALKULATOR HARGA */
+.calculator-desc {
+    text-align: center;
+    font-size: 1.1em;
+    color: var(--color-text-dark);
+    max-width: 600px;
+    margin: -50px auto 30px auto; 
+    line-height: 1.5;
+    padding: 10px 0;
+}
+.calculator-desc strong {
+    color: var(--color-primary); 
+}
+
 .calculator-container {
-    background-color: var(--color-primary); /* Latar belakang Navy */
-    color: var(--color-text-light); /* Teks putih */
+    background-color: var(--color-primary); 
+    color: var(--color-text-light); 
     padding: 40px;
     border-radius: 8px;
     max-width: 700px;
@@ -317,7 +407,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     display: block;
     font-size: 1.1em;
     margin-bottom: 10px;
-    color: var(--color-accent); /* Label Aksen Gold */
+    color: var(--color-accent); 
     font-weight: 600;
 }
 
@@ -327,7 +417,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     padding: 12px 15px;
     border: 1px solid #555;
     border-radius: 5px;
-    background-color: #333D47; /* Input Background Darker Navy */
+    background-color: #333D47; 
     color: var(--color-text-light);
     font-size: 1em;
     -webkit-appearance: none; 
@@ -339,7 +429,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 .calculator-form select:focus {
     border-color: var(--color-accent);
     outline: none;
-    box-shadow: 0 0 0 2px rgba(169, 143, 107, 0.5); /* Aksen fokus gold */
+    box-shadow: 0 0 0 2px rgba(169, 143, 107, 0.5); 
 }
 
 .calculator-result {
@@ -353,7 +443,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 }
 
 .calculator-result #hasilBiaya {
-    color: var(--color-accent); /* Hasil biaya Aksen Gold */
+    color: var(--color-accent); 
     font-size: 1.8em;
     display: block;
     margin-top: 10px;
@@ -375,7 +465,12 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     text-align: center;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     width: 300px; 
-    transition: transform 0.3s;
+    transition: transform 0.4s ease, box-shadow 0.4s ease; 
+}
+
+.price-card:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
 }
 
 .price-card.recommended {
@@ -384,44 +479,69 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     box-shadow: 0 8px 25px rgba(0,0,0,0.2);
 }
 
-/* DITAMBAHKAN: Keyframes untuk efek kilat/glow pada border Premium */
-@keyframes border-glow {
-    0% { box-shadow: 0 0 0 0 rgba(169, 143, 107, 0.4), inset 0 0 0 0 rgba(169, 143, 107, 0.4); } 
-    50% { box-shadow: 0 0 15px 3px rgba(169, 143, 107, 0.9), inset 0 0 15px 3px rgba(169, 143, 107, 0.5); } 
-    100% { box-shadow: 0 0 0 0 rgba(169, 143, 107, 0.4), inset 0 0 0 0 rgba(169, 143, 107, 0.4); } 
+.price-card.recommended:hover {
+     transform: scale(1.1);
 }
 
-/* PERUBAHAN: Paket Premium menggunakan warna aksen Ryuu Desain dan Border Shimmer */
+/* ======================================================= */
+/* PREMIUM PACKAGE - DENGAN ACCENT GOLD & BORDER SHIMMER BARU */
+/* ======================================================= */
+
+/* Keyframes untuk Animasi Border Pulse (Menggantikan Shimmer penuh) */
+@keyframes shimmer-pulse {
+    0% { box-shadow: 0 0 5px var(--color-accent); }
+    50% { box-shadow: 0 0 15px var(--color-accent), 0 0 20px rgba(169, 143, 107, 0.5); }
+    100% { box-shadow: 0 0 5px var(--color-accent); }
+}
+
+/* Premium Card Base Style */
 .price-card.premium {
     background-color: var(--color-primary); 
     color: var(--color-text-light); 
-    /* Emas Ryuu Desain */
-    border: 3px solid var(--color-accent); 
+    border: 3px solid var(--color-accent); /* Menggunakan Emas Ryuu Desain */
     position: relative; 
-    transition: transform 0.3s;
-    /* Animasi shimmer/glow hanya pada border */
-    animation: border-glow 3s infinite ease-in-out; 
-}
-.price-card.premium h3, 
-.price-card.premium .price-old, 
-.price-card.premium .price-new,
-.price-card.premium .perk-list i.fas.fa-check {
-    /* Emas Ryuu Desain */
-    color: var(--color-accent); 
+    overflow: hidden; 
+    animation: shimmer-pulse 3s infinite alternate; /* Animasi mengkilat/pulse pada border */
 }
 
-/* DITAMBAHKAN: Style untuk tombol di dalam paket premium */
+/* Hover Effect */
+.price-card.premium:hover {
+    transform: scale(1.08); 
+    box-shadow: 0 8px 25px rgba(169, 143, 107, 0.4); /* Gunakan ACCENT GOLD Shadow pada hover */
+}
+
+/* Premium Card Text Color */
+.price-card.premium h3, 
+.price-card.premium .price-old, 
+.price-card.premium .price-new, 
+.price-card.premium .price-discount-label {
+    color: var(--color-accent); /* Menggunakan Emas Ryuu Desain */
+}
+
+/* Premium Card Button */
 .price-card.premium .btn {
-    background-color: var(--color-accent); 
+    background-color: var(--color-accent); /* Menggunakan Emas Ryuu Desain */
     color: var(--color-primary);
 }
 .price-card.premium .btn:hover {
-    background-color: #C1A67B; 
+    background-color: #C1A67B; /* Warna hover yang konsisten */
 }
-/* AKHIR PERUBAHAN PAKET PREMIUM */
+
+/* Premium Card Checkmarks */
+.price-card.premium .perk-list i.fas.fa-check {
+    color: var(--color-accent); /* Menggunakan Emas Ryuu Desain */
+}
+
+/* PENTING: Hapus Pseudo-element Shimmer Lama */
+.price-card.premium::after {
+    content: none; 
+    animation: none;
+}
+/* ======================================================= */
+/* END PREMIUM PACKAGE STYLES */
+/* ======================================================= */
 
 
-/* Harga Lama (Dicoret) */
 .price-discount-label {
     font-size: 0.9em;
     color: var(--color-accent);
@@ -437,7 +557,6 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     margin-bottom: 5px;
 }
 
-/* Harga Baru (Menonjol) */
 .price-new {
     font-size: 2.8em; 
     font-weight: 700;
@@ -452,23 +571,48 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     line-height: 2; 
 }
 
-/* Warna tanda centang hijau */
-.perk-list i.fas.fa-check {
-    color: var(--color-success); /* Hijau */
-    margin-right: 10px;
-    width: 20px;
+/* Ensure default text color for other package checkmarks */
+.price-card:not(.premium) .perk-list i.fas.fa-check {
+    color: var(--color-success);
 }
-/* Warna tanda silang tetap merah */
+
+
 .perk-list i.fas.fa-times {
-    color: #C0392B; /* Merah */
+    color: #C0392B; 
     margin-right: 10px;
     width: 20px;
 }
 
+/* Scroll Animation Styles */
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
 
-/* 8. KONTAK */
+.fade-in-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* 8. KONTAK & FOOTER */
 .contact-section {
     text-align: center;
+}
+
+.contact-bg {
+    background-color: var(--color-secondary-dark); 
+    color: var(--color-text-light);
+}
+
+.contact-bg h2 {
+    color: var(--color-text-light);
+    border-bottom-color: var(--color-accent);
+}
+
+.contact-bg .contact-desc {
+    color: var(--color-text-light);
 }
 
 .contact-desc {
@@ -479,22 +623,50 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 .contact-btn i {
     margin-right: 10px;
 }
-
-/* FOOTER */
-footer {
-    background-color: var(--color-primary);
-    color: var(--color-text-light);
-    padding: 30px 0;
-    font-weight: 300;
+.contact-btn .fab.fa-whatsapp {
+    color: var(--color-primary); 
 }
 
+.footer-bg {
+    background-color: var(--color-primary); 
+    color: var(--color-text-light);
+    padding: 30px 5%;
+    text-align: center;
+}
+
+/* 9. Floating WhatsApp Button */
+#floating-whatsapp {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background-color: #25D366; 
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.2em;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 1000; 
+    transition: transform 0.3s, background-color 0.3s;
+    text-decoration: none;
+}
+
+#floating-whatsapp:hover {
+    background-color: #128C7E;
+    transform: scale(1.1);
+}
+
+
 /* ======================================================= */
-/* MEDIA QUERIES (MOBILE) */
+/* MEDIA QUERIES (MOBILE) - PENYESUAIAN PENTING */
 /* ======================================================= */
 
 @media (max-width: 768px) {
     
-    /* 1. NAVIGASI MOBILE */
+    /* 1. NAVIGASI MOBILE (Animasi & Spacing) */
     
     .menu-toggle {
         display: block; 
@@ -502,7 +674,6 @@ footer {
     }
 
     ul.nav-menu {
-        display: none;
         flex-direction: column;
         width: 100%;
         position: absolute;
@@ -510,10 +681,14 @@ footer {
         left: 0;
         background-color: var(--color-primary); 
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        
+        max-height: 0; 
+        overflow: hidden;
+        transition: max-height 0.4s ease-in-out; 
     }
-    
+
     ul.nav-menu.active { 
-        display: flex;
+        max-height: 500px; 
     }
 
     ul.nav-menu li {
@@ -521,11 +696,19 @@ footer {
         width: 100%;
     }
     ul.nav-menu li a {
-        padding: 15px 0;
+        padding: 20px 0; 
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     
-    /* 2. UKURAN FONT MOBILE */
+    /* Logo di Mobile */
+    .logo {
+        font-size: 1.8em; 
+    }
+    .logo-img {
+        height: 40px; 
+    }
+
+    /* 2. UKURAN FONT & SPACING MOBILE */
     
     .section-padding {
         padding: 80px 5%; 
@@ -543,27 +726,37 @@ footer {
         margin-bottom: 50px;
     }
 
-    .about-text {
-        font-size: 1.1em;
+    /* Konsistensi font pada bagian Tentang Kami */
+    .about-content {
+        padding: 20px;
+    }
+    .about-content .about-intro, .benefit-list li {
+        font-size: 0.95em;
     }
     
     .price-new {
         font-size: 2em; 
     }
     
-    /* 3. LAYOUT MOBILE */
+    /* 3. LAYOUT KARTU HARGA, LAYANAN, & PORTOFOLIO MOBILE */
     .service-list, .pricing-table {
         flex-direction: column;
         gap: 30px;
     }
+    
     .service-item h3 {
         font-size: 1.2em;
     }
+    
     .project-card img {
         height: 200px;
     }
+    
     .price-card.recommended {
         transform: none; 
+    }
+    .price-card:hover, .price-card.recommended:hover {
+        transform: scale(1.02);
     }
     
     .price-card {
@@ -583,12 +776,18 @@ footer {
     .calculator-result #hasilBiaya {
         font-size: 1.5em;
     }
+
+    /* Floating WA Button Mobile Size */
+    #floating-whatsapp {
+        width: 50px;
+        height: 50px;
+        font-size: 1.8em;
+        bottom: 15px;
+        right: 15px;
+    }
     
-    /* PENTING: Matikan Animasi Shimmer/Glow di Mobile untuk performa */
+    /* PENTING: Matikan Animasi Pulse di Mobile untuk performa */
     .price-card.premium {
         animation: none; 
-    }
-    .price-card.premium:hover {
-        transform: none;
     }
 }
