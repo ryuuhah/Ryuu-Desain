@@ -650,6 +650,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     border: 3px solid var(--color-accent);
     box-shadow: 0 0 10px rgba(169, 143, 107, 0.5);
     opacity: 0.9;
+    transform: scale(0.98);
 }
 
 
@@ -681,7 +682,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     background-color: var(--color-soft-bg);
     padding: 30px;
     border-radius: 8px;
-    max-width: 500px;
+    max-width: 750px; /* Lebar DITINGKATKAN */
     margin: 30px auto 0 auto;
     text-align: left;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
@@ -697,6 +698,47 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     display: block;
     font-family: 'Lora', serif;
 }
+
+/* Gaya BARU untuk Kotak Keterangan Volume */
+.volume-input-note {
+    background-color: #fef3e6; /* Light Gold/Yellow Background */
+    border: 2px solid var(--color-accent); /* Gold Border */
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: left;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.volume-input-note .note-title {
+    font-weight: 700;
+    color: var(--color-primary);
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+.volume-input-note .note-title i {
+    color: #E67E22; /* Orange icon */
+    margin-right: 8px;
+}
+
+.volume-input-note .note-content {
+    font-size: 0.95em;
+    line-height: 1.4;
+}
+
+.volume-input-note .note-content strong {
+    color: #C0392B; /* Merah/Bold untuk penekanan 200m² */
+}
+
+.volume-input-note .note-subcontent {
+    font-size: 0.85em;
+    margin-top: 10px;
+    color: #666;
+    font-style: italic;
+}
+/* End Gaya BARU Kotak Keterangan Volume */
+
 
 /* New Cart Styles */
 .cart-list {
@@ -1054,6 +1096,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     }
     .satuan-calculator-box {
         padding: 20px;
+        max-width: 95%; /* Tetap lebar di mobile */
     }
 
     .cart-item-controls {
