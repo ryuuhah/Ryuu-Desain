@@ -6,7 +6,7 @@
     --color-text-dark: #333333;
     --color-secondary-dark: #2C3E50;
     --color-success: #27AE60;
-    --color-soft-bg: #FAF9F6;
+    --color-soft-bg: #FAF9F6; /* Latar belakang Krem Baru */
     --color-gold: #FFD700; 
 }
 
@@ -595,33 +595,45 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 }
 
 /* ======================================================= */
-/* KATALOG SATUAN BARU */
+/* KATALOG SATUAN BARU (Combined Box) */
 /* ======================================================= */
-.satuan-catalog-container {
-    padding: 60px 0;
+
+.satuan-catalog-container.custom-combined-box {
+    padding: 40px; /* Padding lega */
     margin-top: 60px;
-    border-top: 2px dashed #ddd;
+    border: 2px solid var(--color-accent); /* Bingkai */
+    border-radius: 12px;
+    background-color: var(--color-soft-bg); /* Latar Belakang */
     text-align: center;
+    max-width: 950px; /* Lebih lega */
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
 .satuan-title {
-    font-size: 1.8em;
+    font-size: 2em;
     color: var(--color-primary);
     margin-bottom: 5px;
     font-family: 'Lora', serif;
 }
 
 .satuan-subtitle {
-    font-size: 1em;
+    font-size: 1.1em;
     color: #666;
     margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #ccc; /* Pemisah visual */
+}
+.satuan-subtitle strong { /* Perbaikan agar <strong> bekerja */
+    color: var(--color-primary);
 }
 
 .satuan-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 20px;
-    max-width: 1000px;
+    max-width: 100%;
     margin: 0 auto 40px auto;
 }
 
@@ -642,7 +654,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 }
 
 .satuan-item.consultation {
-    background-color: var(--color-soft-bg);
+    background-color: #f7f7f7;
 }
 
 /* Efek highlight saat item ditambahkan ke keranjang */
@@ -677,26 +689,27 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     color: #C0392B; /* Merah untuk konsultasi */
 }
 
-/* Mini Calculator (Cart Box) Styling */
+/* Mini Calculator (Cart Box) Styling - BLEND INTO PARENT */
 .satuan-calculator-box {
-    background-color: var(--color-soft-bg);
-    padding: 30px;
-    border-radius: 8px;
-    max-width: 750px; /* Lebar DITINGKATKAN */
+    background-color: transparent; /* Hilangkan background agar menyatu dengan parent */
+    padding: 0; 
+    border-radius: 0;
+    max-width: 100%; 
     margin: 30px auto 0 auto;
     text-align: left;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    box-shadow: none;
 }
 
 .satuan-calculator-box h4 {
-    text-align: center;
-    color: var(--color-primary);
+    /* Gaya untuk header keranjang yang mencolok */
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+    border-radius: 8px;
+    padding: 15px;
     margin-bottom: 20px;
-    font-size: 1.5em;
-    border-bottom: 2px solid var(--color-accent);
-    padding-bottom: 5px;
-    display: block;
-    font-family: 'Lora', serif;
+    font-size: 1.6em;
+    border-bottom: none;
+    text-align: center;
 }
 
 /* Gaya BARU untuk Kotak Keterangan Volume */
@@ -1070,10 +1083,11 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
         animation: none;
     }
     
-    /* KATALOG SATUAN MOBILE */
-    .satuan-catalog-container {
-        padding: 40px 0;
-        margin-top: 40px;
+    /* KATALOG SATUAN MOBILE - Penyesuaian agar box tetap rapi */
+    .satuan-catalog-container.custom-combined-box {
+        padding: 20px;
+        max-width: 100%;
+        border-width: 1px;
     }
     .satuan-title {
         font-size: 1.5em;
@@ -1094,9 +1108,10 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     .satuan-price {
         font-size: 0.8em;
     }
+    
     .satuan-calculator-box {
-        padding: 20px;
-        max-width: 95%; /* Tetap lebar di mobile */
+        padding: 0;
+        max-width: 95%; 
     }
 
     .cart-item-controls {
