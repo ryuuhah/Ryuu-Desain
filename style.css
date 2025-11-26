@@ -7,7 +7,7 @@
     --color-secondary-dark: #2C3E50;
     --color-success: #27AE60;
     --color-soft-bg: #FAF9F6;
-    --color-gold: #FFD700; /* Warna emas cerah (TIDAK DIGUNAKAN UNTUK PREMIUM PACKAGE) */
+    --color-gold: #FFD700; 
 }
 
 /* RESET dan FONT */
@@ -368,7 +368,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 }
 
 
-/* 6. KALKULATOR HARGA */
+/* 6. KALKULATOR HARGA UTAMA */
 .calculator-desc {
     text-align: center;
     font-size: 1.1em;
@@ -480,7 +480,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 }
 
 /* ======================================================= */
-/* PREMIUM PACKAGE - DENGAN ACCENT GOLD & BORDER SHIMMER BARU */
+/* PREMIUM PACKAGE & SHIMMER EFFECTS */
 /* ======================================================= */
 
 /* Keyframes untuk Animasi Border Pulse */
@@ -490,53 +490,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     100% { box-shadow: 0 0 5px var(--color-accent); }
 }
 
-/* Premium Card Base Style */
-.price-card.premium {
-    background-color: var(--color-primary); 
-    color: var(--color-text-light); 
-    border: 3px solid var(--color-accent); 
-    position: relative; 
-    overflow: hidden; 
-    animation: shimmer-pulse 3s infinite alternate; 
-}
-
-/* Hover Effect */
-.price-card.premium:hover {
-    transform: scale(1.08); 
-    box-shadow: 0 8px 25px rgba(169, 143, 107, 0.4); 
-}
-
-/* Premium Card Text Color (Hanya elemen non-shimmer yang pakai ini) */
-.price-card.premium .price-old, 
-.price-card.premium .price-new, 
-.price-card.premium .price-discount-label {
-    color: var(--color-accent); 
-}
-
-/* Premium Card Button */
-.price-card.premium .btn {
-    background-color: var(--color-accent); 
-    color: var(--color-primary);
-}
-.price-card.premium .btn:hover {
-    background-color: #C1A67B; 
-}
-
-/* Premium Card Checkmarks */
-.price-card.premium .perk-list i.fas.fa-check {
-    color: var(--color-accent); 
-}
-
-/* Hapus Pseudo-element Shimmer Lama */
-.price-card.premium::after {
-    content: none; 
-    animation: none;
-}
-
-/* ======================================================= */
-/* SHIMMER TEXT ANIMATION - BARU */
-/* ======================================================= */
-
+/* Keyframes untuk Animasi Text Shimmer */
 @keyframes text-shimmer {
     0% {
         background-position: 200% 0; 
@@ -546,38 +500,50 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     }
 }
 
+.price-card.premium {
+    background-color: var(--color-primary); 
+    color: var(--color-text-light); 
+    border: 3px solid var(--color-accent); 
+    position: relative; 
+    overflow: hidden; 
+    animation: shimmer-pulse 3s infinite alternate; 
+}
+
 .shimmer-text-gold {
-    display: inline-block; /* Penting agar background-clip berfungsi */
+    display: inline-block; 
     font-size: 1.8em; 
     font-weight: 700;
-    margin-bottom: 10px; /* Jarak yang sama dengan h3 lainnya */
+    margin-bottom: 10px;
     
-    /* 1. Atur Background Gradient untuk efek sapuan cahaya */
     background-image: linear-gradient(
         90deg, 
         var(--color-accent) 0%, 
-        #FFFFFF 50%, /* Puncak cahaya yang menyapu */
+        #FFFFFF 50%, 
         var(--color-accent) 100%
     );
-    
-    /* 2. Atur ukuran gradient agar lebih lebar dari teks untuk efek sapuan */
     background-size: 200% 100%;
     
-    /* 3. Clip background hanya pada area teks */
     -webkit-background-clip: text;
     background-clip: text;
-    
-    /* 4. Jadikan warna teks transparan */
     -webkit-text-fill-color: transparent;
-    color: transparent; /* Fallback */
+    color: transparent; 
     
-    /* 5. Terapkan animasi */
     animation: text-shimmer 3s infinite linear;
 }
 
+.price-card.premium .price-old, 
+.price-card.premium .price-new, 
+.price-card.premium .price-discount-label {
+    color: var(--color-accent); 
+}
 
-/* ======================================================= */
-/* END PREMIUM PACKAGE STYLES */
+.price-card.premium .btn {
+    background-color: var(--color-accent); 
+    color: var(--color-primary);
+}
+.price-card.premium .perk-list i.fas.fa-check {
+    color: var(--color-accent); 
+}
 /* ======================================================= */
 
 
@@ -628,6 +594,153 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 .perk-list i.fas.fa-times {
     color: #C0392B; 
 }
+
+/* ======================================================= */
+/* KATALOG SATUAN BARU */
+/* ======================================================= */
+.satuan-catalog-container {
+    padding: 60px 0;
+    margin-top: 60px;
+    border-top: 2px dashed #ddd;
+    text-align: center;
+}
+
+.satuan-title {
+    font-size: 1.8em;
+    color: var(--color-primary);
+    margin-bottom: 5px;
+    font-family: 'Lora', serif;
+}
+
+.satuan-subtitle {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.satuan-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto 40px auto;
+}
+
+.satuan-item {
+    background-color: #fff;
+    border: 1px solid #eee;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    cursor: pointer;
+}
+
+.satuan-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    border-color: var(--color-accent);
+}
+
+.satuan-item.consultation {
+    background-color: var(--color-soft-bg);
+}
+
+.satuan-icon {
+    font-size: 2.2em;
+    color: var(--color-accent);
+    margin-bottom: 10px;
+}
+
+.satuan-item h4 {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 5px;
+    line-height: 1.2;
+}
+
+.satuan-price {
+    font-size: 0.9em;
+    color: var(--color-success);
+    font-weight: 700;
+}
+
+.satuan-item.consultation .satuan-price {
+    color: #C0392B; /* Merah untuk konsultasi */
+}
+
+/* Mini Calculator Styling */
+.satuan-calculator-box {
+    background-color: var(--color-soft-bg);
+    padding: 30px;
+    border-radius: 8px;
+    max-width: 500px;
+    margin: 30px auto 0 auto;
+    text-align: left;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.satuan-calculator-box h4 {
+    text-align: center;
+    color: var(--color-primary);
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    border-bottom: 2px solid var(--color-accent);
+    padding-bottom: 5px;
+    display: block;
+    font-family: 'Lora', serif;
+}
+
+.satuan-input-select, .satuan-input-text {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #ffffff; 
+    color: var(--color-text-dark);
+    font-size: 1em;
+    margin-top: 5px;
+}
+
+.satuan-calculator-box .form-group {
+    margin-bottom: 15px;
+}
+
+.satuan-calculator-box label {
+    font-weight: 600;
+}
+
+.satuan-result {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 600;
+    padding: 15px 0;
+    margin-bottom: 15px;
+    border-top: 1px dashed #ccc;
+    border-bottom: 1px dashed #ccc;
+}
+
+#hasilSatuanBiaya {
+    color: var(--color-success);
+    font-size: 1.4em;
+    display: block;
+    margin-top: 5px;
+}
+
+.btn-satuan-wa {
+    width: 100%;
+    text-align: center;
+    font-size: 1em;
+    padding: 12px;
+}
+
+.area-input-group {
+    transition: all 0.4s ease-out;
+    max-height: 100px; /* Tinggi awal */
+    opacity: 1;
+    margin-bottom: 15px;
+}
+/* ======================================================= */
 
 
 /* Scroll Animation Styles */
@@ -833,16 +946,43 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
         right: 15px;
     }
     
-    /* PENTING: Matikan Animasi Pulse di Mobile untuk performa */
+    /* PENTING: Matikan Animasi Pulse & Shimmer di Mobile untuk performa */
     .price-card.premium {
         animation: none; 
     }
     
-    /* Matikan Text Shimmer di Mobile untuk performa */
     .shimmer-text-gold {
         background-image: none;
         -webkit-text-fill-color: var(--color-accent);
         color: var(--color-accent);
         animation: none;
+    }
+    
+    /* KATALOG SATUAN MOBILE */
+    .satuan-catalog-container {
+        padding: 40px 0;
+        margin-top: 40px;
+    }
+    .satuan-title {
+        font-size: 1.5em;
+    }
+    .satuan-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    .satuan-item {
+        padding: 10px;
+    }
+    .satuan-icon {
+        font-size: 1.8em;
+    }
+    .satuan-item h4 {
+        font-size: 0.95em;
+    }
+    .satuan-price {
+        font-size: 0.8em;
+    }
+    .satuan-calculator-box {
+        padding: 20px;
     }
 }
