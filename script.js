@@ -7,6 +7,226 @@ document.addEventListener('DOMContentLoaded', function() {
     // Asumsi nomor WhatsApp
     const waNumber = '6281234567890'; // Ganti dengan nomor WA Anda
 
+    // State untuk Keranjang Satuan
+    let satuanCart = []; 
+    
+    // Daftar Produk Statis
+    const SATUAN_PRODUCTS = [
+        { id: 1, name: "Gambar Kerja 2D", price: 15000, unit: 'm²' },
+        { id: 2, name: "Gambar Render 3D (Eksterior)", price: 15000, unit: 'm²' },
+        { id: 3, name: "Rencana Anggaran Biaya (RAB)", price: 20000, unit: 'm²' },
+        { id: 4, name: "Gambar Render 3D Interior", price: 15000, unit: 'm²' },
+        { id: 5, name: "Gambar Rencana 2D dan 3D Furniture", price: 0, unit: 'Konsultasi' },
+        { id: 6, name: "Desain Web", price: 0, unit: 'Konsultasi' }
+    ];
+
+    // Elemen DOM Satuan
+    const satuanItems = document.querySelectorAll('.satuan-item');
+    const cartListElement = document.getElementById('satuanCartList');
+    const totalBiayaSpan = document.getElementById('hasilSatuanBiaya');
+    const waButton = document.getElementById('hitungSatuanBiaya');
+
+    // =====================================================
+    // Fungsi Pembantu
+    // =====================================================
+    function formatRupiah(angka) {
+        if (angka === 0) return 'Rp 0';
+        const rupiah = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0
+        }).format(angka);
+        return rupiah;
+    }
+
+    function generateWaLink(message) {
+        const encodedMessage = encodeURIComponent(message);
+        return `https://wa.me/${waNumber}?text=${encodedMessage}`;
+    }
+
+    function getProductById(id) {
+        return SATUAN_PRODUCTS.find(p => p.id === id);
+    }
+    
+    // =====================================================
+    // Logika Keranjang Satuan
+    // =====================================================
+
+    function addToCart(productId) {
+        const id = parseInt(productId);
+        const product = getProductById(id);
+        
+        if (!product) return;
+
+        const existingItem = satuanCart.find(item => item.productId === id);
+
+        if (existingItem) {
+            // Jika produk sudah ada, abaikan atau bisa tambahkan notifikasi
+            return;
+        } else {
+            // Tambahkan produk baru ke keranjang
+            satuanCart.push({
+                productId: id,
+                volume: (product.price > 0 ? 100 : 1), // Default volume 100m2 untuk non-konsultasi
+                product: product 
+            });
+            // Beri highlight pada kartu di katalog
+            const itemCard = document.querySelector(`.satuan-item[data-id="${id}"]`);
+            if (itemCard) itemCard.classList.add('in-cart');
+        }
+        
+        renderCart();
+    }
+    
+    function removeFromCart(productId) {
+        const id = parseInt(productId);
+        satuanCart = satuanCart.filter(item => item.productId !== id);
+        
+        // Hapus highlight pada kartu di katalog
+        const itemCard = document.querySelector(`.satuan-item[data-id="${id}"]`);
+        if (itemCard) itemCard.classList.remove('in-cart');
+
+        renderCart();
+    }
+    
+    function updateCartVolume(productId, newVolume) {
+        const id = parseInt(productId);
+        const item = satuanCart.find(i => i.productId === id);
+        
+        if (item && item.product.price > 0) {
+            item.volume = Math.max(1, newVolume); // Pastikan volume minimal 1
+            updateCartTotal();
+        }
+    }
+    
+    function updateCartTotal() {
+        let totalCost = 0;
+        let hasPayableItem = false; // Untuk menentukan apakah ada item berharga > 0
+
+        satuanCart.forEach(item => {
+            if (item.product.price > 0 && item.volume > 0) {
+                totalCost += item.product.price * item.volume;
+                hasPayableItem = true;
+            }
+        });
+
+        totalBiayaSpan.textContent = formatRupiah(totalCost);
+        
+        // Atur status tombol WA
+        if (satuanCart.length === 0) {
+             waButton.textContent = "Pilih Layanan ke Keranjang";
+             waButton.disabled = true;
+        } else {
+             waButton.disabled = false;
+             if (hasPayableItem) {
+                waButton.textContent = `Pesan ${satuanCart.length} Layanan via WhatsApp`;
+             } else {
+                waButton.textContent = `Ajukan Konsultasi ${satuanCart.length} Layanan via WhatsApp`;
+             }
+        }
+    }
+
+    function renderCart() {
+        if (satuanCart.length === 0) {
+            cartListElement.innerHTML = '<p class="cart-empty-message">Keranjang kosong. Pilih produk dari katalog di atas.</p>';
+        } else {
+            let html = '';
+            satuanCart.forEach(item => {
+                const isConsultation = item.product.price === 0;
+                
+                html += `
+                    <div class="cart-item" data-id="${item.productId}">
+                        <div class="cart-item-info">
+                            <span class="cart-item-name">${item.product.name}</span>
+                            <span class="cart-item-price-m2">${isConsultation ? item.product.unit : formatRupiah(item.product.price) + '/' + item.product.unit}</span>
+                        </div>
+                        <div class="cart-item-controls">
+                            ${isConsultation ? 
+                                `<span class="cart-total-price">KONSULTASI</span>` : 
+                                `<input type="number" min="1" value="${item.volume}" class="cart-item-input" data-id="${item.productId}">
+                                <span class="cart-total-price">${item.product.unit}</span>`
+                            }
+                            <button class="cart-item-remove-btn" data-id="${item.productId}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            cartListElement.innerHTML = html;
+        }
+        updateCartTotal();
+    }
+    
+    // =====================================================
+    // Event Listeners Keranjang Satuan
+    // =====================================================
+
+    // 1. Klik Kartu Satuan (Add to Cart)
+    satuanItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const productId = this.getAttribute('data-id');
+            addToCart(productId);
+        });
+    });
+
+    // 2. Event Delegation untuk input volume dan tombol remove
+    cartListElement.addEventListener('change', function(e) {
+        if (e.target.classList.contains('cart-item-input')) {
+            const id = e.target.getAttribute('data-id');
+            const newVolume = parseInt(e.target.value);
+            if (!isNaN(newVolume) && newVolume >= 1) {
+                updateCartVolume(id, newVolume);
+            } else {
+                // Reset nilai input ke nilai terakhir yang valid atau default
+                e.target.value = satuanCart.find(i => i.productId == id).volume;
+            }
+        }
+    });
+
+    cartListElement.addEventListener('click', function(e) {
+        if (e.target.closest('.cart-item-remove-btn')) {
+            const button = e.target.closest('.cart-item-remove-btn');
+            const id = button.getAttribute('data-id');
+            removeFromCart(id);
+        }
+    });
+    
+    // 3. Tombol Pesan via WA
+    waButton.addEventListener('click', function() {
+        if (satuanCart.length === 0) return;
+
+        let message = "Halo Ryuu Desain, saya ingin memesan layanan satuan berikut:\n\n";
+        let hasPayable = false;
+        let totalCost = 0;
+
+        satuanCart.forEach((item, index) => {
+            const product = item.product;
+            const isConsultation = product.price === 0;
+            const subtotal = product.price * item.volume;
+            
+            if (isConsultation) {
+                message += `${index + 1}. ${product.name} (Perlu Konsultasi Harga)\n`;
+            } else {
+                message += `${index + 1}. ${product.name} - ${item.volume} ${product.unit} (Est. ${formatRupiah(subtotal)})\n`;
+                totalCost += subtotal;
+                hasPayable = true;
+            }
+        });
+
+        if (hasPayable) {
+            message += `\nTotal Estimasi Biaya: ${formatRupiah(totalCost)}`;
+        } else {
+             message = "Halo Ryuu Desain, saya ingin mengajukan konsultasi untuk layanan:\n" + satuanCart.map(item => `- ${item.product.name}`).join('\n');
+        }
+
+        window.open(generateWaLink(message), '_blank');
+    });
+
+    // =====================================================
+    // Logika Lain (Non-Satuan) - Disesuaikan
+    // =====================================================
+    
     // 1. Fungsi Menu Mobile (Hamburger)
     if (menuToggle && navMenu) {
         menuToggle.addEventListener('click', function() {
@@ -32,28 +252,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Fungsi Pembantu
-    function formatRupiah(angka) {
-        const rupiah = new Intl.NumberFormat('id-ID', {
-            style: 'currency',
-            currency: 'IDR',
-            minimumFractionDigits: 0
-        }).format(angka);
-        return rupiah;
-    }
-
-    function generateWaLink(message) {
-        const encodedMessage = encodeURIComponent(message);
-        return `https://wa.me/${waNumber}?text=${encodedMessage}`;
-    }
-
     // 4. Logika Kalkulator Harga Paket (Existing)
     const luasAreaInput = document.getElementById('luasArea');
     const paketDesainSelect = document.getElementById('paketDesain');
     const hitungBiayaBtn = document.getElementById('hitungBiaya');
     const hasilBiayaSpan = document.getElementById('hasilBiaya');
 
-    function hitungEstimasi() {
+    function hitungEstimasiPaket() {
         const luasArea = parseFloat(luasAreaInput.value);
         const hargaPerM2 = parseFloat(paketDesainSelect.value);
         
@@ -66,7 +271,7 @@ document.addEventListener('DOMContentLoaded', function() {
         hasilBiayaSpan.textContent = formatRupiah(totalBiaya);
     }
     
-    hitungEstimasi(); 
+    hitungEstimasiPaket(); 
 
     // Event listener untuk tombol hitung/pesan Paket
     hitungBiayaBtn.addEventListener('click', function() {
@@ -86,103 +291,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Tambahkan event listener untuk menghitung ulang saat ada perubahan
-    luasAreaInput.addEventListener('input', hitungEstimasi);
-    paketDesainSelect.addEventListener('change', hitungEstimasi);
-
-    // 5. Logika Katalog Satuan (NEW)
-    const satuanLayananSelect = document.getElementById('satuanLayanan');
-    const satuanLuasInput = document.getElementById('satuanLuas');
-    const hasilSatuanBiayaSpan = document.getElementById('hasilSatuanBiaya');
-    const hitungSatuanBiayaBtn = document.getElementById('hitungSatuanBiaya');
-    const satuanAreaInputGroup = document.querySelector('.area-input-group');
-    const allSatuanItems = document.querySelectorAll('.satuan-item');
-
-    function updateSatuanEstimasi() {
-        const selectedOption = satuanLayananSelect.options[satuanLayananSelect.selectedIndex];
-        const hargaPerM2 = parseFloat(selectedOption.value);
-        const luasArea = parseFloat(satuanLuasInput.value);
-        
-        // Atur tampilan input area berdasarkan harga
-        if (hargaPerM2 === 0) {
-            // Sembunyikan input area
-            satuanAreaInputGroup.style.maxHeight = '0';
-            satuanAreaInputGroup.style.opacity = '0';
-            satuanAreaInputGroup.style.marginBottom = '0';
-            satuanAreaInputGroup.style.pointerEvents = 'none'; // Menonaktifkan input
-            
-            hasilSatuanBiayaSpan.textContent = "Hubungi Kami";
-            hitungSatuanBiayaBtn.textContent = "Konsultasi Layanan via WhatsApp";
-            hitungSatuanBiayaBtn.classList.add('btn-outline');
-            hitungSatuanBiayaBtn.classList.remove('btn');
-        } else {
-            // Tampilkan input area
-            satuanAreaInputGroup.style.maxHeight = '100px'; 
-            satuanAreaInputGroup.style.opacity = '1';
-            satuanAreaInputGroup.style.marginBottom = '15px';
-            satuanAreaInputGroup.style.pointerEvents = 'auto'; // Mengaktifkan input
-            
-            hitungSatuanBiayaBtn.textContent = "Pesan Layanan Satuan via WhatsApp";
-            hitungSatuanBiayaBtn.classList.add('btn');
-            hitungSatuanBiayaBtn.classList.remove('btn-outline');
-
-
-            if (isNaN(luasArea) || luasArea <= 0) {
-                hasilSatuanBiayaSpan.textContent = "Masukkan luas area.";
-                return;
-            }
-
-            const totalBiaya = luasArea * hargaPerM2;
-            hasilSatuanBiayaSpan.textContent = formatRupiah(totalBiaya);
-        }
-    }
+    luasAreaInput.addEventListener('input', hitungEstimasiPaket);
+    paketDesainSelect.addEventListener('change', hitungEstimasiPaket);
     
-    // Event listener untuk tombol hitung/pesan Satuan
-    hitungSatuanBiayaBtn.addEventListener('click', function() {
-        const selectedOption = satuanLayananSelect.options[satuanLayananSelect.selectedIndex];
-        const paketNama = selectedOption.getAttribute('data-name');
-        const hargaPerM2 = parseFloat(selectedOption.value);
-        const luasArea = parseFloat(satuanLuasInput.value);
-        let message;
-
-        if (hargaPerM2 === 0) {
-             message = `Halo Ryuu Desain, saya ingin berkonsultasi mengenai layanan "${paketNama}". Mohon informasinya.`;
-        } else {
-            if (isNaN(luasArea) || luasArea <= 0) {
-                alert("Mohon masukkan Luas Area Total yang valid.");
-                return;
-            }
-            const totalBiaya = luasArea * hargaPerM2;
-            message = `Halo Ryuu Desain, saya ingin memesan layanan satuan:\n- Layanan: ${paketNama}\n- Luas Area: ${luasArea} m²\n- Estimasi Biaya: ${formatRupiah(totalBiaya)}`;
-        }
-
-        window.open(generateWaLink(message), '_blank');
-    });
-
-    // Event listeners untuk perubahan input
-    satuanLayananSelect.addEventListener('change', updateSatuanEstimasi);
-    satuanLuasInput.addEventListener('input', updateSatuanEstimasi);
-    
-    // Event listener untuk klik pada kartu satuan
-    allSatuanItems.forEach(item => {
-        item.addEventListener('click', function() {
-            const itemName = this.getAttribute('data-name');
-            const itemPrice = this.getAttribute('data-price');
-            
-            // Temukan option yang sesuai dan setel sebagai terpilih
-            for (let i = 0; i < satuanLayananSelect.options.length; i++) {
-                if (satuanLayananSelect.options[i].getAttribute('data-name') === itemName) {
-                    satuanLayananSelect.value = itemPrice; 
-                    break;
-                }
-            }
-            updateSatuanEstimasi();
-        });
-    });
-
-    // Initial calculation for Satuan
-    updateSatuanEstimasi();
-    
-    // 6. WA Contact Links Handler (NEW)
+    // 5. WA Contact Links Handler 
     const waContactLinks = document.querySelectorAll('.wa-contact-link');
     waContactLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -192,7 +304,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // 7. Scroll Fade In Animation (NEW - Added Logic)
+    // 6. Scroll Fade In Animation
     const fadeIns = document.querySelectorAll('.fade-in-section');
 
     const observerOptions = {
@@ -213,5 +325,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fadeIns.forEach(section => {
       observer.observe(section);
     });
-
+    
+    // Initial call for Satuan Cart
+    renderCart();
 });
