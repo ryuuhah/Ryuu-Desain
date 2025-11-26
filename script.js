@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelectorAll('.nav-menu a');
     const header = document.querySelector('header');
     
-    // Asumsi nomor WhatsApp
-    const waNumber = '6281234567890'; // Ganti dengan nomor WA Anda
-
+    // Asumsi nomor WhatsApp (NOMOR BARU)
+    const waNumber = '6285117788355'; // DIUBAH KE NOMOR BARU
+    
     // State untuk Keranjang Satuan
     let satuanCart = []; 
     
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const cartListElement = document.getElementById('satuanCartList');
     const totalBiayaSpan = document.getElementById('hasilSatuanBiaya');
     const waButton = document.getElementById('hitungSatuanBiaya');
-    const volumeNoteElement = document.getElementById('volumeNote'); // Elemen Catatan Volume BARU
+    const volumeNoteElement = document.getElementById('volumeNote'); 
 
     // =====================================================
     // Fungsi Pembantu
@@ -41,8 +41,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function generateWaLink(message) {
+        // Hapus "62" jika ada, tambahkan awalan "62"
+        let cleanNumber = waNumber.replace(/^0|[^0-9]/g, ''); 
+        if (!cleanNumber.startsWith('62')) {
+            cleanNumber = '62' + cleanNumber;
+        }
         const encodedMessage = encodeURIComponent(message);
-        return `https://wa.me/${waNumber}?text=${encodedMessage}`;
+        return `https://wa.me/${cleanNumber}?text=${encodedMessage}`;
     }
 
     function getProductById(id) {
@@ -53,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Logika Keranjang Satuan
     // =====================================================
 
-    // FUNGSI TOGGLE BARU: Menambahkan atau menghapus item dari keranjang dengan satu klik
+    // FUNGSI TOGGLE: Menambahkan atau menghapus item dari keranjang dengan satu klik
     function toggleCartItem(productId) {
         const id = parseInt(productId);
         const product = getProductById(id);
