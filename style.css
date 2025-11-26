@@ -6,7 +6,6 @@
     --color-text-dark: #333333;
     --color-secondary-dark: #2C3E50;
     --color-success: #27AE60;
-    --color-soft-bg: #FAF9F6;
     --color-gold: #FFD700; /* Warna emas cerah (TIDAK DIGUNAKAN UNTUK PREMIUM PACKAGE) */
 }
 
@@ -295,12 +294,11 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
-/* STYLING BARU UNTUK IKON DI ATAS JUDUL */
 .service-item .service-icon {
     font-size: 3em; 
     color: var(--color-accent); 
     display: block; 
-    margin: 0 auto 10px auto; /* Pusatkan Ikon dan Beri Jarak Bawah */
+    margin: 0 auto 10px auto; 
     width: fit-content;
 }
 
@@ -309,9 +307,6 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     margin-top: 10px;
     margin-bottom: 10px;
 }
-
-/* HAPUS STYLING IKON DARI DALAM H3 (Karena struktur HTML sudah diubah) */
-/* .service-item h3 i { ... } */
 
 
 /* 5. TENTANG KAMI */
@@ -498,7 +493,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 .price-card.premium {
     background-color: var(--color-primary); 
     color: var(--color-text-light); 
-    border: 3px solid var(--color-accent); /* Menggunakan Emas Ryuu Desain */
+    border: 3px solid var(--color-accent); 
     position: relative; 
     overflow: hidden; 
     animation: shimmer-pulse 3s infinite alternate; /* Animasi mengkilat/pulse pada border */
@@ -507,7 +502,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 /* Hover Effect */
 .price-card.premium:hover {
     transform: scale(1.08); 
-    box-shadow: 0 8px 25px rgba(169, 143, 107, 0.4); /* Gunakan ACCENT GOLD Shadow pada hover */
+    box-shadow: 0 8px 25px rgba(169, 143, 107, 0.4); 
 }
 
 /* Premium Card Text Color */
@@ -515,21 +510,21 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 .price-card.premium .price-old, 
 .price-card.premium .price-new, 
 .price-card.premium .price-discount-label {
-    color: var(--color-accent); /* Menggunakan Emas Ryuu Desain */
+    color: var(--color-accent); 
 }
 
 /* Premium Card Button */
 .price-card.premium .btn {
-    background-color: var(--color-accent); /* Menggunakan Emas Ryuu Desain */
+    background-color: var(--color-accent); 
     color: var(--color-primary);
 }
 .price-card.premium .btn:hover {
-    background-color: #C1A67B; /* Warna hover yang konsisten */
+    background-color: #C1A67B; 
 }
 
 /* Premium Card Checkmarks */
 .price-card.premium .perk-list i.fas.fa-check {
-    color: var(--color-accent); /* Menggunakan Emas Ryuu Desain */
+    color: var(--color-accent); 
 }
 
 /* PENTING: Hapus Pseudo-element Shimmer Lama */
@@ -571,6 +566,18 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     line-height: 2; 
 }
 
+/* ======================================================= */
+/* PENYESUAIAN SPACING IKON (V & X) - BARU */
+/* ======================================================= */
+.perk-list i {
+    display: inline-block; /* Memastikan width dapat diterapkan */
+    width: 25px; /* Memberi lebar tetap agar centang/silang rata */
+    margin-right: 5px; /* Jarak yang konsisten antara ikon dan teks */
+    text-align: center; /* Memastikan ikon rata tengah di dalam lebar 25px */
+}
+/* ======================================================= */
+
+
 /* Ensure default text color for other package checkmarks */
 .price-card:not(.premium) .perk-list i.fas.fa-check {
     color: var(--color-success);
@@ -579,9 +586,9 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 
 .perk-list i.fas.fa-times {
     color: #C0392B; 
-    margin-right: 10px;
-    width: 20px;
+    /* margin-right dan width diatur di .perk-list i (atas) */
 }
+
 
 /* Scroll Animation Styles */
 .fade-in-section {
