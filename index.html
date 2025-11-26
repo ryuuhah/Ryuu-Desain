@@ -100,7 +100,76 @@
                 </div>
 
             </div>
-        </section>
+
+            <div class="satuan-catalog-container">
+                <h3 class="satuan-title">Katalog Produk Satuan (A La Carte)</h3>
+                <p class="satuan-subtitle">Pilih layanan individual sesuai kebutuhan spesifik Anda.</p>
+                
+                <div class="satuan-grid">
+                    <div class="satuan-item" data-price="15000" data-name="Gambar Kerja 2D">
+                        <i class="fas fa-ruler-combined satuan-icon"></i>
+                        <h4>Gambar Kerja 2D</h4>
+                        <p class="satuan-price">Rp 15.000/m²</p>
+                    </div>
+                    
+                    <div class="satuan-item" data-price="15000" data-name="Gambar Render 3D (Eksterior)">
+                        <i class="fas fa-cube satuan-icon"></i>
+                        <h4>Render 3D Eksterior</h4>
+                        <p class="satuan-price">Rp 15.000/m²</p>
+                    </div>
+                    
+                    <div class="satuan-item" data-price="20000" data-name="Rencana Anggaran Biaya (RAB)">
+                        <i class="fas fa-hand-holding-dollar satuan-icon"></i>
+                        <h4>RAB</h4>
+                        <p class="satuan-price">Rp 20.000/m²</p>
+                    </div>
+                    
+                    <div class="satuan-item" data-price="15000" data-name="Gambar Render 3D Interior">
+                        <i class="fas fa-couch satuan-icon"></i>
+                        <h4>Render 3D Interior</h4>
+                        <p class="satuan-price">Rp 15.000/m²</p>
+                    </div>
+                    
+                    <div class="satuan-item consultation" data-price="0" data-name="Gambar Rencana 2D dan 3D Furniture">
+                        <i class="fas fa-chair satuan-icon"></i>
+                        <h4>Gambar Rencana Furniture</h4>
+                        <p class="satuan-price">Konsultasi Sekarang</p>
+                    </div>
+                    
+                    <div class="satuan-item consultation" data-price="0" data-name="Desain Web">
+                        <i class="fas fa-laptop-code satuan-icon"></i>
+                        <h4>Desain Web</h4>
+                        <p class="satuan-price">Konsultasi Sekarang</p>
+                    </div>
+                </div>
+                
+                <div class="satuan-calculator-box">
+                    <h4>Estimasi Biaya Satuan</h4>
+                    <div class="form-group">
+                        <label for="satuanLayanan">Pilih Layanan:</label>
+                        <select id="satuanLayanan" class="satuan-input-select">
+                            <option value="15000" data-name="Gambar Kerja 2D">Gambar Kerja 2D (Rp 15.000/m²)</option>
+                            <option value="15000" data-name="Gambar Render 3D (Eksterior)">Gambar Render 3D (Eksterior) (Rp 15.000/m²)</option>
+                            <option value="20000" data-name="Rencana Anggaran Biaya (RAB)">Rencana Anggaran Biaya (RAB) (Rp 20.000/m²)</option>
+                            <option value="15000" data-name="Gambar Render 3D Interior">Gambar Render 3D Interior (Rp 15.000/m²)</option>
+                            <option value="0" data-name="Gambar Rencana 2D dan 3D Furniture">Gambar Rencana 2D dan 3D Furniture (Konsultasi)</option>
+                            <option value="0" data-name="Desain Web">Desain Web (Konsultasi)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group area-input-group">
+                        <label for="satuanLuas">Luas Area (m²):</label>
+                        <input type="number" id="satuanLuas" min="1" value="100" class="satuan-input-text">
+                    </div>
+                    
+                    <div class="satuan-result">
+                        <p>Estimasi Biaya: <span id="hasilSatuanBiaya">Rp 1.500.000</span></p>
+                    </div>
+                    
+                    <button id="hitungSatuanBiaya" class="btn btn-satuan-wa">Pesan Layanan Satuan via WhatsApp</button>
+                </div>
+            </div>
+            </section>
 
         <section id="kalkulator" class="bg-light section-padding fade-in-section">
             <h2>Hitung Estimasi Biaya Desain Anda</h2>
@@ -204,7 +273,7 @@
         <section id="kontak" class="section-padding contact-section fade-in-section contact-bg">
             <h2>Mari Mulai Proyek Anda</h2>
             <p class="contact-desc">Hubungi kami sekarang melalui WhatsApp untuk mendapatkan penawaran dan konsultasi gratis mengenai kebutuhan desain 2D dan 3D Anda.</p>
-            <a id="whatsappContactLink" href="#" class="btn contact-btn">
+            <a id="whatsappContactLink" href="#" class="btn contact-btn wa-contact-link">
                 <i class="fab fa-whatsapp"></i> Hubungi Kami via WhatsApp
             </a>
         </section>
