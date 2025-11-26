@@ -1,54 +1,29 @@
 document.addEventListener('DOMContentLoaded', function() {
     const menuToggle = document.querySelector('.menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
+    const navLinks = document.querySelectorAll('.nav-menu a');
     const header = document.querySelector('header');
     
-    // 1. Variabel dan Konfigurasi WhatsApp (NOMOR BARU)
-    const WHATSAPP_NUMBER = '6285117788355'; // NOMOR BARU: 085117788355
-    const WHATSAPP_BASE_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=`;
-    
-    // Default message untuk link kontak umum
-    const defaultMessage = encodeURIComponent("Halo Ryuu Desain, saya ingin berkonsultasi mengenai jasa desain 2D dan 3D. Terima kasih.");
+    // Asumsi nomor WhatsApp
+    const waNumber = '6281234567890'; // Ganti dengan nomor WA Anda
 
-    // Variabel Kalkulator
-    const luasAreaInput = document.getElementById('luasArea');
-    const paketDesainSelect = document.getElementById('paketDesain');
-    const hitungBiayaBtn = document.getElementById('hitungBiaya');
-    const hasilBiayaSpan = document.getElementById('hasilBiaya');
-    
-    // 2. Fungsi Menu Mobile (Hamburger) & Animasi Ikon
+    // 1. Fungsi Menu Mobile (Hamburger)
     if (menuToggle && navMenu) {
         menuToggle.addEventListener('click', function() {
             navMenu.classList.toggle('active');
-            
-            // Logika Mengubah Ikon
-            const icon = menuToggle.querySelector('i');
-            if (navMenu.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times'); // Ubah ke ikon silang
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars'); // Kembalikan ke ikon garis tiga
-            }
         });
     }
 
-    // 3. Tutup Menu saat Link Diklik (di Mobile)
-    document.querySelectorAll('.nav-menu a').forEach(link => {
+    // 2. Tutup Menu saat Link Diklik (di Mobile)
+    navLinks.forEach(link => {
         link.addEventListener('click', () => {
-            // Cek apakah menu sedang aktif sebelum menutup
             if (navMenu.classList.contains('active')) {
                  navMenu.classList.remove('active');
-                 
-                 // Pastikan ikon kembali ke garis tiga setelah ditutup
-                 const icon = menuToggle.querySelector('i');
-                 icon.classList.remove('fa-times');
-                 icon.classList.add('fa-bars');
             }
         });
     });
     
-    // 4. Efek Header Dinamis saat Scroll
+    // 3. Efek Header Dinamis saat Scroll
     window.addEventListener('scroll', function() {
         if (window.scrollY > 50) {
             header.classList.add('scrolled');
@@ -57,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // 5. Utilitas Format Rupiah
+    // Fungsi Pembantu
     function formatRupiah(angka) {
         const rupiah = new Intl.NumberFormat('id-ID', {
             style: 'currency',
@@ -67,49 +42,21 @@ document.addEventListener('DOMContentLoaded', function() {
         return rupiah;
     }
 
-    // 6. Logika Kalkulator dan Redirect WhatsApp
-    function generateWhatsappLink(packageName, luasArea, estimasiBiaya) {
-        // Encoding pesan untuk URL WhatsApp
-        const message = encodeURIComponent(
-            `Halo Ryuu Desain, saya tertarik dengan paket berikut:\n\n` +
-            `📦 Paket Pilihan: ${packageName}\n` +
-            `📐 Luas Area Total: ${luasArea} m²\n` +
-            `💰 Estimasi Biaya: ${estimasiBiaya}\n\n` +
-            `Mohon info lebih lanjut mengenai proses pemesanan. Terima kasih!`
-        );
-        return WHATSAPP_BASE_URL + message;
+    function generateWaLink(message) {
+        const encodedMessage = encodeURIComponent(message);
+        return `https://wa.me/${waNumber}?text=${encodedMessage}`;
     }
 
-    function hitungEstimasiDanPesan(e) { 
-        e.preventDefault(); // PENTING: Mencegah perilaku default button
-        
-        const luasArea = parseFloat(luasAreaInput.value);
-        const selectedOption = paketDesainSelect.options[paketDesainSelect.selectedIndex];
-        const hargaPerM2 = parseFloat(selectedOption.value);
-        const packageName = selectedOption.getAttribute('data-name') || selectedOption.textContent;
+    // 4. Logika Kalkulator Harga Paket (Existing)
+    const luasAreaInput = document.getElementById('luasArea');
+    const paketDesainSelect = document.getElementById('paketDesain');
+    const hitungBiayaBtn = document.getElementById('hitungBiaya');
+    const hasilBiayaSpan = document.getElementById('hasilBiaya');
 
-        if (isNaN(luasArea) || luasArea <= 0) {
-            alert("Mohon masukkan luas area yang valid (angka positif) sebelum memesan.");
-            hasilBiayaSpan.textContent = "Area Invalid";
-            return;
-        }
-
-        const totalBiaya = luasArea * hargaPerM2;
-        const estimasiBiayaFormatted = formatRupiah(totalBiaya);
-        
-        // Tampilkan hasil perhitungan
-        hasilBiayaSpan.textContent = estimasiBiayaFormatted;
-
-        // Redirect ke WhatsApp dengan data terisi
-        const whatsappLink = generateWhatsappLink(packageName, luasArea, estimasiBiayaFormatted);
-        window.location.href = whatsappLink;
-    }
-
-    function hitungEstimasiAwal() {
-         // Fungsi ini hanya untuk menampilkan hasil pertama kali saat load/input berubah tanpa redirect
+    function hitungEstimasi() {
         const luasArea = parseFloat(luasAreaInput.value);
         const hargaPerM2 = parseFloat(paketDesainSelect.value);
-
+        
         if (isNaN(luasArea) || luasArea <= 0) {
             hasilBiayaSpan.textContent = "Masukkan luas area yang valid.";
             return;
@@ -119,53 +66,152 @@ document.addEventListener('DOMContentLoaded', function() {
         hasilBiayaSpan.textContent = formatRupiah(totalBiaya);
     }
     
-    // Event listener untuk tombol Kalkulator
-    hitungBiayaBtn.addEventListener('click', hitungEstimasiDanPesan);
+    hitungEstimasi(); 
 
-    // Hitung biaya pertama kali saat halaman dimuat dan saat input/select berubah
-    hitungEstimasiAwal(); 
-    luasAreaInput.addEventListener('input', hitungEstimasiAwal);
-    paketDesainSelect.addEventListener('change', hitungEstimasiAwal);
+    // Event listener untuk tombol hitung/pesan Paket
+    hitungBiayaBtn.addEventListener('click', function() {
+        const luasArea = parseFloat(luasAreaInput.value);
+        const hargaPerM2 = parseFloat(paketDesainSelect.value);
+        const paketNama = paketDesainSelect.options[paketDesainSelect.selectedIndex].getAttribute('data-name');
+        
+        if (isNaN(luasArea) || luasArea <= 0) {
+            alert("Mohon masukkan Luas Area Total yang valid.");
+            return;
+        }
+
+        const totalBiaya = luasArea * hargaPerM2;
+        const message = `Halo Ryuu Desain, saya ingin memesan:\n- Paket: ${paketNama}\n- Luas Area: ${luasArea} m²\n- Estimasi Biaya: ${formatRupiah(totalBiaya)}`;
+        
+        window.open(generateWaLink(message), '_blank');
+    });
+
+    // Tambahkan event listener untuk menghitung ulang saat ada perubahan
+    luasAreaInput.addEventListener('input', hitungEstimasi);
+    paketDesainSelect.addEventListener('change', hitungEstimasi);
+
+    // 5. Logika Katalog Satuan (NEW)
+    const satuanLayananSelect = document.getElementById('satuanLayanan');
+    const satuanLuasInput = document.getElementById('satuanLuas');
+    const hasilSatuanBiayaSpan = document.getElementById('hasilSatuanBiaya');
+    const hitungSatuanBiayaBtn = document.getElementById('hitungSatuanBiaya');
+    const satuanAreaInputGroup = document.querySelector('.area-input-group');
+    const allSatuanItems = document.querySelectorAll('.satuan-item');
+
+    function updateSatuanEstimasi() {
+        const selectedOption = satuanLayananSelect.options[satuanLayananSelect.selectedIndex];
+        const hargaPerM2 = parseFloat(selectedOption.value);
+        const luasArea = parseFloat(satuanLuasInput.value);
+        
+        // Atur tampilan input area berdasarkan harga
+        if (hargaPerM2 === 0) {
+            // Sembunyikan input area
+            satuanAreaInputGroup.style.maxHeight = '0';
+            satuanAreaInputGroup.style.opacity = '0';
+            satuanAreaInputGroup.style.marginBottom = '0';
+            satuanAreaInputGroup.style.pointerEvents = 'none'; // Menonaktifkan input
+            
+            hasilSatuanBiayaSpan.textContent = "Hubungi Kami";
+            hitungSatuanBiayaBtn.textContent = "Konsultasi Layanan via WhatsApp";
+            hitungSatuanBiayaBtn.classList.add('btn-outline');
+            hitungSatuanBiayaBtn.classList.remove('btn');
+        } else {
+            // Tampilkan input area
+            satuanAreaInputGroup.style.maxHeight = '100px'; 
+            satuanAreaInputGroup.style.opacity = '1';
+            satuanAreaInputGroup.style.marginBottom = '15px';
+            satuanAreaInputGroup.style.pointerEvents = 'auto'; // Mengaktifkan input
+            
+            hitungSatuanBiayaBtn.textContent = "Pesan Layanan Satuan via WhatsApp";
+            hitungSatuanBiayaBtn.classList.add('btn');
+            hitungSatuanBiayaBtn.classList.remove('btn-outline');
+
+
+            if (isNaN(luasArea) || luasArea <= 0) {
+                hasilSatuanBiayaSpan.textContent = "Masukkan luas area.";
+                return;
+            }
+
+            const totalBiaya = luasArea * hargaPerM2;
+            hasilSatuanBiayaSpan.textContent = formatRupiah(totalBiaya);
+        }
+    }
     
-    // 7. Listener untuk Tombol Daftar Harga (Pesan Sekarang)
-    document.querySelectorAll('.pesan-paket-btn').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault(); // PENTING: Mencegah perilaku default link
-            const packageName = this.getAttribute('data-package-name');
+    // Event listener untuk tombol hitung/pesan Satuan
+    hitungSatuanBiayaBtn.addEventListener('click', function() {
+        const selectedOption = satuanLayananSelect.options[satuanLayananSelect.selectedIndex];
+        const paketNama = selectedOption.getAttribute('data-name');
+        const hargaPerM2 = parseFloat(selectedOption.value);
+        const luasArea = parseFloat(satuanLuasInput.value);
+        let message;
+
+        if (hargaPerM2 === 0) {
+             message = `Halo Ryuu Desain, saya ingin berkonsultasi mengenai layanan "${paketNama}". Mohon informasinya.`;
+        } else {
+            if (isNaN(luasArea) || luasArea <= 0) {
+                alert("Mohon masukkan Luas Area Total yang valid.");
+                return;
+            }
+            const totalBiaya = luasArea * hargaPerM2;
+            message = `Halo Ryuu Desain, saya ingin memesan layanan satuan:\n- Layanan: ${paketNama}\n- Luas Area: ${luasArea} m²\n- Estimasi Biaya: ${formatRupiah(totalBiaya)}`;
+        }
+
+        window.open(generateWaLink(message), '_blank');
+    });
+
+    // Event listeners untuk perubahan input
+    satuanLayananSelect.addEventListener('change', updateSatuanEstimasi);
+    satuanLuasInput.addEventListener('input', updateSatuanEstimasi);
+    
+    // Event listener untuk klik pada kartu satuan
+    allSatuanItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const itemName = this.getAttribute('data-name');
+            const itemPrice = this.getAttribute('data-price');
             
-            const message = encodeURIComponent(
-                `Halo Ryuu Desain, saya tertarik dengan paket: ${packageName}. Mohon informasi harga dan proses selanjutnya. Terima kasih!`
-            );
-            
-            window.location.href = WHATSAPP_BASE_URL + message;
+            // Temukan option yang sesuai dan setel sebagai terpilih
+            for (let i = 0; i < satuanLayananSelect.options.length; i++) {
+                if (satuanLayananSelect.options[i].getAttribute('data-name') === itemName) {
+                    satuanLayananSelect.value = itemPrice; 
+                    break;
+                }
+            }
+            updateSatuanEstimasi();
         });
     });
 
-    // 8. Listener untuk Semua Link Kontak WA Umum (Navbar, Footer, Floating)
-    document.querySelectorAll('.wa-contact-link, #whatsappContactLink').forEach(link => {
+    // Initial calculation for Satuan
+    updateSatuanEstimasi();
+    
+    // 6. WA Contact Links Handler (NEW)
+    const waContactLinks = document.querySelectorAll('.wa-contact-link');
+    waContactLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault(); // PENTING: Mencegah perilaku default link
-            window.location.href = WHATSAPP_BASE_URL + defaultMessage;
+            e.preventDefault();
+            const defaultMessage = "Halo Ryuu Desain, saya tertarik dengan layanan desain Anda dan ingin berkonsultasi lebih lanjut.";
+            window.open(generateWaLink(defaultMessage), '_blank');
         });
     });
+    
+    // 7. Scroll Fade In Animation (NEW - Added Logic)
+    const fadeIns = document.querySelectorAll('.fade-in-section');
 
-    // 9. Scroll Reveal Animation (Intersection Observer)
-    const fadeSections = document.querySelectorAll('.fade-in-section');
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1 
+    };
 
     const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-            } else {
-                // Hilang ketika keluar dari viewport
-                entry.target.classList.remove('is-visible');
-            }
-        });
-    }, {
-        threshold: 0.1 
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target); 
+        }
+      });
+    }, observerOptions);
+
+    fadeIns.forEach(section => {
+      observer.observe(section);
     });
 
-    fadeSections.forEach(section => {
-        observer.observe(section);
-    });
 });
