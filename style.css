@@ -328,7 +328,6 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     margin-bottom: 25px;
     font-family: 'Poppins', sans-serif; 
     font-style: normal; 
-    color: var(--color-text-dark); 
     font-weight: 400;
 }
 
@@ -646,6 +645,14 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     background-color: var(--color-soft-bg);
 }
 
+/* Efek highlight saat item ditambahkan ke keranjang */
+.satuan-item.in-cart {
+    border: 3px solid var(--color-accent);
+    box-shadow: 0 0 10px rgba(169, 143, 107, 0.5);
+    opacity: 0.9;
+}
+
+
 .satuan-icon {
     font-size: 2.2em;
     color: var(--color-accent);
@@ -669,7 +676,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     color: #C0392B; /* Merah untuk konsultasi */
 }
 
-/* Mini Calculator Styling */
+/* Mini Calculator (Cart Box) Styling */
 .satuan-calculator-box {
     background-color: var(--color-soft-bg);
     padding: 30px;
@@ -691,23 +698,88 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     font-family: 'Lora', serif;
 }
 
-.satuan-input-select, .satuan-input-text {
-    width: 100%;
-    padding: 10px 15px;
+/* New Cart Styles */
+.cart-list {
+    text-align: left;
+    min-height: 100px;
+    margin-bottom: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #ffffff; 
-    color: var(--color-text-dark);
+    padding: 10px;
+    background-color: #ffffff;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dotted #ccc;
+    flex-wrap: wrap; /* untuk mobile */
+}
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-item-info {
+    flex-grow: 1;
+    font-size: 0.95em;
+    font-weight: 500;
+    margin-right: 10px;
+}
+.cart-item-name {
+    color: var(--color-primary);
+    display: block;
+}
+.cart-item-price-m2 {
+    font-size: 0.8em;
+    color: #888;
+    display: block;
+}
+
+.cart-item-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cart-item-input {
+    width: 70px;
+    padding: 5px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.cart-item-remove-btn {
+    background: none;
+    border: none;
+    color: #C0392B;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: color 0.2s;
+    padding: 5px;
+}
+.cart-item-remove-btn:hover {
+    color: #E74C3C;
+}
+
+.cart-total-price {
+    font-weight: 700;
+    color: var(--color-success);
+    min-width: 100px;
+    text-align: right;
     font-size: 1em;
-    margin-top: 5px;
 }
 
-.satuan-calculator-box .form-group {
-    margin-bottom: 15px;
-}
-
-.satuan-calculator-box label {
-    font-weight: 600;
+.cart-empty-message {
+    text-align: center;
+    color: #999;
+    padding: 30px 0;
+    font-style: italic;
+    font-size: 0.9em;
 }
 
 .satuan-result {
@@ -721,7 +793,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 }
 
 #hasilSatuanBiaya {
-    color: var(--color-success);
+    color: var(--color-accent);
     font-size: 1.4em;
     display: block;
     margin-top: 5px;
@@ -734,13 +806,11 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     padding: 12px;
 }
 
-.area-input-group {
-    transition: all 0.4s ease-out;
-    max-height: 100px; /* Tinggi awal */
-    opacity: 1;
-    margin-bottom: 15px;
+.btn-satuan-wa:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+    transform: none;
 }
-/* ======================================================= */
 
 
 /* Scroll Animation Styles */
@@ -984,5 +1054,15 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     }
     .satuan-calculator-box {
         padding: 20px;
+    }
+
+    .cart-item-controls {
+        width: 100%; 
+        justify-content: space-between; 
+        margin-top: 5px; 
+    }
+    .cart-item-info {
+        width: 100%;
+        margin-bottom: 5px;
     }
 }
