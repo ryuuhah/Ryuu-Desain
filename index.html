@@ -26,8 +26,7 @@
                 <li><a href="#portofolio">Portofolio</a></li>
                 <li><a href="#layanan">Layanan</a></li>
                 <li><a href="#tentang">Tentang</a></li>
-                <li><a href="#harga">Harga</a></li>
-                <li><a href="#" class="btn-nav-kontak wa-contact-link"><i class="fab fa-whatsapp"></i> Kontak WA</a></li>
+                <li><a href="#harga">Paket Harga</a></li> <li><a href="#katalog-satuan">A La Carte</a></li> <li><a href="#" class="btn-nav-kontak wa-contact-link"><i class="fab fa-whatsapp"></i> Kontak WA</a></li>
             </ul>
         </nav>
     </header>
@@ -100,9 +99,38 @@
                 </div>
 
             </div>
+        </section>
 
-            <div class="satuan-catalog-container custom-combined-box">
-                <h3 class="satuan-title">Katalog Produk Satuan (A La Carte)</h3>
+        <section id="kalkulator" class="bg-light section-padding fade-in-section">
+            <h2>Hitung Estimasi Biaya Desain Anda</h2>
+            <p class="calculator-desc">Gunakan kalkulator ini untuk mendapatkan estimasi awal biaya desain Anda. Harap masukkan <strong>Luas Area Total</strong> yang direncanakan. (Contoh: Untuk bangunan 2 lantai dengan luas masing-masing 100m², masukkan 200m²).</p>
+            <div class="calculator-container">
+                <div class="calculator-form">
+                    <div class="form-group">
+                        <label for="luasArea">Luas Area (m²):</label>
+                        <input type="number" id="luasArea" min="1" value="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="paketDesain">Pilih Paket Desain:</label>
+                        <select id="paketDesain">
+                            <option value="12000" data-name="Paket Sketsa Teknis (Gambar 2D)">Paket Sketsa Teknis (Gambar 2D)</option>
+                            <option value="24000" data-name="Paket Visual Eksterior (2D + 3D)">Paket Visual Eksterior (2D + 3D)</option>
+                            <option value="35000" data-name="Paket Siap Bangun (2D + 3D + RAB)">Paket Siap Bangun (2D + 3D + RAB)</option>
+                            <option value="45000" data-name="Paket All-in Design (2D + 3D + RAB + Interior)">Paket All-in Design (2D + 3D + RAB + Interior)</option>
+                        </select>
+                    </div>
+                    <button id="hitungBiaya" class="btn">Hitung & Pesan via WhatsApp</button>
+                </div>
+                <div class="calculator-result">
+                    <p>Estimasi Biaya: <span id="hasilBiaya">Rp 0</span></p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="katalog-satuan" class="section-padding fade-in-section">
+            <h2>Katalog Produk Satuan (A La Carte)</h2> 
+            <div class="satuan-catalog-container custom-combined-box" style="margin-top: 0;">
+                <h3 class="satuan-title" style="display: none;">Katalog Produk Satuan (A La Carte)</h3> 
                 <p class="satuan-subtitle">Klik layanan yang Anda inginkan untuk <strong>menambahkan ke keranjang</strong>. Klik lagi untuk <strong>menghapus</strong>.</p>
                 
                 <div class="satuan-grid">
@@ -160,32 +188,6 @@
                     </div>
                     
                     <button id="hitungSatuanBiaya" class="btn btn-satuan-wa" disabled>Pesan Layanan Satuan via WhatsApp</button>
-                </div>
-            </div>
-            </section>
-
-        <section id="kalkulator" class="bg-light section-padding fade-in-section">
-            <h2>Hitung Estimasi Biaya Desain Anda</h2>
-            <p class="calculator-desc">Gunakan kalkulator ini untuk mendapatkan estimasi awal biaya desain Anda. Harap masukkan <strong>Luas Area Total</strong> yang direncanakan. (Contoh: Untuk bangunan 2 lantai dengan luas masing-masing 100m², masukkan 200m²).</p>
-            <div class="calculator-container">
-                <div class="calculator-form">
-                    <div class="form-group">
-                        <label for="luasArea">Luas Area (m²):</label>
-                        <input type="number" id="luasArea" min="1" value="100">
-                    </div>
-                    <div class="form-group">
-                        <label for="paketDesain">Pilih Paket Desain:</label>
-                        <select id="paketDesain">
-                            <option value="12000" data-name="Paket Sketsa Teknis (Gambar 2D)">Paket Sketsa Teknis (Gambar 2D)</option>
-                            <option value="24000" data-name="Paket Visual Eksterior (2D + 3D)">Paket Visual Eksterior (2D + 3D)</option>
-                            <option value="35000" data-name="Paket Siap Bangun (2D + 3D + RAB)">Paket Siap Bangun (2D + 3D + RAB)</option>
-                            <option value="45000" data-name="Paket All-in Design (2D + 3D + RAB + Interior)">Paket All-in Design (2D + 3D + RAB + Interior)</option>
-                        </select>
-                    </div>
-                    <button id="hitungBiaya" class="btn">Hitung & Pesan via WhatsApp</button>
-                </div>
-                <div class="calculator-result">
-                    <p>Estimasi Biaya: <span id="hasilBiaya">Rp 0</span></p>
                 </div>
             </div>
         </section>
