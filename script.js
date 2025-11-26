@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const cartListElement = document.getElementById('satuanCartList');
     const totalBiayaSpan = document.getElementById('hasilSatuanBiaya');
     const waButton = document.getElementById('hitungSatuanBiaya');
+    const volumeNoteElement = document.getElementById('volumeNote'); // Elemen Catatan Volume BARU
 
     // =====================================================
     // Fungsi Pembantu
@@ -52,32 +53,32 @@ document.addEventListener('DOMContentLoaded', function() {
     // Logika Keranjang Satuan
     // =====================================================
 
-    function addToCart(productId) {
+    // FUNGSI TOGGLE BARU: Menambahkan atau menghapus item dari keranjang dengan satu klik
+    function toggleCartItem(productId) {
         const id = parseInt(productId);
         const product = getProductById(id);
-        
-        if (!product) return;
+        const existingIndex = satuanCart.findIndex(item => item.productId === id);
+        const itemCard = document.querySelector(`.satuan-item[data-id="${id}"]`);
 
-        const existingItem = satuanCart.find(item => item.productId === id);
-
-        if (existingItem) {
-            // Jika produk sudah ada, abaikan atau bisa tambahkan notifikasi
-            return;
+        if (existingIndex !== -1) {
+            // Item sudah ada, HAPUS (TOGGLE OFF)
+            satuanCart.splice(existingIndex, 1);
+            if (itemCard) itemCard.classList.remove('in-cart');
         } else {
-            // Tambahkan produk baru ke keranjang
+            // Item belum ada, TAMBAH (TOGGLE ON)
+            if (!product) return;
             satuanCart.push({
                 productId: id,
                 volume: (product.price > 0 ? 100 : 1), // Default volume 100m2 untuk non-konsultasi
                 product: product 
             });
-            // Beri highlight pada kartu di katalog
-            const itemCard = document.querySelector(`.satuan-item[data-id="${id}"]`);
             if (itemCard) itemCard.classList.add('in-cart');
         }
         
         renderCart();
     }
     
+    // Fungsi ini tetap ada untuk tombol hapus di dalam keranjang (trash icon)
     function removeFromCart(productId) {
         const id = parseInt(productId);
         satuanCart = satuanCart.filter(item => item.productId !== id);
@@ -112,16 +113,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
         totalBiayaSpan.textContent = formatRupiah(totalCost);
         
-        // Atur status tombol WA
+        // Atur status tombol WA dan tampilan catatan volume
         if (satuanCart.length === 0) {
              waButton.textContent = "Pilih Layanan ke Keranjang";
              waButton.disabled = true;
+             if (volumeNoteElement) volumeNoteElement.style.display = 'none'; // Sembunyikan catatan
         } else {
              waButton.disabled = false;
              if (hasPayableItem) {
                 waButton.textContent = `Pesan ${satuanCart.length} Layanan via WhatsApp`;
+                if (volumeNoteElement) volumeNoteElement.style.display = 'block'; // Tampilkan catatan
              } else {
                 waButton.textContent = `Ajukan Konsultasi ${satuanCart.length} Layanan via WhatsApp`;
+                if (volumeNoteElement) volumeNoteElement.style.display = 'none'; // Sembunyikan catatan
              }
         }
     }
@@ -143,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="cart-item-controls">
                             ${isConsultation ? 
                                 `<span class="cart-total-price">KONSULTASI</span>` : 
-                                `<input type="number" min="1" value="${item.volume}" class="cart-item-input" data-id="${item.productId}">
+                                `<input type="number" min="1" value="${item.volume}" class="cart-item-input" data-id="${item.productId}" placeholder="m²">
                                 <span class="cart-total-price">${item.product.unit}</span>`
                             }
                             <button class="cart-item-remove-btn" data-id="${item.productId}">
@@ -162,11 +166,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Event Listeners Keranjang Satuan
     // =====================================================
 
-    // 1. Klik Kartu Satuan (Add to Cart)
+    // 1. Klik Kartu Satuan (Toggle Cart Item)
     satuanItems.forEach(item => {
         item.addEventListener('click', function() {
             const productId = this.getAttribute('data-id');
-            addToCart(productId);
+            toggleCartItem(productId);
         });
     });
 
@@ -174,12 +178,16 @@ document.addEventListener('DOMContentLoaded', function() {
     cartListElement.addEventListener('change', function(e) {
         if (e.target.classList.contains('cart-item-input')) {
             const id = e.target.getAttribute('data-id');
-            const newVolume = parseInt(e.target.value);
+            // Pastikan input adalah bilangan bulat dan positif
+            const newVolume = Math.round(parseFloat(e.target.value)); 
+            
             if (!isNaN(newVolume) && newVolume >= 1) {
                 updateCartVolume(id, newVolume);
             } else {
                 // Reset nilai input ke nilai terakhir yang valid atau default
-                e.target.value = satuanCart.find(i => i.productId == id).volume;
+                const currentItem = satuanCart.find(i => i.productId == id);
+                e.target.value = currentItem ? currentItem.volume : 1; 
+                alert("Mohon masukkan nominal volume (m²) yang benar (angka positif).");
             }
         }
     });
