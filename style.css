@@ -414,6 +414,12 @@ ul.nav-menu li a:hover {
     font-weight: 600;
 }
 
+/* New wrapper for custom select look (Step 3) */
+.select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
 .calculator-form input[type="number"],
 .calculator-form select {
     width: 100%;
@@ -426,6 +432,8 @@ ul.nav-menu li a:hover {
     -webkit-appearance: none; 
     -moz-appearance: none;
     appearance: none;
+    cursor: pointer;
+    padding-right: 40px; /* Make space for the new arrow icon */
 }
 
 .calculator-form input[type="number"]:focus,
@@ -433,6 +441,17 @@ ul.nav-menu li a:hover {
     border-color: var(--color-accent);
     outline: none;
     box-shadow: 0 0 0 2px rgba(169, 143, 107, 0.5); 
+}
+
+/* Style for the new custom arrow (Step 3) */
+.select-arrow {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    color: var(--color-accent); 
+    pointer-events: none; 
+    font-size: 0.9em;
 }
 
 .calculator-result {
@@ -537,6 +556,34 @@ ul.nav-menu li a:hover {
     
     animation: text-shimmer 3s infinite linear;
 }
+
+/* Apply Text Shimmer Effect to Premium Button Text (Step 2) */
+.price-card.premium .shimmer-btn-text {
+    color: var(--color-primary); 
+    display: inline-block; 
+    
+    background-image: linear-gradient(
+        90deg, 
+        var(--color-primary) 0%, 
+        #FFFFFF 50%, 
+        var(--color-primary) 100%
+    );
+    background-size: 200% 100%;
+    
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent; 
+    
+    animation: text-shimmer 3s infinite linear;
+}
+
+.price-card.premium .shimmer-btn-text:hover {
+    animation: none;
+    -webkit-text-fill-color: var(--color-primary); 
+    color: var(--color-primary);
+}
+
 
 .price-card.premium .price-old, 
 .price-card.premium .price-new, 
@@ -1084,8 +1131,7 @@ ul.nav-menu li a:hover {
         right: 15px;
     }
     
-    /* PERBAIKAN: JANGAN MATIKAN Animasi Pulse & Shimmer di Mobile */
-    /* Menghapus:
+    /* PENTING: Matikan Animasi Pulse & Shimmer di Mobile untuk performa */
     .price-card.premium {
         animation: none; 
     }
@@ -1096,7 +1142,14 @@ ul.nav-menu li a:hover {
         color: var(--color-accent);
         animation: none;
     }
-    */
+    
+    /* ADDED: Disable shimmer on premium button on mobile (Step 2 Cleanup) */
+    .price-card.premium .shimmer-btn-text {
+        animation: none;
+        -webkit-text-fill-color: var(--color-primary); 
+        color: var(--color-primary);
+        background-image: none;
+    }
     
     /* KATALOG SATUAN MOBILE - Penyesuaian agar box tetap rapi */
     .satuan-catalog-container.custom-combined-box {
@@ -1128,6 +1181,12 @@ ul.nav-menu li a:hover {
         padding: 0;
         max-width: 95%; 
     }
+    
+    /* Step 1: Reduce size of Satuan H4 header on mobile */
+    .satuan-calculator-box h4 {
+        font-size: 1.2em; 
+        padding: 10px;
+    }
 
     .cart-item-controls {
         width: 100%; 
@@ -1138,13 +1197,4 @@ ul.nav-menu li a:hover {
         width: 100%;
         margin-bottom: 5px;
     }
-    
-    .cart-item-input {
-        width: 60px; 
-    }
-
-    .cart-total-price {
-        min-width: 80px;
-    }
-    
 }
