@@ -1,13 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // 1. Deklarasi Variabel dan Konstan (EFISIENSI: Menggunakan const/let)
     const menuToggle = document.querySelector('.menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
-    // EFISIENSI: Menggabungkan selector untuk link nav yang berbeda
-    const navLinks = document.querySelectorAll('.nav-menu a, header a'); 
+    const navLinks = document.querySelectorAll('.nav-menu a');
     const header = document.querySelector('header');
     
-    // Nomor WhatsApp (Asumsi Nomor ini sudah benar)
-    const waNumber = '6285117788355'; 
+    // Asumsi nomor WhatsApp (NOMOR BARU)
+    const waNumber = '6285117788355'; // DIUBAH KE NOMOR BARU
     
     // State untuk Keranjang Satuan
     let satuanCart = []; 
@@ -22,253 +20,315 @@ document.addEventListener('DOMContentLoaded', function() {
         { id: 6, name: "Desain Web", price: 0, unit: 'Konsultasi' }
     ];
 
-    // Elemen Kalkulator
-    const luasAreaInput = document.getElementById('luasArea');
-    const paketDesainSelect = document.getElementById('paketDesain');
-    const hitungBiayaBtn = document.getElementById('hitungBiayaBtn');
-    const hasilBiayaText = document.getElementById('hasilBiaya');
-    const waKalkulatorLink = document.getElementById('waKalkulatorLink');
-    
-    // Elemen Katalog Satuan
-    const satuanCatalogGrid = document.getElementById('satuanCatalogGrid');
-    const satuanCartList = document.getElementById('satuanCartList');
-    const cartTotalText = document.getElementById('cartTotalText');
-    const checkoutBtn = document.getElementById('checkoutBtn');
+    // Elemen DOM Satuan
+    const satuanItems = document.querySelectorAll('.satuan-item');
+    const cartListElement = document.getElementById('satuanCartList');
+    const totalBiayaSpan = document.getElementById('hasilSatuanBiaya');
+    const waButton = document.getElementById('hitungSatuanBiaya');
+    const volumeNoteElement = document.getElementById('volumeNote'); 
 
-    // 2. Fungsi Utilitas
-    
-    /** Mengkonversi angka menjadi format Rupiah. (EFISIENSI: Menggunakan Intl.NumberFormat) */
-    const formatRupiah = (angka) => {
-        if (typeof angka !== 'number') return 'Rp 0';
-        return new Intl.NumberFormat('id-ID', {
+    // =====================================================
+    // Fungsi Pembantu
+    // =====================================================
+    function formatRupiah(angka) {
+        if (angka === 0) return 'Rp 0';
+        const rupiah = new Intl.NumberFormat('id-ID', {
             style: 'currency',
             currency: 'IDR',
             minimumFractionDigits: 0
-        }).format(angka).replace(',00', '');
-    };
-
-    /** Membuat link WhatsApp dengan pesan yang sudah di-encode. */
-    const generateWaLink = (message) => {
-        const encodedMessage = encodeURIComponent(message);
-        return `https://wa.me/${waNumber}?text=${encodedMessage}`;
-    };
-
-    // 3. Navbar dan Smooth Scroll
-    
-    // Toggle Menu Mobile
-    if (menuToggle && navMenu) {
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            // Toggle icon
-            const icon = menuToggle.querySelector('i');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-times');
-        });
+        }).format(angka);
+        return rupiah;
     }
 
-    // Scroll Header Background
-    window.addEventListener('scroll', () => {
-        if (header) {
-            if (window.scrollY > 50) {
-                header.style.backgroundColor = 'white';
-                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+    function generateWaLink(message) {
+        // Hapus "62" jika ada, tambahkan awalan "62"
+        let cleanNumber = waNumber.replace(/^0|[^0-9]/g, ''); 
+        if (!cleanNumber.startsWith('62')) {
+            cleanNumber = '62' + cleanNumber;
+        }
+        const encodedMessage = encodeURIComponent(message);
+        return `https://wa.me/${cleanNumber}?text=${encodedMessage}`;
+    }
+
+    function getProductById(id) {
+        return SATUAN_PRODUCTS.find(p => p.id === id);
+    }
+    
+    // =====================================================
+    // Logika Keranjang Satuan
+    // =====================================================
+
+    // FUNGSI TOGGLE: Menambahkan atau menghapus item dari keranjang dengan satu klik
+    function toggleCartItem(productId) {
+        const id = parseInt(productId);
+        const product = getProductById(id);
+        const existingIndex = satuanCart.findIndex(item => item.productId === id);
+        const itemCard = document.querySelector(`.satuan-item[data-id="${id}"]`);
+
+        if (existingIndex !== -1) {
+            // Item sudah ada, HAPUS (TOGGLE OFF)
+            satuanCart.splice(existingIndex, 1);
+            if (itemCard) itemCard.classList.remove('in-cart');
+        } else {
+            // Item belum ada, TAMBAH (TOGGLE ON)
+            if (!product) return;
+            satuanCart.push({
+                productId: id,
+                volume: (product.price > 0 ? 100 : 1), // Default volume 100m2 untuk non-konsultasi
+                product: product 
+            });
+            if (itemCard) itemCard.classList.add('in-cart');
+        }
+        
+        renderCart();
+    }
+    
+    // Fungsi ini tetap ada untuk tombol hapus di dalam keranjang (trash icon)
+    function removeFromCart(productId) {
+        const id = parseInt(productId);
+        satuanCart = satuanCart.filter(item => item.productId !== id);
+        
+        // Hapus highlight pada kartu di katalog
+        const itemCard = document.querySelector(`.satuan-item[data-id="${id}"]`);
+        if (itemCard) itemCard.classList.remove('in-cart');
+
+        renderCart();
+    }
+    
+    function updateCartVolume(productId, newVolume) {
+        const id = parseInt(productId);
+        const item = satuanCart.find(i => i.productId === id);
+        
+        if (item && item.product.price > 0) {
+            // Pastikan volume adalah bilangan bulat positif, minimal 1
+            const validatedVolume = Math.max(1, Math.round(parseFloat(newVolume)));
+            item.volume = validatedVolume; 
+            updateCartTotal();
+            // PERBAIKAN: Render ulang agar nilai input di keranjang sinkron dengan data
+            renderCart(); 
+        }
+    }
+    
+    function updateCartTotal() {
+        let totalCost = 0;
+        let hasPayableItem = false; // Untuk menentukan apakah ada item berharga > 0
+
+        satuanCart.forEach(item => {
+            // Pastikan volume selalu divalidasi sebagai angka (walaupun sudah ada di updateCartVolume)
+            const volume = Math.max(1, item.volume); 
+
+            if (item.product.price > 0 && volume > 0) {
+                totalCost += item.product.price * volume;
+                hasPayableItem = true;
+            }
+        });
+
+        totalBiayaSpan.textContent = formatRupiah(totalCost);
+        
+        // Atur status tombol WA dan tampilan catatan volume
+        if (satuanCart.length === 0) {
+             waButton.textContent = "Pilih Layanan ke Keranjang";
+             waButton.disabled = true;
+             if (volumeNoteElement) volumeNoteElement.style.display = 'none'; // Sembunyikan catatan
+        } else {
+             waButton.disabled = false;
+             if (hasPayableItem) {
+                waButton.textContent = `Pesan ${satuanCart.length} Layanan via WhatsApp`;
+                if (volumeNoteElement) volumeNoteElement.style.display = 'block'; // Tampilkan catatan
+             } else {
+                waButton.textContent = `Ajukan Konsultasi ${satuanCart.length} Layanan via WhatsApp`;
+                if (volumeNoteElement) volumeNoteElement.style.display = 'none'; // Sembunyikan catatan
+             }
+        }
+    }
+
+    function renderCart() {
+        if (satuanCart.length === 0) {
+            cartListElement.innerHTML = '<p class="cart-empty-message">Keranjang kosong. Pilih produk dari katalog di atas.</p>';
+        } else {
+            let html = '';
+            satuanCart.forEach(item => {
+                const isConsultation = item.product.price === 0;
+                
+                html += `
+                    <div class="cart-item" data-id="${item.productId}">
+                        <div class="cart-item-info">
+                            <span class="cart-item-name">${item.product.name}</span>
+                            <span class="cart-item-price-m2">${isConsultation ? item.product.unit : formatRupiah(item.product.price) + '/' + item.product.unit}</span>
+                        </div>
+                        <div class="cart-item-controls">
+                            ${isConsultation ? 
+                                `<span class="cart-total-price">KONSULTASI</span>` : 
+                                // Nilai input diambil dari item.volume yang sudah divalidasi
+                                `<input type="number" min="1" value="${item.volume}" class="cart-item-input" data-id="${item.productId}" placeholder="m²">
+                                <span class="cart-total-price">${item.product.unit}</span>`
+                            }
+                            <button class="cart-item-remove-btn" data-id="${item.productId}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            cartListElement.innerHTML = html;
+        }
+        updateCartTotal();
+    }
+    
+    // =====================================================
+    // Event Listeners Keranjang Satuan
+    // =====================================================
+
+    // 1. Klik Kartu Satuan (Toggle Cart Item)
+    satuanItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const productId = this.getAttribute('data-id');
+            toggleCartItem(productId);
+        });
+    });
+
+    // 2. Event Delegation untuk input volume dan tombol remove
+    cartListElement.addEventListener('change', function(e) {
+        if (e.target.classList.contains('cart-item-input')) {
+            const id = e.target.getAttribute('data-id');
+            // Pastikan input adalah bilangan bulat dan positif
+            const newVolume = parseFloat(e.target.value); 
+            
+            if (!isNaN(newVolume) && newVolume >= 1) {
+                // Perubahan volume akan dihandle oleh updateCartVolume, 
+                // yang juga akan memanggil renderCart() untuk mengupdate tampilan
+                updateCartVolume(id, newVolume);
             } else {
-                header.style.backgroundColor = 'white';
-                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
+                // Jika input tidak valid, reset tampilan input
+                const currentItem = satuanCart.find(i => i.productId == id);
+                e.target.value = currentItem ? currentItem.volume : 1; 
+                alert("Mohon masukkan nominal volume (m²) yang benar (angka positif).");
             }
         }
     });
 
-    // Close menu on link click (for mobile)
+    cartListElement.addEventListener('click', function(e) {
+        if (e.target.closest('.cart-item-remove-btn')) {
+            const button = e.target.closest('.cart-item-remove-btn');
+            const id = button.getAttribute('data-id');
+            removeFromCart(id);
+        }
+    });
+    
+    // 3. Tombol Pesan via WA
+    waButton.addEventListener('click', function() {
+        if (satuanCart.length === 0) return;
+
+        let message = "Halo Ryuu Desain, saya ingin memesan layanan satuan berikut:\n\n";
+        let hasPayable = false;
+        let totalCost = 0;
+
+        satuanCart.forEach((item, index) => {
+            const product = item.product;
+            const isConsultation = product.price === 0;
+            const volume = Math.max(1, item.volume); // Validasi volume
+            const subtotal = product.price * volume;
+            
+            if (isConsultation) {
+                message += `${index + 1}. ${product.name} (Perlu Konsultasi Harga)\n`;
+            } else {
+                message += `${index + 1}. ${product.name} - ${volume} ${product.unit} (Est. ${formatRupiah(subtotal)})\n`;
+                totalCost += subtotal;
+                hasPayable = true;
+            }
+        });
+
+        if (hasPayable) {
+            message += `\nTotal Estimasi Biaya: ${formatRupiah(totalCost)}`;
+        } else {
+             message = "Halo Ryuu Desain, saya ingin mengajukan konsultasi untuk layanan:\n" + satuanCart.map(item => `- ${item.product.name}`).join('\n');
+        }
+
+        window.open(generateWaLink(message), '_blank');
+    });
+
+    // =====================================================
+    // Logika Lain (Non-Satuan) - Disesuaikan
+    // =====================================================
+    
+    // 1. Fungsi Menu Mobile (Hamburger)
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+        });
+    }
+
+    // 2. Tutup Menu saat Link Diklik (di Mobile)
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
-            // EFISIENSI: Hanya tutup menu jika menu mobile aktif
-            if (window.innerWidth <= 768 && navMenu.classList.contains('active')) { 
-                navMenu.classList.remove('active');
-                const icon = menuToggle.querySelector('i');
-                icon.classList.add('fa-bars');
-                icon.classList.remove('fa-times');
+            if (navMenu.classList.contains('active')) {
+                 navMenu.classList.remove('active');
             }
         });
     });
-
-    // 4. Kalkulator Estimasi
     
-    /** Menghitung estimasi biaya paket desain. */
-    const hitungEstimasiPaket = () => {
-        const luasArea = parseFloat(luasAreaInput.value) || 0;
-        const hargaPerM2 = parseInt(paketDesainSelect.value) || 0;
-        const totalBiaya = luasArea * hargaPerM2;
-        
-        hasilBiayaText.textContent = formatRupiah(totalBiaya);
-        
-        // Update pesan WA link kalkulator
-        const namaPaket = paketDesainSelect.options[paketDesainSelect.selectedIndex].text.split('(')[0].trim();
-        const message = `Halo Ryuu Desain, saya ingin konsultasi mengenai estimasi proyek saya.\n- Paket: ${namaPaket}\n- Luas Area: ${luasArea} m²\n- Estimasi Biaya: ${formatRupiah(totalBiaya)}`;
-        waKalkulatorLink.setAttribute('data-wa-message', message);
-    };
-
-    // Panggil fungsi sekali saat DOMContentLoaded untuk inisialisasi awal
-    if (luasAreaInput && paketDesainSelect) {
-        hitungEstimasiPaket();
-        luasAreaInput.addEventListener('input', hitungEstimasiPaket);
-        paketDesainSelect.addEventListener('change', hitungEstimasiPaket);
-    }
-
-
-    // Event listener untuk tombol 'Hitung Estimasi' (memanggil fungsi yang sama)
-    if (hitungBiayaBtn) {
-        hitungBiayaBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            hitungEstimasiPaket();
-        });
-    }
-
-    // 5. Katalog A La Carte (Satuan) dan Keranjang
-    
-    /** Render katalog produk ke DOM. */
-    const renderCatalog = () => {
-        if (!satuanCatalogGrid) return;
-
-        satuanCatalogGrid.innerHTML = SATUAN_PRODUCTS.map(product => {
-            const isInCart = satuanCart.some(item => item.id === product.id);
-            const buttonClass = isInCart ? 'add-btn added-to-cart' : 'add-btn';
-            const buttonText = isInCart ? 'Ditambahkan' : 'Tambah ke Keranjang';
-            
-            const priceDisplay = product.price === 0 
-                ? product.unit 
-                : `${formatRupiah(product.price)} / ${product.unit}`;
-
-            return `
-                <div class="satuan-item" data-id="${product.id}">
-                    <div class="satuan-item-info">
-                        <h4>${product.name}</h4>
-                        <span class="satuan-price-unit">${priceDisplay}</span>
-                    </div>
-                    <button class="${buttonClass}" data-id="${product.id}" ${isInCart ? 'disabled' : ''}>
-                        ${buttonText}
-                    </button>
-                </div>
-            `;
-        }).join('');
-    };
-
-    /** Render keranjang belanja ke DOM. */
-    const renderCart = () => {
-        if (!satuanCartList || !cartTotalText || !checkoutBtn) return;
-
-        satuanCartList.innerHTML = ''; // Kosongkan keranjang
-
-        if (satuanCart.length === 0) {
-            satuanCartList.innerHTML = '<li class="empty-cart-message">Keranjang Anda masih kosong.</li>';
-            checkoutBtn.disabled = true;
+    // 3. Efek Header Dinamis saat Scroll
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
         } else {
-            satuanCart.forEach(item => {
-                const priceText = item.price === 0 
-                    ? item.unit 
-                    : `${formatRupiah(item.price)} x [Luas]`; // Gunakan placeholder
-
-                const listItem = document.createElement('li');
-                listItem.innerHTML = `
-                    <span>${item.name}</span>
-                    <span>
-                        <span style="font-size:0.9em; margin-right: 10px;">${priceText}</span>
-                        <button class="remove-item-btn" data-id="${item.id}"><i class="fas fa-trash-alt"></i></button>
-                    </span>
-                `;
-                satuanCartList.appendChild(listItem);
-            });
-            checkoutBtn.disabled = false;
+            header.classList.remove('scrolled');
         }
+    });
 
-        // Tampilkan total
-        const totalDisplay = satuanCart.some(item => item.price > 0) 
-            ? 'Konsultasi Harga Total' 
-            : formatRupiah(0);
+    // 4. Logika Kalkulator Harga Paket (Existing)
+    const luasAreaInput = document.getElementById('luasArea');
+    const paketDesainSelect = document.getElementById('paketDesain');
+    const hitungBiayaBtn = document.getElementById('hitungBiaya');
+    const hasilBiayaSpan = document.getElementById('hasilBiaya');
 
-        cartTotalText.textContent = totalDisplay;
-    };
-
-    /** Menambahkan produk ke keranjang. */
-    const addToCart = (productId) => {
-        const id = parseInt(productId);
-        const product = SATUAN_PRODUCTS.find(p => p.id === id);
+    function hitungEstimasiPaket() {
+        const luasArea = parseFloat(luasAreaInput.value);
+        const hargaPerM2 = parseFloat(paketDesainSelect.value);
         
-        if (product && !satuanCart.some(item => item.id === id)) {
-            satuanCart.push(product);
-            renderCatalog();
-            renderCart();
+        if (isNaN(luasArea) || luasArea <= 0) {
+            hasilBiayaSpan.textContent = "Masukkan luas area yang valid.";
+            return;
         }
-    };
 
-    /** Menghapus produk dari keranjang. */
-    const removeFromCart = (productId) => {
-        const id = parseInt(productId);
-        satuanCart = satuanCart.filter(item => item.id !== id);
-        renderCatalog();
-        renderCart();
-    };
-
-    // Event Delegation untuk tombol Tambah (EFISIENSI: Menggunakan event delegation)
-    if (satuanCatalogGrid) {
-        satuanCatalogGrid.addEventListener('click', (e) => {
-            const target = e.target;
-            if (target.classList.contains('add-btn') && !target.disabled) {
-                const productId = target.getAttribute('data-id');
-                addToCart(productId);
-            }
-        });
-    }
-
-    // Event Delegation untuk tombol Hapus di Keranjang
-    if (satuanCartList) {
-        satuanCartList.addEventListener('click', (e) => {
-            const target = e.target.closest('.remove-item-btn');
-            if (target) {
-                const productId = target.getAttribute('data-id');
-                removeFromCart(productId);
-            }
-        });
+        const totalBiaya = luasArea * hargaPerM2;
+        hasilBiayaSpan.textContent = formatRupiah(totalBiaya);
     }
     
-    // Event listener untuk tombol Checkout Satuan
-    if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (satuanCart.length === 0) return;
+    hitungEstimasiPaket(); 
 
-            // Buat pesan checkout
-            let message = "Halo Ryuu Desain, saya ingin memesan layanan A La Carte berikut:\n";
-            satuanCart.forEach(item => {
-                const priceText = item.price === 0 
-                    ? `(${item.unit})` 
-                    : `(${formatRupiah(item.price)}/${item.unit} - perlu konsultasi luas)`;
-                message += `- ${item.name} ${priceText}\n`;
-            });
-            message += "\nMohon konfirmasi dan informasikan total biaya final untuk proyek saya. Terima kasih.";
-            
-            window.open(generateWaLink(message), '_blank');
-        });
-    }
+    // Event listener untuk tombol hitung/pesan Paket
+    hitungBiayaBtn.addEventListener('click', function() {
+        const luasArea = parseFloat(luasAreaInput.value);
+        const hargaPerM2 = parseFloat(paketDesainSelect.value);
+        const paketNama = paketDesainSelect.options[paketDesainSelect.selectedIndex].getAttribute('data-name');
+        
+        if (isNaN(luasArea) || luasArea <= 0) {
+            alert("Mohon masukkan Luas Area Total yang valid.");
+            return;
+        }
 
-    // Panggil renderCatalog dan renderCart saat DOMContentLoaded
-    renderCatalog();
-    renderCart();
+        const totalBiaya = luasArea * hargaPerM2;
+        const message = `Halo Ryuu Desain, saya ingin memesan:\n- Paket: ${paketNama}\n- Luas Area: ${luasArea} m²\n- Estimasi Biaya: ${formatRupiah(totalBiaya)}`;
+        
+        window.open(generateWaLink(message), '_blank');
+    });
+
+    // Tambahkan event listener untuk menghitung ulang saat ada perubahan
+    luasAreaInput.addEventListener('input', hitungEstimasiPaket);
+    paketDesainSelect.addEventListener('change', hitungEstimasiPaket);
     
-    // 6. WA Contact Links Handler (EFISIENSI: Menggabungkan semua link WA)
+    // 5. WA Contact Links Handler 
     const waContactLinks = document.querySelectorAll('.wa-contact-link');
     waContactLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            // Ambil pesan dari data-wa-message (sudah ditambahkan di HTML) atau gunakan default
             const defaultMessage = "Halo Ryuu Desain, saya tertarik dengan layanan desain Anda dan ingin berkonsultasi lebih lanjut.";
-            const message = this.getAttribute('data-wa-message') || defaultMessage;
-            
-            window.open(generateWaLink(message), '_blank');
+            window.open(generateWaLink(defaultMessage), '_blank');
         });
     });
     
-    // 7. Scroll Fade In Animation
+    // 6. Scroll Fade In Animation
     const fadeIns = document.querySelectorAll('.fade-in-section');
 
     const observerOptions = {
@@ -281,11 +341,57 @@ document.addEventListener('DOMContentLoaded', function() {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
-          // EFISIENSI: Berhenti mengamati setelah elemen terlihat
           observer.unobserve(entry.target); 
         }
       });
     }, observerOptions);
 
-    fadeIns.forEach(el => observer.observe(el));
+    fadeIns.forEach(section => {
+      observer.observe(section);
+    });
+    
+    // 7. Auto-fill Kalkulator dari Tombol Paket Harga (Perbaikan Baru)
+    const pesanPaketBtns = document.querySelectorAll('.pesan-paket-btn');
+
+    pesanPaketBtns.forEach(button => {
+        button.addEventListener('click', function(e) {
+            // Karena href sudah diubah di HTML menjadi #kalkulator, ini hanya untuk logic auto-fill
+            e.preventDefault(); 
+            
+            const packageName = this.getAttribute('data-package-name');
+            let foundOption = null;
+
+            // Cari opsi yang sesuai di select kalkulator
+            for (let i = 0; i < paketDesainSelect.options.length; i++) {
+                const option = paketDesainSelect.options[i];
+                // Menggunakan startsWith karena data-name di select lebih panjang (ex: "Paket Sketsa Teknis (Gambar 2D)")
+                if (option.getAttribute('data-name').startsWith(packageName)) {
+                    foundOption = option;
+                    break;
+                }
+            }
+
+            if (foundOption) {
+                // 1. Set nilai select paket
+                paketDesainSelect.value = foundOption.value;
+                
+                // 2. Hitung dan update tampilan
+                hitungEstimasiPaket(); 
+                
+                // 3. Scroll ke bagian kalkulator
+                document.getElementById('kalkulator').scrollIntoView({ behavior: 'smooth' });
+                
+                // 4. Opsional: Fokus ke input area jika luas belum diisi
+                if (parseFloat(luasAreaInput.value) <= 0) {
+                    luasAreaInput.focus();
+                }
+            } else {
+                 // Fallback: Langsung scroll ke kalkulator jika paket tidak ditemukan
+                 document.getElementById('kalkulator').scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+    
+    // Initial call for Satuan Cart
+    renderCart();
 });
