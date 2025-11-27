@@ -1,11 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // 1. Deklarasi Variabel dan Konstan
+    // 1. Deklarasi Variabel dan Konstan (EFISIENSI: Menggunakan const/let)
     const menuToggle = document.querySelector('.menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
-    const navLinks = document.querySelectorAll('.nav-menu a, header a');
+    // EFISIENSI: Menggabungkan selector untuk link nav yang berbeda
+    const navLinks = document.querySelectorAll('.nav-menu a, header a'); 
     const header = document.querySelector('header');
     
-    const waNumber = '6285117788355'; // Nomor WhatsApp
+    // Nomor WhatsApp (Asumsi Nomor ini sudah benar)
+    const waNumber = '6285117788355'; 
     
     // State untuk Keranjang Satuan
     let satuanCart = []; 
@@ -35,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 2. Fungsi Utilitas
     
-    /** Mengkonversi angka menjadi format Rupiah. */
+    /** Mengkonversi angka menjadi format Rupiah. (EFISIENSI: Menggunakan Intl.NumberFormat) */
     const formatRupiah = (angka) => {
         if (typeof angka !== 'number') return 'Rp 0';
         return new Intl.NumberFormat('id-ID', {
@@ -57,8 +59,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (menuToggle && navMenu) {
         menuToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
-            menuToggle.querySelector('i').classList.toggle('fa-bars');
-            menuToggle.querySelector('i').classList.toggle('fa-times');
+            // Toggle icon
+            const icon = menuToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
         });
     }
 
@@ -69,7 +73,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 header.style.backgroundColor = 'white';
                 header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
             } else {
-                // Biarkan warna default di CSS (jika ada) atau putih
                 header.style.backgroundColor = 'white';
                 header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
             }
@@ -79,10 +82,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Close menu on link click (for mobile)
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
-            if (navMenu.classList.contains('active')) {
+            // EFISIENSI: Hanya tutup menu jika menu mobile aktif
+            if (window.innerWidth <= 768 && navMenu.classList.contains('active')) { 
                 navMenu.classList.remove('active');
-                menuToggle.querySelector('i').classList.add('fa-bars');
-                menuToggle.querySelector('i').classList.remove('fa-times');
+                const icon = menuToggle.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
             }
         });
     });
@@ -104,19 +109,18 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // Panggil fungsi sekali saat DOMContentLoaded untuk inisialisasi awal
-    hitungEstimasiPaket();
+    if (luasAreaInput && paketDesainSelect) {
+        hitungEstimasiPaket();
+        luasAreaInput.addEventListener('input', hitungEstimasiPaket);
+        paketDesainSelect.addEventListener('change', hitungEstimasiPaket);
+    }
 
-    // Event listener untuk menghitung ulang saat ada perubahan
-    if (luasAreaInput) luasAreaInput.addEventListener('input', hitungEstimasiPaket);
-    if (paketDesainSelect) paketDesainSelect.addEventListener('change', hitungEstimasiPaket);
 
-    // Event listener untuk tombol 'Hitung Estimasi' (sama seperti event change, tapi untuk tombol)
+    // Event listener untuk tombol 'Hitung Estimasi' (memanggil fungsi yang sama)
     if (hitungBiayaBtn) {
         hitungBiayaBtn.addEventListener('click', (e) => {
             e.preventDefault();
             hitungEstimasiPaket();
-            // Scroll ke hasil (optional, bisa dihilangkan)
-            // hasilBiayaText.scrollIntoView({ behavior: 'smooth' }); 
         });
     }
 
@@ -153,7 +157,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const renderCart = () => {
         if (!satuanCartList || !cartTotalText || !checkoutBtn) return;
 
-        let total = 0;
         satuanCartList.innerHTML = ''; // Kosongkan keranjang
 
         if (satuanCart.length === 0) {
@@ -161,13 +164,9 @@ document.addEventListener('DOMContentLoaded', function() {
             checkoutBtn.disabled = true;
         } else {
             satuanCart.forEach(item => {
-                let priceText;
-                if (item.price === 0) {
-                    priceText = item.unit; // Konsultasi
-                } else {
-                    priceText = `${formatRupiah(item.price)} x [Luas]`;
-                    total += item.price; // Hanya hitung total untuk produk berbayar
-                }
+                const priceText = item.price === 0 
+                    ? item.unit 
+                    : `${formatRupiah(item.price)} x [Luas]`; // Gunakan placeholder
 
                 const listItem = document.createElement('li');
                 listItem.innerHTML = `
@@ -182,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
             checkoutBtn.disabled = false;
         }
 
-        // Tampilkan total (gunakan placeholder karena harga berbasis m²)
+        // Tampilkan total
         const totalDisplay = satuanCart.some(item => item.price > 0) 
             ? 'Konsultasi Harga Total' 
             : formatRupiah(0);
@@ -210,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
         renderCart();
     };
 
-    // Event Delegation untuk tombol Tambah
+    // Event Delegation untuk tombol Tambah (EFISIENSI: Menggunakan event delegation)
     if (satuanCatalogGrid) {
         satuanCatalogGrid.addEventListener('click', (e) => {
             const target = e.target;
@@ -256,12 +255,12 @@ document.addEventListener('DOMContentLoaded', function() {
     renderCatalog();
     renderCart();
     
-    // 6. WA Contact Links Handler 
+    // 6. WA Contact Links Handler (EFISIENSI: Menggabungkan semua link WA)
     const waContactLinks = document.querySelectorAll('.wa-contact-link');
     waContactLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            // Ambil pesan dari data-wa-message atau gunakan default
+            // Ambil pesan dari data-wa-message (sudah ditambahkan di HTML) atau gunakan default
             const defaultMessage = "Halo Ryuu Desain, saya tertarik dengan layanan desain Anda dan ingin berkonsultasi lebih lanjut.";
             const message = this.getAttribute('data-wa-message') || defaultMessage;
             
@@ -282,7 +281,8 @@ document.addEventListener('DOMContentLoaded', function() {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target); // Berhenti mengamati setelah terlihat
+          // EFISIENSI: Berhenti mengamati setelah elemen terlihat
+          observer.unobserve(entry.target); 
         }
       });
     }, observerOptions);
