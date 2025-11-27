@@ -75,7 +75,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 20px 5%;
-    max-width: 1200px;
+    max-width: 1300px; /* Disesuaikan: Dibuat lebih lebar (1300px) */
     margin: 0 auto;
     transition: padding 0.3s;
 }
@@ -121,7 +121,8 @@ ul.nav-menu {
 ul.nav-menu li a {
     text-decoration: none;
     color: var(--color-text-light); 
-    padding: 10px 20px; /* Diperlebar dari 15px ke 20px */
+    font-size: 0.9em; /* Disesuaikan: Ukuran font lebih kecil */
+    padding: 10px 18px; /* Disesuaikan: Padding sedikit diubah */
     display: block;
     transition: color 0.3s;
 }
@@ -131,13 +132,7 @@ ul.nav-menu li:not(:last-child) {
     border-right: 1px solid rgba(255, 255, 255, 0.2); 
 }
 
-/* Pastikan elemen a di menu button tidak memiliki border kanan */
-ul.nav-menu li .btn-nav-kontak {
-    border-right: none !important;
-    padding: 10px 15px; /* Sesuaikan padding tombol */
-}
-
-ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
+ul.nav-menu li a:hover {
     color: var(--color-accent); 
     font-weight: 600;
 }
@@ -1000,6 +995,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     ul.nav-menu li a {
         padding: 20px 0; 
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 1em; /* Kembalikan ukuran normal untuk mobile */
     }
     
     /* Logo di Mobile */
