@@ -1084,7 +1084,8 @@ ul.nav-menu li a:hover {
         right: 15px;
     }
     
-    /* PENTING: Matikan Animasi Pulse & Shimmer di Mobile untuk performa */
+    /* PERBAIKAN: JANGAN MATIKAN Animasi Pulse & Shimmer di Mobile */
+    /* Menghapus:
     .price-card.premium {
         animation: none; 
     }
@@ -1095,6 +1096,7 @@ ul.nav-menu li a:hover {
         color: var(--color-accent);
         animation: none;
     }
+    */
     
     /* KATALOG SATUAN MOBILE - Penyesuaian agar box tetap rapi */
     .satuan-catalog-container.custom-combined-box {
