@@ -75,7 +75,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 20px 5%;
-    max-width: 1300px; /* Disesuaikan: Dibuat lebih lebar (1300px) */
+    max-width: 1300px; 
     margin: 0 auto;
     transition: padding 0.3s;
 }
@@ -121,8 +121,8 @@ ul.nav-menu {
 ul.nav-menu li a {
     text-decoration: none;
     color: var(--color-text-light); 
-    font-size: 0.9em; /* Disesuaikan: Ukuran font lebih kecil */
-    padding: 10px 18px; /* Disesuaikan: Padding sedikit diubah */
+    font-size: 0.9em; 
+    padding: 10px 18px; 
     display: block;
     transition: color 0.3s;
 }
@@ -153,7 +153,7 @@ ul.nav-menu li a:hover {
     text-decoration: none;
     border-radius: 5px;
     font-weight: 600;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s; /* Tambah box-shadow untuk transisi */
     border: none;
     cursor: pointer;
 }
@@ -509,14 +509,14 @@ ul.nav-menu li a:hover {
 /* PREMIUM PACKAGE & SHIMMER EFFECTS */
 /* ======================================================= */
 
-/* Keyframes untuk Animasi Border Pulse */
+/* Keyframes untuk Animasi Border Pulse pada Kartu */
 @keyframes shimmer-pulse {
     0% { box-shadow: 0 0 5px var(--color-accent); }
     50% { box-shadow: 0 0 15px var(--color-accent), 0 0 20px rgba(169, 143, 107, 0.5); }
     100% { box-shadow: 0 0 5px var(--color-accent); }
 }
 
-/* Keyframes untuk Animasi Text Shimmer */
+/* Keyframes untuk Animasi Text Shimmer (Judul) */
 @keyframes text-shimmer {
     0% {
         background-position: 200% 0; 
@@ -525,6 +525,19 @@ ul.nav-menu li a:hover {
         background-position: -200% 0; 
     }
 }
+
+/* NEW: Keyframes untuk Animasi Button Shimmer */
+@keyframes shimmer-pulse-btn {
+    0% { 
+        box-shadow: 0 0 0px var(--color-accent); 
+        transform: scale(1.0);
+    }
+    100% { 
+        box-shadow: 0 0 10px var(--color-accent), 0 0 20px rgba(169, 143, 107, 0.7); 
+        transform: scale(1.02);
+    }
+}
+
 
 .price-card.premium {
     background-color: var(--color-primary); 
@@ -557,31 +570,21 @@ ul.nav-menu li a:hover {
     animation: text-shimmer 3s infinite linear;
 }
 
-/* Apply Text Shimmer Effect to Premium Button Text (Step 2) */
-.price-card.premium .shimmer-btn-text {
+/* NEW: Shimmer effect on the button itself */
+.price-card.premium .btn.shimmer-button-effect {
+    /* Gunakan warna default tombol (emas) */
+    background-color: var(--color-accent); 
     color: var(--color-primary); 
-    display: inline-block; 
     
-    background-image: linear-gradient(
-        90deg, 
-        var(--color-primary) 0%, 
-        #FFFFFF 50%, 
-        var(--color-primary) 100%
-    );
-    background-size: 200% 100%;
-    
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent; 
-    
-    animation: text-shimmer 3s infinite linear;
+    /* Terapkan animasi baru */
+    animation: shimmer-pulse-btn 1.5s infinite alternate; 
 }
 
-.price-card.premium .shimmer-btn-text:hover {
-    animation: none;
-    -webkit-text-fill-color: var(--color-primary); 
-    color: var(--color-primary);
+/* NEW: Ensure normal button hover still works and stops the pulse */
+.price-card.premium .btn.shimmer-button-effect:hover {
+     background-color: #C1A67B; 
+     transform: translateY(-2px) scale(1.02); 
+     animation: none; 
 }
 
 
@@ -591,6 +594,7 @@ ul.nav-menu li a:hover {
     color: var(--color-accent); 
 }
 
+/* Biarkan tombol premium menggunakan warna defaultnya */
 .price-card.premium .btn {
     background-color: var(--color-accent); 
     color: var(--color-primary);
@@ -660,7 +664,7 @@ ul.nav-menu li a:hover {
     border-radius: 10px;
     background-color: var(--color-soft-bg); 
     text-align: center;
-    max-width: 1000px; /* Dibuat lebih lebar dari 750px */
+    max-width: 1000px; 
     margin-left: auto;
     margin-right: auto;
     box-shadow: 0 8px 25px rgba(0,0,0,0.1);
@@ -755,6 +759,7 @@ ul.nav-menu li a:hover {
     box-shadow: none;
 }
 
+/* Step 1: Keranjang Belanja & Estimasi - Ukuran font dikecilkan di mobile (Lihat Media Query) */
 .satuan-calculator-box h4 {
     /* Gaya untuk header keranjang yang mencolok */
     background-color: var(--color-primary);
@@ -1131,7 +1136,7 @@ ul.nav-menu li a:hover {
         right: 15px;
     }
     
-    /* PENTING: Matikan Animasi Pulse & Shimmer di Mobile untuk performa */
+    /* PENTING: Matikan Animasi Pulse pada Kartu & Shimmer pada Teks Judul di Mobile */
     .price-card.premium {
         animation: none; 
     }
@@ -1143,12 +1148,11 @@ ul.nav-menu li a:hover {
         animation: none;
     }
     
-    /* ADDED: Disable shimmer on premium button on mobile (Step 2 Cleanup) */
-    .price-card.premium .shimmer-btn-text {
+    /* NEW: Disable button shimmer on mobile for performance */
+    .price-card.premium .btn.shimmer-button-effect {
         animation: none;
-        -webkit-text-fill-color: var(--color-primary); 
-        color: var(--color-primary);
-        background-image: none;
+        transform: none;
+        box-shadow: none;
     }
     
     /* KATALOG SATUAN MOBILE - Penyesuaian agar box tetap rapi */
