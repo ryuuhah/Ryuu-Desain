@@ -114,14 +114,27 @@ header.scrolled .logo-img {
 ul.nav-menu {
     list-style: none;
     display: flex;
+    /* Memberi ruang lebih di sisi kanan menu */
+    margin-left: auto; 
 }
 
 ul.nav-menu li a {
     text-decoration: none;
     color: var(--color-text-light); 
-    padding: 10px 15px;
+    padding: 10px 20px; /* Diperlebar dari 15px ke 20px */
     display: block;
     transition: color 0.3s;
+}
+
+/* Sekat garis transparan di antara item menu */
+ul.nav-menu li:not(:last-child) {
+    border-right: 1px solid rgba(255, 255, 255, 0.2); 
+}
+
+/* Pastikan elemen a di menu button tidak memiliki border kanan */
+ul.nav-menu li .btn-nav-kontak {
+    border-right: none !important;
+    padding: 10px 15px; /* Sesuaikan padding tombol */
 }
 
 ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
@@ -595,17 +608,17 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 }
 
 /* ======================================================= */
-/* KATALOG SATUAN BARU (Combined Box) - DISESUAIKAN UNTUK LEBIH RINGKAS */
+/* KATALOG SATUAN BARU (Combined Box) - DISESUAIKAN UNTUK LEBIH LEBAR */
 /* ======================================================= */
 
 .satuan-catalog-container.custom-combined-box {
-    padding: 30px; /* Mengurangi padding dari 40px */
-    margin-top: 40px; /* Disesuaikan agar tidak terlalu jauh dari h2 section */
-    border: 2px solid var(--color-accent); /* Bingkai */
+    padding: 30px; 
+    margin-top: 40px; 
+    border: 2px solid var(--color-accent); 
     border-radius: 10px;
-    background-color: var(--color-soft-bg); /* Latar Belakang */
+    background-color: var(--color-soft-bg); 
     text-align: center;
-    max-width: 750px; /* Dibuat lebih ringkas dari 950px */
+    max-width: 1000px; /* Dibuat lebih lebar dari 750px */
     margin-left: auto;
     margin-right: auto;
     box-shadow: 0 8px 25px rgba(0,0,0,0.1);
@@ -623,9 +636,9 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     color: #666;
     margin-bottom: 30px;
     padding-bottom: 20px;
-    border-bottom: 1px dashed #ccc; /* Pemisah visual */
+    border-bottom: 1px dashed #ccc; 
 }
-.satuan-subtitle strong { /* Perbaikan agar <strong> bekerja */
+.satuan-subtitle strong { 
     color: var(--color-primary);
 }
 
@@ -640,7 +653,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 .satuan-item {
     background-color: #fff;
     border: 1px solid #eee;
-    padding: 12px; /* Mengurangi padding dari 15px */
+    padding: 12px; 
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
@@ -691,7 +704,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 
 /* Mini Calculator (Cart Box) Styling - BLEND INTO PARENT */
 .satuan-calculator-box {
-    background-color: transparent; /* Hilangkan background agar menyatu dengan parent */
+    background-color: transparent; 
     padding: 0; 
     border-radius: 0;
     max-width: 100%; 
@@ -714,8 +727,8 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 
 /* Gaya BARU untuk Kotak Keterangan Volume */
 .volume-input-note {
-    background-color: #fef3e6; /* Light Gold/Yellow Background */
-    border: 2px solid var(--color-accent); /* Gold Border */
+    background-color: #fef3e6; 
+    border: 2px solid var(--color-accent); 
     padding: 15px;
     border-radius: 8px;
     margin-bottom: 20px;
@@ -731,7 +744,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 }
 
 .volume-input-note .note-title i {
-    color: #E67E22; /* Orange icon */
+    color: #E67E22; 
     margin-right: 8px;
 }
 
@@ -741,7 +754,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
 }
 
 .volume-input-note .note-content strong {
-    color: #C0392B; /* Merah/Bold untuk penekanan 200m² */
+    color: #C0392B; 
 }
 
 .volume-input-note .note-subcontent {
@@ -771,7 +784,7 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
     align-items: center;
     padding: 10px 0;
     border-bottom: 1px dotted #ccc;
-    flex-wrap: wrap; /* untuk mobile */
+    flex-wrap: wrap; 
 }
 .cart-item:last-child {
     border-bottom: none;
@@ -972,6 +985,10 @@ ul.nav-menu li a:hover, ul.nav-menu li .btn-nav-kontak {
         transition: max-height 0.4s ease-in-out; 
     }
 
+    ul.nav-menu li:not(:last-child) {
+        border-right: none; /* Hapus separator di mobile */
+    }
+    
     ul.nav-menu.active { 
         max-height: 500px; 
     }
